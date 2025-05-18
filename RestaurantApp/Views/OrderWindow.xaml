@@ -1,0 +1,159 @@
+<Window x:Class="RestaurantApp.Views.OrderWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RestaurantApp.Views"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="Comenzi" Height="720" Width="1280"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        FontFamily="{materialDesign:MaterialDesignFont}">
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="300"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Lista de comenzi -->
+        <Grid Grid.Column="0" Margin="16">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Căutare -->
+            <Grid Grid.Row="0" Margin="0,0,0,16">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBox Text="{Binding SearchTerm, UpdateSourceTrigger=PropertyChanged}"
+                         materialDesign:HintAssist.Hint="Caută comenzi..."
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+
+                <Button Grid.Column="1"
+                        Command="{Binding SearchCommand}"
+                        Style="{StaticResource MaterialDesignIconButton}"
+                        Margin="8,0,0,0">
+                    <materialDesign:PackIcon Kind="Search"/>
+                </Button>
+            </Grid>
+
+            <!-- Lista de comenzi -->
+            <DataGrid Grid.Row="1"
+                      ItemsSource="{Binding Orders}"
+                      SelectedItem="{Binding SelectedOrder}"
+                      AutoGenerateColumns="False"
+                      IsReadOnly="True"
+                      materialDesign:DataGridAssist.CellPadding="13 8 8 8"
+                      materialDesign:DataGridAssist.ColumnHeaderPadding="8">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Cod Comandă" Binding="{Binding OrderCode}"/>
+                    <DataGridTextColumn Header="Data" Binding="{Binding OrderDate, StringFormat='{}{0:dd.MM.yyyy HH:mm}'}"/>
+                    <DataGridTextColumn Header="Status" Binding="{Binding Status}"/>
+                    <DataGridTextColumn Header="Total" Binding="{Binding TotalAmount, StringFormat='{}{0:C}'}"/>
+                    <DataGridTextColumn Header="Livrare" Binding="{Binding DeliveryFee, StringFormat='{}{0:C}'}"/>
+                    <DataGridTextColumn Header="Reducere" Binding="{Binding DiscountAmount, StringFormat='{}{0:C}'}"/>
+                    <DataGridTemplateColumn Header="Acțiuni">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Command="{Binding DataContext.CancelOrderCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                        Style="{StaticResource MaterialDesignIconButton}"
+                                        IsEnabled="{Binding Status, Converter={StaticResource CanCancelOrderConverter}}">
+                                    <materialDesign:PackIcon Kind="Cancel"/>
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <!-- Coș de cumpărături -->
+        <materialDesign:Card Grid.Column="1" Margin="0,16,16,16">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Header -->
+                <TextBlock Text="Coș de cumpărături"
+                         Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                         Margin="16"/>
+
+                <!-- Lista de produse -->
+                <ListView Grid.Row="1"
+                         ItemsSource="{Binding CartItems}"
+                         Margin="16">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="0,8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0">
+                                    <TextBlock Text="{Binding Dish.Name}"
+                                             Style="{StaticResource MaterialDesignBody1TextBlock}"/>
+                                    <TextBlock Text="{Binding UnitPrice, StringFormat='{}{0:C}'}"
+                                             Style="{StaticResource MaterialDesignCaptionTextBlock}"/>
+                                </StackPanel>
+
+                                <TextBlock Grid.Column="1"
+                                         Text="{Binding Quantity}"
+                                         VerticalAlignment="Center"
+                                         Margin="16,0"/>
+
+                                <Button Grid.Column="2"
+                                        Command="{Binding DataContext.RemoveFromCartCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                        CommandParameter="{Binding}"
+                                        Style="{StaticResource MaterialDesignIconButton}">
+                                    <materialDesign:PackIcon Kind="Delete"/>
+                                </Button>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <!-- Total și buton de comandă -->
+                <StackPanel Grid.Row="2" Margin="16">
+                    <Grid Margin="0,0,0,16">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="Total:"
+                                 Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                 VerticalAlignment="Center"/>
+
+                        <TextBlock Grid.Column="1"
+                                 Text="{Binding CartTotal, StringFormat='{}{0:C}'}"
+                                 Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
+                    </Grid>
+
+                    <Button Content="Plasează comanda"
+                            Command="{Binding PlaceOrderCommand}"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            IsEnabled="{Binding CartItems.Count, Converter={StaticResource CountToBooleanConverter}}"/>
+
+                    <TextBlock Text="{Binding ErrorMessage}"
+                             Foreground="Red"
+                             TextWrapping="Wrap"
+                             Margin="0,8"
+                             Visibility="{Binding ErrorMessage, Converter={StaticResource StringToVisibilityConverter}}"/>
+                </StackPanel>
+            </Grid>
+        </materialDesign:Card>
+    </Grid>
+</Window> 
