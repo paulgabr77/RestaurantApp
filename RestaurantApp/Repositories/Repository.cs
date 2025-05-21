@@ -1,10 +1,11 @@
-using Microsoft.EntityFrameworkCore;
-using RestaurantApp.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
+using RestaurantApp.Data;
 
 namespace RestaurantApp.Repositories
 {
@@ -13,10 +14,10 @@ namespace RestaurantApp.Repositories
         protected readonly RestaurantDbContext _context;
         protected readonly DbSet<T> _dbSet;
 
-        public Repository(RestaurantDbContext context)
+        public Repository(IDbContextFactory<RestaurantDbContext> contextFactory)
         {
-            _context = context;
-            _dbSet = context.Set<T>();
+            _context = contextFactory.CreateDbContext();
+            _dbSet = _context.Set<T>();
         }
 
         public async Task<T> GetByIdAsync(int id)
@@ -37,26 +38,31 @@ namespace RestaurantApp.Repositories
         public async Task AddAsync(T entity)
         {
             await _dbSet.AddAsync(entity);
+            await _context.SaveChangesAsync();
         }
 
         public async Task AddRangeAsync(IEnumerable<T> entities)
         {
             await _dbSet.AddRangeAsync(entities);
+            await _context.SaveChangesAsync();
         }
 
         public void Update(T entity)
         {
             _dbSet.Update(entity);
+            _context.SaveChanges();
         }
 
         public void Remove(T entity)
         {
             _dbSet.Remove(entity);
+            _context.SaveChanges();
         }
 
         public void RemoveRange(IEnumerable<T> entities)
         {
             _dbSet.RemoveRange(entities);
+            _context.SaveChanges();
         }
     }
 } 

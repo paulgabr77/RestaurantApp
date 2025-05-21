@@ -18,6 +18,10 @@ namespace RestaurantApp.Data
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<DishImage> DishImages { get; set; }
+        public DbSet<Discount> Discounts { get; set; }
+        public DbSet<StockItem> StockItems { get; set; }
+        public DbSet<Delivery> Deliveries { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

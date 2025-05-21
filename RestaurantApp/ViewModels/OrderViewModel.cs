@@ -1,8 +1,10 @@
 using RestaurantApp.Models;
 using RestaurantApp.Services;
+using RestaurantApp.Commands;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows;
 
 namespace RestaurantApp.ViewModels
 {
@@ -40,8 +42,13 @@ namespace RestaurantApp.ViewModels
         public ObservableCollection<OrderDetail> CartItems
         {
             get => _cartItems;
-            set => SetProperty(ref _cartItems, value);
+            set
+            {
+                SetProperty(ref _cartItems, value);
+                OnPropertyChanged(nameof(CanPlaceOrder));
+            }
         }
+
 
         public Order SelectedOrder
         {
@@ -64,8 +71,16 @@ namespace RestaurantApp.ViewModels
         public string ErrorMessage
         {
             get => _errorMessage;
-            set => SetProperty(ref _errorMessage, value);
+            set
+            {
+                SetProperty(ref _errorMessage, value);
+                OnPropertyChanged(nameof(ErrorVisibility));
+            }
         }
+
+
+        public bool CanPlaceOrder => CartItems.Count > 0;
+        public Visibility ErrorVisibility => !string.IsNullOrEmpty(ErrorMessage) ? Visibility.Visible : Visibility.Collapsed;
 
         public ICommand LoadOrdersCommand { get; }
         public ICommand PlaceOrderCommand { get; }

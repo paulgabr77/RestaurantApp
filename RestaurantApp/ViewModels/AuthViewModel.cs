@@ -1,7 +1,9 @@
 using RestaurantApp.Models;
 using RestaurantApp.Services;
+using RestaurantApp.Commands;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows;
 
 namespace RestaurantApp.ViewModels
 {
@@ -72,14 +74,24 @@ namespace RestaurantApp.ViewModels
         public bool IsRegistering
         {
             get => _isRegistering;
-            set => SetProperty(ref _isRegistering, value);
+            set
+            {
+                SetProperty(ref _isRegistering, value);
+                OnPropertyChanged(nameof(AuthButtonText));
+                OnPropertyChanged(nameof(ToggleAuthButtonText));
+                OnPropertyChanged(nameof(RegisterFieldsVisibility));
+            }
         }
-
         public string ErrorMessage
         {
             get => _errorMessage;
-            set => SetProperty(ref _errorMessage, value);
+            set
+            {
+                SetProperty(ref _errorMessage, value);
+                OnPropertyChanged(nameof(ErrorVisibility));
+            }
         }
+
 
         public User CurrentUser
         {
@@ -90,6 +102,14 @@ namespace RestaurantApp.ViewModels
         public ICommand LoginCommand { get; }
         public ICommand RegisterCommand { get; }
         public ICommand ToggleAuthModeCommand { get; }
+
+        // Proprietăți pentru UI fără converteri
+        public string AuthButtonText => IsRegistering ? "Înregistrare" : "Autentificare";
+        public string ToggleAuthButtonText => IsRegistering ? "Ai deja cont? Autentifică-te" : "Nu ai cont? Înregistrează-te";
+        public Visibility RegisterFieldsVisibility => IsRegistering ? Visibility.Visible : Visibility.Collapsed;
+        public Visibility ErrorVisibility => !string.IsNullOrEmpty(ErrorMessage) ? Visibility.Visible : Visibility.Collapsed;
+
+        // Notifică UI-ul la schimbare
 
         private async Task Login()
         {

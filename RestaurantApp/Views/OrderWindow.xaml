@@ -34,7 +34,7 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBox Text="{Binding SearchTerm, UpdateSourceTrigger=PropertyChanged}"
-                         materialDesign:HintAssist.Hint="Caută comenzi..."
+                         materialDesign:HintAssist.Hint="Cauta comenzi..."
                          Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
 
                 <Button Grid.Column="1"
@@ -54,13 +54,13 @@
                       materialDesign:DataGridAssist.CellPadding="13 8 8 8"
                       materialDesign:DataGridAssist.ColumnHeaderPadding="8">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Cod Comandă" Binding="{Binding OrderCode}"/>
+                    <DataGridTextColumn Header="Cod Comanda" Binding="{Binding OrderCode}"/>
                     <DataGridTextColumn Header="Data" Binding="{Binding OrderDate, StringFormat='{}{0:dd.MM.yyyy HH:mm}'}"/>
                     <DataGridTextColumn Header="Status" Binding="{Binding Status}"/>
                     <DataGridTextColumn Header="Total" Binding="{Binding TotalAmount, StringFormat='{}{0:C}'}"/>
                     <DataGridTextColumn Header="Livrare" Binding="{Binding DeliveryFee, StringFormat='{}{0:C}'}"/>
                     <DataGridTextColumn Header="Reducere" Binding="{Binding DiscountAmount, StringFormat='{}{0:C}'}"/>
-                    <DataGridTemplateColumn Header="Acțiuni">
+                    <DataGridTemplateColumn Header="Actiuni">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Button Command="{Binding DataContext.CancelOrderCommand, RelativeSource={RelativeSource AncestorType=Window}}"
@@ -85,7 +85,7 @@
                 </Grid.RowDefinitions>
 
                 <!-- Header -->
-                <TextBlock Text="Coș de cumpărături"
+                <TextBlock Text="Cos de cumparaturi"
                          Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                          Margin="16"/>
 
@@ -142,16 +142,24 @@
                                  Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
                     </Grid>
 
-                    <Button Content="Plasează comanda"
+                    <Button Content="Plaseaza comanda"
                             Command="{Binding PlaceOrderCommand}"
                             Style="{StaticResource MaterialDesignRaisedButton}"
-                            IsEnabled="{Binding CartItems.Count, Converter={StaticResource CountToBooleanConverter}}"/>
+                            IsEnabled="{Binding CanPlaceOrder}">
+                        <TextBlock Text="Plaseaza comanda"
+                                 Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                 VerticalAlignment="Center"/>
+                    </Button>
 
                     <TextBlock Text="{Binding ErrorMessage}"
                              Foreground="Red"
                              TextWrapping="Wrap"
                              Margin="0,8"
-                             Visibility="{Binding ErrorMessage, Converter={StaticResource StringToVisibilityConverter}}"/>
+                             Visibility="{Binding ErrorVisibility}">
+                        <TextBlock Text="Cosul este gol."
+                                 Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                 VerticalAlignment="Center"/>
+                    </TextBlock>
                 </StackPanel>
             </Grid>
         </materialDesign:Card>

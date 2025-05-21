@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:RestaurantApp"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:converters="clr-namespace:RestaurantApp.Converters"
              StartupUri="Views/AuthWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
@@ -11,14 +10,6 @@
                 <materialDesign:BundledTheme BaseTheme="Light" PrimaryColor="DeepPurple" SecondaryColor="Lime"/>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-
-            <!-- Converters -->
-            <converters:BoolToAuthModeConverter x:Key="BoolToAuthModeConverter"/>
-            <converters:BoolToAuthButtonConverter x:Key="BoolToAuthButtonConverter"/>
-            <converters:BoolToToggleAuthButtonConverter x:Key="BoolToToggleAuthButtonConverter"/>
-            <converters:StringToVisibilityConverter x:Key="StringToVisibilityConverter"/>
-            <converters:CanCancelOrderConverter x:Key="CanCancelOrderConverter"/>
-            <converters:CountToBooleanConverter x:Key="CountToBooleanConverter"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application> 

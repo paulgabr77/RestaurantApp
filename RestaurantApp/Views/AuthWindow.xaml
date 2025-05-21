@@ -13,7 +13,7 @@
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
         FontFamily="{materialDesign:MaterialDesignFont}">
-    
+
     <Grid Margin="16">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -37,56 +37,56 @@
                          Margin="0,8"/>
 
                 <PasswordBox x:Name="PasswordBox"
-                            materialDesign:HintAssist.Hint="Parolă"
+                            materialDesign:HintAssist.Hint="Parola"
                             Style="{StaticResource MaterialDesignOutlinedPasswordBox}"
                             Margin="0,8"/>
 
                 <PasswordBox x:Name="ConfirmPasswordBox"
-                            materialDesign:HintAssist.Hint="Confirmă parola"
+                            materialDesign:HintAssist.Hint="Confirma parola"
                             Style="{StaticResource MaterialDesignOutlinedPasswordBox}"
                             Margin="0,8"
-                            Visibility="{Binding IsRegistering, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                            Visibility="{Binding RegisterFieldsVisibility}"/>
 
                 <TextBox Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}"
                          materialDesign:HintAssist.Hint="Prenume"
                          Style="{StaticResource MaterialDesignOutlinedTextBox}"
                          Margin="0,8"
-                         Visibility="{Binding IsRegistering, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                         Visibility="{Binding RegisterFieldsVisibility}"/>
 
                 <TextBox Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}"
                          materialDesign:HintAssist.Hint="Nume"
                          Style="{StaticResource MaterialDesignOutlinedTextBox}"
                          Margin="0,8"
-                         Visibility="{Binding IsRegistering, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                         Visibility="{Binding RegisterFieldsVisibility}"/>
 
                 <TextBox Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}"
-                         materialDesign:HintAssist.Hint="Număr de telefon"
+                         materialDesign:HintAssist.Hint="Numar de telefon"
                          Style="{StaticResource MaterialDesignOutlinedTextBox}"
                          Margin="0,8"
-                         Visibility="{Binding IsRegistering, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                         Visibility="{Binding RegisterFieldsVisibility}"/>
 
                 <TextBox Text="{Binding DeliveryAddress, UpdateSourceTrigger=PropertyChanged}"
-                         materialDesign:HintAssist.Hint="Adresă de livrare"
+                         materialDesign:HintAssist.Hint="Adresa de livrare"
                          Style="{StaticResource MaterialDesignOutlinedTextBox}"
                          Margin="0,8"
-                         Visibility="{Binding IsRegistering, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                         Visibility="{Binding RegisterFieldsVisibility}"/>
 
                 <TextBlock Text="{Binding ErrorMessage}"
                          Foreground="Red"
                          TextWrapping="Wrap"
                          Margin="0,8"
-                         Visibility="{Binding ErrorMessage, Converter={StaticResource StringToVisibilityConverter}}"/>
+                         Visibility="{Binding ErrorVisibility}"/>
             </StackPanel>
         </ScrollViewer>
 
         <!-- Buttons -->
         <StackPanel Grid.Row="2" Margin="0,16,0,0">
-            <Button Content="{Binding IsRegistering, Converter={StaticResource BoolToAuthButtonConverter}}"
+            <Button Content="{Binding AuthButtonText}"
                     Command="{Binding LoginCommand}"
                     Style="{StaticResource MaterialDesignRaisedButton}"
                     Margin="0,8"/>
 
-            <Button Content="{Binding IsRegistering, Converter={StaticResource BoolToToggleAuthButtonConverter}}"
+            <Button Content="{Binding ToggleAuthButtonText}"
                     Command="{Binding ToggleAuthModeCommand}"
                     Style="{StaticResource MaterialDesignFlatButton}"
                     Margin="0,8"/>

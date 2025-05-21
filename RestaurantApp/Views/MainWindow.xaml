@@ -3,8 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:RestaurantApp.Views"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:RestaurantApp.Views"
         mc:Ignorable="d"
         Title="Restaurant App" Height="720" Width="1280"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -19,100 +19,84 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Top Menu -->
-        <materialDesign:ColorZone Mode="PrimaryMid" Padding="16" materialDesign:ShadowAssist.ShadowDepth="Depth2">
-            <DockPanel>
-                <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
-                    <TextBlock VerticalAlignment="Center" Margin="0,0,16,0">
-                        <Run Text="Restaurant App" FontSize="20"/>
-                    </TextBlock>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
-                    <Button Style="{StaticResource MaterialDesignFlatButton}" Margin="8,0">
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Account" Margin="0,0,8,0"/>
-                            <TextBlock Text="Cont"/>
-                        </StackPanel>
-                    </Button>
-                </StackPanel>
-            </DockPanel>
-        </materialDesign:ColorZone>
+        <!-- Meniu principal -->
+        <DockPanel Grid.Row="0" Background="{DynamicResource PrimaryHueMidBrush}">
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Left" Margin="10">
+                <Button Style="{StaticResource MaterialDesignRaisedButton}"
+                        Command="{Binding OpenOrdersCommand}"
+                        Margin="5">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Food" Margin="0,0,5,0"/>
+                        <TextBlock Text="Comenzi"/>
+                    </StackPanel>
+                </Button>
 
-        <!-- Main Content -->
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="250"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+                <Button Style="{StaticResource MaterialDesignRaisedButton}"
+                        Command="{Binding OpenReportsCommand}"
+                        Margin="5">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="ChartBar" Margin="0,0,5,0"/>
+                        <TextBlock Text="Rapoarte"/>
+                    </StackPanel>
+                </Button>
 
-            <!-- Categories List -->
-            <materialDesign:Card Grid.Column="0" Margin="16" Padding="8">
-                <DockPanel>
-                    <TextBox DockPanel.Dock="Top"
-                             Margin="0,0,0,8"
-                             materialDesign:HintAssist.Hint="Caută..."
-                             Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
-                    <ListBox x:Name="CategoriesList"
-                            materialDesign:RippleAssist.IsDisabled="True">
-                        <ListBoxItem Content="Toate Categoriile"/>
-                        <ListBoxItem Content="Mic Dejun"/>
-                        <ListBoxItem Content="Aperitive"/>
-                        <ListBoxItem Content="Supe și Ciorbe"/>
-                        <ListBoxItem Content="Feluri Principale"/>
-                        <ListBoxItem Content="Deserturi"/>
-                        <ListBoxItem Content="Băuturi"/>
-                    </ListBox>
-                </DockPanel>
-            </materialDesign:Card>
+                <Button Style="{StaticResource MaterialDesignRaisedButton}"
+                        Command="{Binding OpenStockCommand}"
+                        Margin="5">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Package" Margin="0,0,5,0"/>
+                        <TextBlock Text="Stoc"/>
+                    </StackPanel>
+                </Button>
 
-            <!-- Dishes Grid -->
-            <ScrollViewer Grid.Column="1" Margin="0,16,16,16">
-                <ItemsControl x:Name="DishesList">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <materialDesign:Card Margin="8" Width="280" Height="320">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="180"/>
-                                        <RowDefinition Height="*"/>
-                                    </Grid.RowDefinitions>
+                <Button Style="{StaticResource MaterialDesignRaisedButton}"
+                        Command="{Binding OpenDiscountsCommand}"
+                        Margin="5">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Percent" Margin="0,0,5,0"/>
+                        <TextBlock Text="Reduceri"/>
+                    </StackPanel>
+                </Button>
 
-                                    <Image Source="{Binding MainImagePath}" 
-                                           Stretch="UniformToFill"/>
+                <Button Style="{StaticResource MaterialDesignRaisedButton}"
+                        Command="{Binding OpenDeliveriesCommand}"
+                        Margin="5">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Truck" Margin="0,0,5,0"/>
+                        <TextBlock Text="Livrări"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
 
-                                    <StackPanel Grid.Row="1" Margin="16">
-                                        <TextBlock Text="{Binding Name}"
-                                                 Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
-                                        <TextBlock Text="{Binding Description}"
-                                                 Style="{StaticResource MaterialDesignBody1TextBlock}"
-                                                 TextWrapping="Wrap"
-                                                 Margin="0,8,0,8"/>
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="Auto"/>
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock Text="{Binding Price, StringFormat='{}{0:C}'}"
-                                                     Style="{StaticResource MaterialDesignBody1TextBlock}"
-                                                     VerticalAlignment="Center"/>
-                                            <Button Grid.Column="1"
-                                                    Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
-                                                    materialDesign:ButtonAssist.CornerRadius="16">
-                                                <materialDesign:PackIcon Kind="Plus"/>
-                                            </Button>
-                                        </Grid>
-                                    </StackPanel>
-                                </Grid>
-                            </materialDesign:Card>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </ScrollViewer>
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" Margin="10">
+                <Button Style="{StaticResource MaterialDesignRaisedButton}"
+                        Command="{Binding OpenAccountCommand}"
+                        Margin="5">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Account" Margin="0,0,5,0"/>
+                        <TextBlock>
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Text" Value="Autentificare"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsAuthenticated}" Value="True">
+                                            <Setter Property="Text" Value="Deconectare"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </DockPanel>
+
+        <!-- Conținut principal -->
+        <Grid Grid.Row="1" Margin="10">
+            <TextBlock Text="Bine ați venit în Restaurant App!"
+                       Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"/>
         </Grid>
     </Grid>
 </Window> 
