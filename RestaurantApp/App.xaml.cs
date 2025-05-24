@@ -1,10 +1,10 @@
-using System;
+using System.IO;
 using System.Windows;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using RestaurantApp.Config;
 using RestaurantApp.Repositories;
+using RestaurantApp.Data;
 using RestaurantApp.Services;
 using RestaurantApp.ViewModels;
 using RestaurantApp.Views;
@@ -32,7 +32,9 @@ namespace RestaurantApp
 
             // Database
             services.AddDbContextFactory<RestaurantDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+            {
+                options.UseSqlServer("DefaultConnection");
+            });
 
             // Services
             services.AddScoped<IOrderService, OrderService>();
@@ -42,9 +44,7 @@ namespace RestaurantApp
             services.AddScoped<IDeliveryService, DeliveryService>();
             services.AddScoped<IDishService, DishService>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-            services.AddScoped<IDbContextFactory<RestaurantDbContext>>(sp =>
-                sp.GetRequiredService<IDbContextFactory<RestaurantDbContext>>());
-
+            services.AddScoped<IAuthService, AuthService>();
 
             // ViewModels
             services.AddTransient<MainViewModel>();
@@ -54,6 +54,7 @@ namespace RestaurantApp
             services.AddTransient<DiscountViewModel>();
             services.AddTransient<DeliveryViewModel>();
             services.AddTransient<MenuViewModel>();
+            services.AddTransient<AuthViewModel>();
 
             // Views
             services.AddTransient<MainWindow>();
@@ -62,6 +63,7 @@ namespace RestaurantApp
             services.AddTransient<StockWindow>();
             services.AddTransient<DiscountWindow>();
             services.AddTransient<DeliveryWindow>();
+            services.AddTransient<AuthWindow>();
 
             // ServiceProvider
             services.AddSingleton<IServiceProvider>(sp => sp);
@@ -71,8 +73,8 @@ namespace RestaurantApp
         {
             base.OnStartup(e);
 
-            var mainWindow = _serviceProvider.GetService<MainWindow>();
-            mainWindow.Show();
+            var authWindow = _serviceProvider.GetService<AuthWindow>();
+            authWindow.Show();
         }
     }
 } 

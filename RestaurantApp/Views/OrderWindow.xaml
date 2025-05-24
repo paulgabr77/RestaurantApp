@@ -142,14 +142,14 @@
                                  Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
                     </Grid>
 
-                    <Button Content="Plaseaza comanda"
-                            Command="{Binding PlaceOrderCommand}"
+                    <Button Command="{Binding PlaceOrderCommand}"
                             Style="{StaticResource MaterialDesignRaisedButton}"
                             IsEnabled="{Binding CanPlaceOrder}">
                         <TextBlock Text="Plaseaza comanda"
-                                 Style="{StaticResource MaterialDesignBody1TextBlock}"
-                                 VerticalAlignment="Center"/>
+                                Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                VerticalAlignment="Center"/>
                     </Button>
+
 
                     <TextBlock Text="{Binding ErrorMessage}"
                              Foreground="Red"

@@ -10,6 +10,8 @@ namespace RestaurantApp.Models
         public int OrderId { get; set; }
         public virtual Order Order { get; set; }
 
+        public int Price { get; set; }
+
         public int? DishId { get; set; }
         public virtual Dish Dish { get; set; }
 

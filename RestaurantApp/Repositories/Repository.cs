@@ -11,58 +11,65 @@ namespace RestaurantApp.Repositories
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        protected readonly RestaurantDbContext _context;
-        protected readonly DbSet<T> _dbSet;
+        private readonly IDbContextFactory<RestaurantDbContext> _contextFactory;
 
         public Repository(IDbContextFactory<RestaurantDbContext> contextFactory)
         {
-            _context = contextFactory.CreateDbContext();
-            _dbSet = _context.Set<T>();
+            _contextFactory = contextFactory;
         }
 
         public async Task<T> GetByIdAsync(int id)
         {
-            return await _dbSet.FindAsync(id);
+            using var context = _contextFactory.CreateDbContext();
+            return await context.Set<T>().FindAsync(id);
         }
 
         public async Task<IEnumerable<T>> GetAllAsync()
         {
-            return await _dbSet.ToListAsync();
+            using var context = _contextFactory.CreateDbContext();
+            return await context.Set<T>().ToListAsync();
         }
 
         public async Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate)
         {
-            return await _dbSet.Where(predicate).ToListAsync();
+            using var context = _contextFactory.CreateDbContext();
+            return await context.Set<T>().Where(predicate).ToListAsync();
         }
 
         public async Task AddAsync(T entity)
         {
-            await _dbSet.AddAsync(entity);
-            await _context.SaveChangesAsync();
+            using var context = _contextFactory.CreateDbContext();
+            await context.Set<T>().AddAsync(entity);
+            await context.SaveChangesAsync();
         }
 
         public async Task AddRangeAsync(IEnumerable<T> entities)
         {
-            await _dbSet.AddRangeAsync(entities);
-            await _context.SaveChangesAsync();
+            using var context = _contextFactory.CreateDbContext();
+            await context.Set<T>().AddRangeAsync(entities);
+            await context.SaveChangesAsync();
         }
 
         public void Update(T entity)
         {
-            _dbSet.Update(entity);
-            _context.SaveChanges();
+            using var context = _contextFactory.CreateDbContext();
+            context.Set<T>().Update(entity);
+            context.SaveChanges();
         }
 
         public void Remove(T entity)
         {
-            _dbSet.Remove(entity);
-            _context.SaveChanges();
+            using var context = _contextFactory.CreateDbContext();
+            context.Set<T>().Remove(entity);
+            context.SaveChanges();
         }
 
         public void RemoveRange(IEnumerable<T> entities)
         {
-            _dbSet.RemoveRange(entities);
-            _context.SaveChanges();
+            using var context = _contextFactory.CreateDbContext();
+            context.Set<T>().RemoveRange(entities);
+            context.SaveChanges();
         }
     }
-} 
+
+}

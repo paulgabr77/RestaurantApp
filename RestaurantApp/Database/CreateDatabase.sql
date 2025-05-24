@@ -4,7 +4,6 @@ GO
 USE RestaurantDB;
 GO
 
--- Tabela pentru Categorii
 CREATE TABLE Categories (
     CategoryId INT IDENTITY(1,1) PRIMARY KEY,
     Name NVARCHAR(100) NOT NULL,
@@ -30,7 +29,7 @@ CREATE TABLE Dishes (
     IsAvailable BIT DEFAULT 1
 );
 
--- Tabela pentru relația many-to-many între Preparate și Alergeni
+-- Tabela pentru relația many-to-many intre Preparate și Alergeni
 CREATE TABLE DishAllergens (
     DishId INT FOREIGN KEY REFERENCES Dishes(DishId),
     AllergenId INT FOREIGN KEY REFERENCES Allergens(AllergenId),

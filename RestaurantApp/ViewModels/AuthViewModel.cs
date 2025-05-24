@@ -21,6 +21,8 @@ namespace RestaurantApp.ViewModels
         private string _errorMessage;
         private User _currentUser;
 
+        public event EventHandler<User> AuthenticationSuccessful;
+
         public AuthViewModel(IAuthService authService)
         {
             _authService = authService;
@@ -92,7 +94,6 @@ namespace RestaurantApp.ViewModels
             }
         }
 
-
         public User CurrentUser
         {
             get => _currentUser;
@@ -124,6 +125,7 @@ namespace RestaurantApp.ViewModels
             {
                 CurrentUser = user;
                 ErrorMessage = null;
+                AuthenticationSuccessful?.Invoke(this, user);
             }
             else
             {
@@ -162,6 +164,7 @@ namespace RestaurantApp.ViewModels
             {
                 CurrentUser = result;
                 ErrorMessage = null;
+                AuthenticationSuccessful?.Invoke(this, result);
             }
             else
             {

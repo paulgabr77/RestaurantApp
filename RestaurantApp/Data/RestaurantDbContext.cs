@@ -51,6 +51,47 @@ namespace RestaurantApp.Data
                 .WithMany(m => m.OrderDetails)
                 .HasForeignKey(od => od.MenuId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            // Configurare pentru tipurile de date decimal
+            modelBuilder.Entity<Dish>()
+                .Property(d => d.Price)
+                .HasColumnType("decimal(18,2)");
+
+            modelBuilder.Entity<Menu>()
+                .Property(m => m.Price)
+                .HasColumnType("decimal(18,2)");
+
+            modelBuilder.Entity<Order>()
+                .Property(o => o.TotalAmount)
+                .HasColumnType("decimal(18,2)");
+
+            modelBuilder.Entity<Order>()
+                .Property(o => o.DiscountAmount)
+                .HasColumnType("decimal(18,2)");
+
+            modelBuilder.Entity<OrderDetail>()
+                .Property(od => od.Price)
+                .HasColumnType("decimal(18,2)");
+
+            modelBuilder.Entity<StockItem>()
+                .Property(si => si.Quantity)
+                .HasColumnType("decimal(18,2)");
+
+            modelBuilder.Entity<StockItem>()
+                .Property(si => si.MinimumQuantity)
+                .HasColumnType("decimal(18,2)");
+
+            modelBuilder.Entity<Discount>()
+                .Property(d => d.Percentage)
+                .HasColumnType("decimal(18,2)");
+
+            modelBuilder.Entity<Discount>()
+                .Property(d => d.MinimumOrderAmount)
+                .HasColumnType("decimal(18,2)");
+
+            modelBuilder.Entity<Delivery>()
+                .Property(d => d.DeliveryFee)
+                .HasColumnType("decimal(18,2)");
         }
     }
 } 
