@@ -1,16 +1,19 @@
-using RestaurantApp.ViewModels;
 using System.Windows;
+using RestaurantApp.Services;
+using RestaurantApp.ViewModels;
 
 namespace RestaurantApp.Views
 {
     public partial class AuthWindow : Window
     {
         private readonly AuthViewModel _viewModel;
+        private readonly IServiceProvider _serviceProvider;
 
-        public AuthWindow(AuthViewModel viewModel)
+        public AuthWindow(AuthViewModel viewModel, IServiceProvider serviceProvider)
         {
             InitializeComponent();
             _viewModel = viewModel;
+            _serviceProvider = serviceProvider;
             DataContext = _viewModel;
             _viewModel.AuthenticationSuccessful += OnAuthenticationSuccessful;
 
@@ -21,7 +24,15 @@ namespace RestaurantApp.Views
 
         private void OnAuthenticationSuccessful(object sender, Models.User user)
         {
-            var mainWindow = new MainWindow();
+            var dishService = _serviceProvider.GetService(typeof(IDishService)) as IDishService;
+
+            if (dishService == null)
+            {
+                throw new InvalidOperationException("IDishService is not registered in the service provider.");
+            }
+
+            var menuViewModel = new MenuViewModel(dishService); // Assuming you have a MenuViewModel instance
+            var mainWindow = new MainWindow(menuViewModel, _serviceProvider);
             mainWindow.Show();
             Close();
         }
