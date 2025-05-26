@@ -105,8 +105,8 @@ namespace RestaurantApp.ViewModels
         public ICommand ToggleAuthModeCommand { get; }
 
         // Proprietăți pentru UI fără converteri
-        public string AuthButtonText => IsRegistering ? "Înregistrare" : "Autentificare";
-        public string ToggleAuthButtonText => IsRegistering ? "Ai deja cont? Autentifică-te" : "Nu ai cont? Înregistrează-te";
+        public string AuthButtonText => IsRegistering ? "Inregistrare" : "Autentificare";
+        public string ToggleAuthButtonText => IsRegistering ? "Ai deja cont? Autentifica-te" : "Nu ai cont? Inregistreaza-te";
         public Visibility RegisterFieldsVisibility => IsRegistering ? Visibility.Visible : Visibility.Collapsed;
         public Visibility ErrorVisibility => !string.IsNullOrEmpty(ErrorMessage) ? Visibility.Visible : Visibility.Collapsed;
 
@@ -116,7 +116,7 @@ namespace RestaurantApp.ViewModels
         {
             if (string.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(Password))
             {
-                ErrorMessage = "Vă rugăm completați toate câmpurile obligatorii.";
+                ErrorMessage = "Va rugam completati toate campurile obligatorii.";
                 return;
             }
 
@@ -129,7 +129,7 @@ namespace RestaurantApp.ViewModels
             }
             else
             {
-                ErrorMessage = "Email sau parolă incorectă.";
+                ErrorMessage = "Email sau parola incorecta.";
             }
         }
 
@@ -139,7 +139,7 @@ namespace RestaurantApp.ViewModels
                 string.IsNullOrWhiteSpace(ConfirmPassword) || string.IsNullOrWhiteSpace(FirstName) ||
                 string.IsNullOrWhiteSpace(LastName))
             {
-                ErrorMessage = "Vă rugăm completați toate câmpurile obligatorii.";
+                ErrorMessage = "Va rugam completati toate campurile obligatorii.";
                 return;
             }
 
@@ -168,7 +168,7 @@ namespace RestaurantApp.ViewModels
             }
             else
             {
-                ErrorMessage = "Email-ul este deja înregistrat.";
+                ErrorMessage = "Email-ul este deja inregistrat.";
             }
         }
     }

@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Options;
 
 namespace RestaurantApp.Data
 {
@@ -8,8 +9,7 @@ namespace RestaurantApp.Data
         public RestaurantDbContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<RestaurantDbContext>();
-            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=RestaurantPaul;Trusted_Connection=True;MultipleActiveResultSets=true");
-
+            optionsBuilder.UseSqlServer("Server=LAPTOP-5K3GC6BJ;Database=RestaurantDB;Trusted_Connection=True;TrustServerCertificate=True;Encrypt=False");
             return new RestaurantDbContext(optionsBuilder.Options);
         }
     }
