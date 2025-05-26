@@ -37,7 +37,19 @@ namespace RestaurantApp.Data
             modelBuilder.Entity<Menu>()
                 .HasMany(m => m.Dishes)
                 .WithMany(d => d.Menus)
-                .UsingEntity(j => j.ToTable("MenuDishes"));
+                .UsingEntity<Dictionary<string, object>>(
+                    "MenuDishes",
+                    j => j
+                        .HasOne<Dish>()
+                        .WithMany()
+                        .HasForeignKey("DishesDishId")
+                        .OnDelete(DeleteBehavior.NoAction),
+                    j => j
+                        .HasOne<Menu>()
+                        .WithMany()
+                        .HasForeignKey("MenusMenuId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                );
 
             // Configurare chei străine pentru OrderDetail
             modelBuilder.Entity<OrderDetail>()

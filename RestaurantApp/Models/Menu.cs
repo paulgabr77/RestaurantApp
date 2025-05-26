@@ -15,7 +15,8 @@ namespace RestaurantApp.Models
         [StringLength(500)]
         public string Description { get; set; }
 
-        public string Price { get; set; }
+        [Column(TypeName = "decimal(10,2)")]
+        public decimal Price { get; set; }
 
         public int CategoryId { get; set; }
         public virtual Category Category { get; set; }
@@ -26,5 +27,11 @@ namespace RestaurantApp.Models
         // Navigation properties
         public virtual ICollection<Dish> Dishes { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
+
+        public Menu()
+        {
+            Dishes = new HashSet<Dish>();
+            OrderDetails = new HashSet<OrderDetail>();
+        }
     }
 } 

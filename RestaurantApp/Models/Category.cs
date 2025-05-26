@@ -17,5 +17,11 @@ namespace RestaurantApp.Models
         // Navigation properties
         public virtual ICollection<Dish> Dishes { get; set; }
         public virtual ICollection<Menu> Menus { get; set; }
+
+        public Category()
+        {
+            Dishes = new HashSet<Dish>();
+            Menus = new HashSet<Menu>();
+        }
     }
 } 

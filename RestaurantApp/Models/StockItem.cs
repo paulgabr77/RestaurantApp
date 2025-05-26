@@ -11,6 +11,6 @@ namespace RestaurantApp.Models
         public DateTime LastUpdated { get; set; }
 
         // Navigation properties
-        public virtual Dish Dish { get; set; }
+        public virtual Dish? Dish { get; set; }
     }
 } 

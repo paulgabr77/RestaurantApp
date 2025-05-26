@@ -16,5 +16,10 @@ namespace RestaurantApp.Models
 
         // Navigation properties
         public virtual ICollection<Dish> Dishes { get; set; }
+
+        public Allergen()
+        {
+            Dishes = new HashSet<Dish>();
+        }
     }
 } 
