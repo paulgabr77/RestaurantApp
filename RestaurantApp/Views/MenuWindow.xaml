@@ -1,0 +1,103 @@
+<Window x:Class="RestaurantApp.Views.MenuWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RestaurantApp.Views"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="Meniul Restaurantului" Height="700" Width="900"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Buton Adaugă preparat în dreapta sus -->
+        <Button Content="Adaugă preparat" Command="{Binding AddDishCommand}" HorizontalAlignment="Right" VerticalAlignment="Top" Width="150" Margin="0,0,0,8" Grid.Row="0"/>
+
+        <!-- Căutare și selectare categorie -->
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,0,0,16">
+            <TextBox Width="200" Margin="0,0,16,0"
+                      Text="{Binding SearchTerm, UpdateSourceTrigger=PropertyChanged}"
+                      materialDesign:HintAssist.Hint="Caută preparat sau meniu..."/>
+            <Button Content="Caută" Command="{Binding SearchCommand}" Width="80"/>
+            <ComboBox Width="200" Margin="16,0,0,0"
+                      ItemsSource="{Binding Categories}"
+                      DisplayMemberPath="Name"
+                      SelectedItem="{Binding SelectedCategory}"/>
+        </StackPanel>
+
+        <!-- Listă categorii cu preparate și meniuri -->
+        <ScrollViewer Grid.Row="2">
+            <ItemsControl ItemsSource="{Binding Categories}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="0,0,0,24">
+                            <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="18" Margin="0,0,0,8"/>
+
+                            <!-- Preparate -->
+                            <TextBlock Text="Preparate:" FontWeight="SemiBold" FontSize="15" Margin="0,8,0,4"/>
+                            <ItemsControl ItemsSource="{Binding Dishes}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border BorderBrush="#DDD" BorderThickness="1" Padding="8" Margin="0,0,0,8">
+                                            <StackPanel>
+                                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                                    <!-- Loc pentru imagine -->
+                                                    <Rectangle Width="60" Height="60" Fill="#EEE" Margin="0,0,12,0"/>
+                                                    <StackPanel>
+                                                        <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="14"/>
+                                                        <TextBlock Text="{Binding Description}" FontStyle="Italic" FontSize="12"/>
+                                                        <TextBlock Text="{Binding Price, StringFormat='Pret: {0} lei'}"/>
+                                                        <TextBlock Text="{Binding PortionQuantity, StringFormat='Portie: {0}g'}"/>
+                                                        <TextBlock Text="{Binding TotalQuantity, StringFormat='Disponibil: {0}g'}"/>
+                                                    </StackPanel>
+                                                </StackPanel>
+                                                <!-- Lista alergeni -->
+                                                <TextBlock Text="Alergeni:" FontWeight="SemiBold" FontSize="12" Margin="0,8,0,0"/>
+                                                <ItemsControl ItemsSource="{Binding Allergens}">
+                                                    <ItemsControl.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <TextBlock Text="- {Binding Name}" FontSize="12"/>
+                                                        </DataTemplate>
+                                                    </ItemsControl.ItemTemplate>
+                                                </ItemsControl>
+                                            </StackPanel>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+                            <!-- Meniuri -->
+                            <TextBlock Text="Meniuri:" FontWeight="SemiBold" FontSize="15" Margin="0,12,0,4"/>
+                            <ItemsControl ItemsSource="{Binding Menus}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border BorderBrush="#DDD" BorderThickness="1" Padding="8" Margin="0,0,0,8">
+                                            <StackPanel>
+                                                <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="14"/>
+                                                <TextBlock Text="{Binding Description}" FontStyle="Italic" FontSize="12"/>
+                                                <TextBlock Text="{Binding Price, StringFormat='Pret: {0} lei'}"/>
+                                                <TextBlock Text="Preparatele din meniu:" FontWeight="SemiBold" FontSize="12" Margin="0,8,0,0"/>
+                                                <ItemsControl ItemsSource="{Binding Dishes}">
+                                                    <ItemsControl.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <TextBlock Text="- {Binding Name}" FontSize="12"/>
+                                                        </DataTemplate>
+                                                    </ItemsControl.ItemTemplate>
+                                                </ItemsControl>
+                                            </StackPanel>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
+</Window> 

@@ -43,6 +43,7 @@ namespace RestaurantApp
             services.AddScoped<IDiscountService, DiscountService>();
             services.AddScoped<IDeliveryService, DeliveryService>();
             services.AddScoped<IDishService, DishService>();
+            services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IAuthService, AuthService>();
 

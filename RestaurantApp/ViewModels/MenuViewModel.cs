@@ -4,23 +4,28 @@ using RestaurantApp.Commands;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows;
 
 namespace RestaurantApp.ViewModels
 {
     public class MenuViewModel : ViewModelBase
     {
         private readonly IDishService _dishService;
+        private readonly ICategoryService _categoryService;
         private ObservableCollection<Category> _categories;
         private ObservableCollection<Dish> _dishes;
         private string _searchTerm;
         private Category _selectedCategory;
         private Dish _selectedDish;
 
-        public MenuViewModel(IDishService dishService)
+        public MenuViewModel(IDishService dishService, ICategoryService categoryService)
         {
             _dishService = dishService;
+            _categoryService = categoryService;
             LoadDataCommand = new RelayCommand(async () => await LoadData());
             SearchCommand = new RelayCommand(async () => await Search());
+            AddDishCommand = new RelayCommand(AddDish);
+            _ = LoadData();
         }
 
         public ObservableCollection<Category> Categories
@@ -61,11 +66,12 @@ namespace RestaurantApp.ViewModels
 
         public ICommand LoadDataCommand { get; }
         public ICommand SearchCommand { get; }
+        public ICommand AddDishCommand { get; }
 
         private async Task LoadData()
         {
-            var dishes = await _dishService.GetAllDishesAsync();
-            Dishes = new ObservableCollection<Dish>(dishes);
+            var categories = await _categoryService.GetAllCategoriesWithDishesAndMenusAsync();
+            Categories = new ObservableCollection<Category>(categories);
         }
 
         private async Task LoadDishesByCategory()
@@ -79,11 +85,20 @@ namespace RestaurantApp.ViewModels
 
         private async Task Search()
         {
+            await LoadData();
             if (!string.IsNullOrWhiteSpace(SearchTerm))
             {
-                var dishes = await _dishService.SearchDishesAsync(SearchTerm);
-                Dishes = new ObservableCollection<Dish>(dishes);
+                foreach (var category in Categories)
+                {
+                    category.Dishes = category.Dishes?.Where(d => d.Name.Contains(SearchTerm) || (d.Description != null && d.Description.Contains(SearchTerm))).ToList();
+                    category.Menus = category.Menus?.Where(m => m.Name.Contains(SearchTerm) || (m.Description != null && m.Description.Contains(SearchTerm))).ToList();
+                }
             }
+        }
+
+        private void AddDish()
+        {
+            MessageBox.Show("Funcționalitatea de adăugare preparat nu este implementată încă.");
         }
     }
 } 

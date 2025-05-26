@@ -26,13 +26,18 @@ namespace RestaurantApp.Views
         private void OnAuthenticationSuccessful(object sender, Models.User user)
         {
             var dishService = _serviceProvider.GetService(typeof(IDishService)) as IDishService;
+            var categoryService = _serviceProvider.GetService(typeof(ICategoryService)) as ICategoryService;
 
             if (dishService == null)
             {
                 throw new InvalidOperationException("IDishService is not registered in the service provider.");
             }
+            if (categoryService == null)
+            {
+                throw new InvalidOperationException("ICategoryService is not registered in the service provider.");
+            }
 
-            var menuViewModel = new MenuViewModel(dishService); // Assuming you have a MenuViewModel instance
+            var menuViewModel = new MenuViewModel(dishService, categoryService); // Assuming you have a MenuViewModel instance
             var mainWindow = new MainWindow(menuViewModel, _serviceProvider);
             mainWindow.Show();
             Close();
