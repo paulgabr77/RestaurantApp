@@ -37,5 +37,13 @@ namespace RestaurantApp.Models
         public virtual ICollection<Menu> Menus { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         public virtual ICollection<DishImage> Images { get; set; }
+
+        public Dish()
+        {
+            Allergens = new HashSet<Allergen>();
+            Menus = new HashSet<Menu>();
+            OrderDetails = new HashSet<OrderDetail>();
+            Images = new HashSet<DishImage>();
+        }
     }
 } 

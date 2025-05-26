@@ -33,7 +33,7 @@ namespace RestaurantApp
             // Database
             services.AddDbContextFactory<RestaurantDbContext>(options =>
             {
-                options.UseSqlServer("DefaultConnection");
+                options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=RestaurantPaul;Trusted_Connection=True;MultipleActiveResultSets=true");
             });
 
             // Services

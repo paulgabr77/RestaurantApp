@@ -36,5 +36,10 @@ namespace RestaurantApp.Models
 
         // Navigation properties
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
+
+        public Order()
+        {
+            OrderDetails = new HashSet<OrderDetail>();
+        }
     }
 } 

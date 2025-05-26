@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace RestaurantApp.Models
 {
@@ -10,7 +11,8 @@ namespace RestaurantApp.Models
         public int? MenuId { get; set; }
         public int Quantity { get; set; }
         public decimal Price { get; set; }
-        public string Notes { get; set; }
+        [StringLength(500)]
+        public string? Notes { get; set; }
 
         public virtual Order Order { get; set; }
         public virtual Dish Dish { get; set; }

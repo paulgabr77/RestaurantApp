@@ -4,10 +4,12 @@ namespace RestaurantApp.Models
 {
     public class DishImage
     {
+        [Key]
         public int ImageId { get; set; }
 
+        [Required]
         public int DishId { get; set; }
-        public virtual Dish Dish { get; set; }
+        public virtual Dish? Dish { get; set; }
 
         [Required]
         [StringLength(200)]

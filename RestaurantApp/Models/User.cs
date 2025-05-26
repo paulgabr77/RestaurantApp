@@ -21,10 +21,10 @@ namespace RestaurantApp.Models
         public string Email { get; set; }
 
         [StringLength(20)]
-        public string PhoneNumber { get; set; }
+        public string? PhoneNumber { get; set; }
 
         [StringLength(200)]
-        public string DeliveryAddress { get; set; }
+        public string? DeliveryAddress { get; set; }
 
         [Required]
         [StringLength(100)]
@@ -34,5 +34,10 @@ namespace RestaurantApp.Models
 
         // Navigation properties
         public virtual ICollection<Order> Orders { get; set; }
+
+        public User()
+        {
+            Orders = new HashSet<Order>();
+        }
     }
 } 

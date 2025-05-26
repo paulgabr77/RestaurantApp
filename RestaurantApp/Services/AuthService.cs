@@ -89,8 +89,7 @@ namespace RestaurantApp.Services
 
         private bool VerifyPasswordHash(string password, string storedHash)
         {
-            var hashOfInput = HashPassword(password);
-            return storedHash == hashOfInput;
+            return password == storedHash;
         }
     }
 } 
