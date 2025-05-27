@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
+using RestaurantApp.Views;
 
 namespace RestaurantApp.ViewModels
 {
@@ -31,9 +32,7 @@ namespace RestaurantApp.ViewModels
             OpenMenuCommand = new RelayCommand(OpenMenu);
             OpenOrdersCommand = new RelayCommand(OpenOrders);
             OpenReportsCommand = new RelayCommand(OpenReports);
-            OpenStockCommand = new RelayCommand(OpenStock);
-            OpenDiscountsCommand = new RelayCommand(OpenDiscounts);
-            OpenDeliveriesCommand = new RelayCommand(OpenDeliveries);
+            OpenCartCommand = new RelayCommand(OpenCart);
             OpenAccountCommand = new RelayCommand(OpenAccount);
             
             _ = LoadData();
@@ -83,9 +82,7 @@ namespace RestaurantApp.ViewModels
         public ICommand OpenMenuCommand { get; }
         public ICommand OpenOrdersCommand { get; }
         public ICommand OpenReportsCommand { get; }
-        public ICommand OpenStockCommand { get; }
-        public ICommand OpenDiscountsCommand { get; }
-        public ICommand OpenDeliveriesCommand { get; }
+        public ICommand OpenCartCommand { get; }
         public ICommand OpenAccountCommand { get; }
 
         public bool IsAuthenticated
@@ -130,11 +127,14 @@ namespace RestaurantApp.ViewModels
         // Metode pentru comenzile de meniu
         private void OpenMenu()
         {
-            MessageBox.Show("Funcționalitatea de meniu nu este implementată încă.");
+            var menuWindow = new MenuWindow();
+            menuWindow.Show();
         }
+
         private void OpenOrders()
         {
-            MessageBox.Show("Funcționalitatea de comenzi nu este implementată încă.");
+            var ordersWindow = new OrdersWindow();
+            ordersWindow.Show();
         }
 
         private void OpenReports()
@@ -142,19 +142,10 @@ namespace RestaurantApp.ViewModels
             MessageBox.Show("Funcționalitatea de rapoarte nu este implementată încă.");
         }
 
-        private void OpenStock()
+        private void OpenCart()
         {
-            MessageBox.Show("Funcționalitatea de stoc nu este implementată încă.");
-        }
-
-        private void OpenDiscounts()
-        {
-            MessageBox.Show("Funcționalitatea de reduceri nu este implementată încă.");
-        }
-
-        private void OpenDeliveries()
-        {
-            MessageBox.Show("Funcționalitatea de livrări nu este implementată încă.");
+            var cartWindow = new CartWindow();
+            cartWindow.Show();
         }
 
         private void OpenAccount()

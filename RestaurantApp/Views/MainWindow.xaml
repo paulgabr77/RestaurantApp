@@ -26,15 +26,16 @@
                         Command="{Binding OpenMenuCommand}"
                         Margin="5">
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="Book" Margin="0,0,5,0"/>
+                        <materialDesign:PackIcon Kind="Food" Margin="0,0,5,0"/>
                         <TextBlock Text="Meniu"/>
                     </StackPanel>
                 </Button>
+
                 <Button Style="{StaticResource MaterialDesignRaisedButton}"
                         Command="{Binding OpenOrdersCommand}"
                         Margin="5">
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="Food" Margin="0,0,5,0"/>
+                        <materialDesign:PackIcon Kind="ClipboardList" Margin="0,0,5,0"/>
                         <TextBlock Text="Comenzi"/>
                     </StackPanel>
                 </Button>
@@ -49,29 +50,11 @@
                 </Button>
 
                 <Button Style="{StaticResource MaterialDesignRaisedButton}"
-                        Command="{Binding OpenStockCommand}"
+                        Command="{Binding OpenCartCommand}"
                         Margin="5">
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="Package" Margin="0,0,5,0"/>
-                        <TextBlock Text="Stoc"/>
-                    </StackPanel>
-                </Button>
-
-                <Button Style="{StaticResource MaterialDesignRaisedButton}"
-                        Command="{Binding OpenDiscountsCommand}"
-                        Margin="5">
-                    <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="Percent" Margin="0,0,5,0"/>
-                        <TextBlock Text="Reduceri"/>
-                    </StackPanel>
-                </Button>
-
-                <Button Style="{StaticResource MaterialDesignRaisedButton}"
-                        Command="{Binding OpenDeliveriesCommand}"
-                        Margin="5">
-                    <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="Truck" Margin="0,0,5,0"/>
-                        <TextBlock Text="Livrări"/>
+                        <materialDesign:PackIcon Kind="Cart" Margin="0,0,5,0"/>
+                        <TextBlock Text="Coș"/>
                     </StackPanel>
                 </Button>
             </StackPanel>
@@ -88,7 +71,7 @@
                                     <Setter Property="Text" Value="Autentificare"/>
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding IsAuthenticated}" Value="True">
-                                            <Setter Property="Text" Value="Deconectare"/>
+                                            <Setter Property="Text" Value="Contul meu"/>
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>

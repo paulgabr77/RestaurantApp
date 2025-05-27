@@ -1,0 +1,57 @@
+<Window x:Class="RestaurantApp.Views.OrdersWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:RestaurantApp.Views"
+        mc:Ignorable="d"
+        Title="Istoric Comenzi" Height="600" Width="1000"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        FontFamily="{materialDesign:MaterialDesignFont}">
+    
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <TextBlock Text="Istoricul comenzilor tale"
+                   Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                   Margin="0,0,0,16"/>
+
+        <!-- Lista de comenzi -->
+        <DataGrid Grid.Row="1"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  ItemsSource="{Binding Orders}"
+                  materialDesign:DataGridAssist.CellPadding="13 8 8 8"
+                  materialDesign:DataGridAssist.ColumnHeaderPadding="8">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Număr comandă" Binding="{Binding OrderNumber}" Width="120"/>
+                <DataGridTextColumn Header="Data" Binding="{Binding OrderDate, StringFormat=dd.MM.yyyy HH:mm}" Width="150"/>
+                <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="100"/>
+                <DataGridTextColumn Header="Total" Binding="{Binding Total, StringFormat={}{0:C}}" Width="100"/>
+                <DataGridTemplateColumn Header="Acțiuni" Width="100">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Style="{StaticResource MaterialDesignFlatButton}"
+                                    Command="{Binding DataContext.ViewOrderDetailsCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                    CommandParameter="{Binding}"
+                                    Margin="4">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="Eye" Margin="0,0,4,0"/>
+                                    <TextBlock Text="Detalii"/>
+                                </StackPanel>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window> 
