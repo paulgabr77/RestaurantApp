@@ -23,6 +23,14 @@
         <DockPanel Grid.Row="0" Background="{DynamicResource PrimaryHueMidBrush}">
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Left" Margin="10">
                 <Button Style="{StaticResource MaterialDesignRaisedButton}"
+                        Command="{Binding OpenMenuCommand}"
+                        Margin="5">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Book" Margin="0,0,5,0"/>
+                        <TextBlock Text="Meniu"/>
+                    </StackPanel>
+                </Button>
+                <Button Style="{StaticResource MaterialDesignRaisedButton}"
                         Command="{Binding OpenOrdersCommand}"
                         Margin="5">
                     <StackPanel Orientation="Horizontal">

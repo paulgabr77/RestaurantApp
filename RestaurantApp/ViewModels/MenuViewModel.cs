@@ -17,6 +17,7 @@ namespace RestaurantApp.ViewModels
         private string _searchTerm;
         private Category _selectedCategory;
         private Dish _selectedDish;
+        private bool _isAuthenticated;
 
         public MenuViewModel(IDishService dishService, ICategoryService categoryService)
         {
@@ -25,6 +26,16 @@ namespace RestaurantApp.ViewModels
             LoadDataCommand = new RelayCommand(async () => await LoadData());
             SearchCommand = new RelayCommand(async () => await Search());
             AddDishCommand = new RelayCommand(AddDish);
+
+            // Inițializare comenzi pentru meniu
+            OpenMenuCommand = new RelayCommand(OpenMenu);
+            OpenOrdersCommand = new RelayCommand(OpenOrders);
+            OpenReportsCommand = new RelayCommand(OpenReports);
+            OpenStockCommand = new RelayCommand(OpenStock);
+            OpenDiscountsCommand = new RelayCommand(OpenDiscounts);
+            OpenDeliveriesCommand = new RelayCommand(OpenDeliveries);
+            OpenAccountCommand = new RelayCommand(OpenAccount);
+            
             _ = LoadData();
         }
 
@@ -68,6 +79,21 @@ namespace RestaurantApp.ViewModels
         public ICommand SearchCommand { get; }
         public ICommand AddDishCommand { get; }
 
+        // Comenzi pentru meniu
+        public ICommand OpenMenuCommand { get; }
+        public ICommand OpenOrdersCommand { get; }
+        public ICommand OpenReportsCommand { get; }
+        public ICommand OpenStockCommand { get; }
+        public ICommand OpenDiscountsCommand { get; }
+        public ICommand OpenDeliveriesCommand { get; }
+        public ICommand OpenAccountCommand { get; }
+
+        public bool IsAuthenticated
+        {
+            get => _isAuthenticated;
+            set => SetProperty(ref _isAuthenticated, value);
+        }
+
         private async Task LoadData()
         {
             var categories = await _categoryService.GetAllCategoriesWithDishesAndMenusAsync();
@@ -99,6 +125,41 @@ namespace RestaurantApp.ViewModels
         private void AddDish()
         {
             MessageBox.Show("Funcționalitatea de adăugare preparat nu este implementată încă.");
+        }
+
+        // Metode pentru comenzile de meniu
+        private void OpenMenu()
+        {
+            MessageBox.Show("Funcționalitatea de meniu nu este implementată încă.");
+        }
+        private void OpenOrders()
+        {
+            MessageBox.Show("Funcționalitatea de comenzi nu este implementată încă.");
+        }
+
+        private void OpenReports()
+        {
+            MessageBox.Show("Funcționalitatea de rapoarte nu este implementată încă.");
+        }
+
+        private void OpenStock()
+        {
+            MessageBox.Show("Funcționalitatea de stoc nu este implementată încă.");
+        }
+
+        private void OpenDiscounts()
+        {
+            MessageBox.Show("Funcționalitatea de reduceri nu este implementată încă.");
+        }
+
+        private void OpenDeliveries()
+        {
+            MessageBox.Show("Funcționalitatea de livrări nu este implementată încă.");
+        }
+
+        private void OpenAccount()
+        {
+            MessageBox.Show("Funcționalitatea de cont nu este implementată încă.");
         }
     }
 } 
