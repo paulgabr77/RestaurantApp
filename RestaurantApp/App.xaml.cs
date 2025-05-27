@@ -15,6 +15,8 @@ namespace RestaurantApp
     {
         private ServiceProvider _serviceProvider;
 
+        public ServiceProvider Services => _serviceProvider;
+
         public App()
         {
             var services = new ServiceCollection();
@@ -47,6 +49,12 @@ namespace RestaurantApp
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IAuthService, AuthService>();
 
+            // Register your services here
+            services.AddSingleton<IDishService, DishService>();
+            services.AddSingleton<ICategoryService, CategoryService>();
+            services.AddSingleton<IProductService, ProductService>();
+            services.AddSingleton<ICartService, CartService>();
+
             // ViewModels
             services.AddTransient<MainViewModel>();
             services.AddTransient<OrderViewModel>();
@@ -73,6 +81,10 @@ namespace RestaurantApp
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+
+            var serviceCollection = new ServiceCollection();
+            ConfigureServices(serviceCollection);
+            _serviceProvider = serviceCollection.BuildServiceProvider();
 
             var authWindow = _serviceProvider.GetService<AuthWindow>();
             authWindow.Show();

@@ -6,98 +6,183 @@
         xmlns:local="clr-namespace:RestaurantApp.Views"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="Meniul Restaurantului" Height="700" Width="900"
-        WindowStartupLocation="CenterScreen">
-    <Grid Margin="16">
+        Title="Meniul Restaurantului" Height="800" Width="1200"
+        WindowStartupLocation="CenterScreen"
+        Background="#FFF5F5F5">
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Buton Adaugă preparat în dreapta sus -->
-        <Button Content="Adaugă preparat" Command="{Binding AddDishCommand}" HorizontalAlignment="Right" VerticalAlignment="Top" Width="150" Margin="0,0,0,8" Grid.Row="0"/>
+        <!-- Header -->
+        <Grid Background="#7209b7" Height="60">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
 
-        <!-- Căutare și selectare categorie -->
-        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,0,0,16">
-            <TextBox Width="200" Margin="0,0,16,0"
-                      Text="{Binding SearchTerm, UpdateSourceTrigger=PropertyChanged}"
-                      materialDesign:HintAssist.Hint="Caută preparat sau meniu..."/>
-            <Button Content="Caută" Command="{Binding SearchCommand}" Width="80"/>
-            <ComboBox Width="200" Margin="16,0,0,0"
-                      ItemsSource="{Binding Categories}"
-                      DisplayMemberPath="Name"
-                      SelectedItem="{Binding SelectedCategory}"/>
-        </StackPanel>
+            <TextBlock Text="Meniu Restaurant" 
+                     Foreground="White" 
+                     FontSize="24" 
+                     FontWeight="SemiBold"
+                     VerticalAlignment="Center"
+                     Margin="20,0,0,0"/>
 
-        <!-- Listă categorii cu preparate și meniuri -->
-        <ScrollViewer Grid.Row="2">
-            <ItemsControl ItemsSource="{Binding Categories}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Margin="0,0,0,24">
-                            <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="18" Margin="0,0,0,8"/>
+            <StackPanel Grid.Column="1" 
+                        Orientation="Horizontal" 
+                        Margin="0,0,20,0">
+                <Button Style="{StaticResource MaterialDesignFlatButton}"
+                        Command="{Binding OpenCartCommand}"
+                        Margin="10,0">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Cart" 
+                                               Foreground="White" 
+                                               Width="24" 
+                                               Height="24"/>
+                        <TextBlock Text="Coș" 
+                                 Foreground="White" 
+                                 Margin="8,0,0,0" 
+                                 VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+                <Button Style="{StaticResource MaterialDesignFlatButton}"
+                        Command="{Binding OpenAccountCommand}"
+                        Margin="10,0">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Account" 
+                                               Foreground="White" 
+                                               Width="24" 
+                                               Height="24"/>
+                        <TextBlock Text="Cont" 
+                                 Foreground="White" 
+                                 Margin="8,0,0,0" 
+                                 VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
 
-                            <!-- Preparate -->
-                            <TextBlock Text="Preparate:" FontWeight="SemiBold" FontSize="15" Margin="0,8,0,4"/>
-                            <ItemsControl ItemsSource="{Binding Dishes}">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <Border BorderBrush="#DDD" BorderThickness="1" Padding="8" Margin="0,0,0,8">
-                                            <StackPanel>
-                                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                                    <!-- Loc pentru imagine -->
-                                                    <Rectangle Width="60" Height="60" Fill="#EEE" Margin="0,0,12,0"/>
-                                                    <StackPanel>
-                                                        <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="14"/>
-                                                        <TextBlock Text="{Binding Description}" FontStyle="Italic" FontSize="12"/>
-                                                        <TextBlock Text="{Binding Price, StringFormat='Pret: {0} lei'}"/>
-                                                        <TextBlock Text="{Binding PortionQuantity, StringFormat='Portie: {0}g'}"/>
-                                                        <TextBlock Text="{Binding TotalQuantity, StringFormat='Disponibil: {0}g'}"/>
-                                                    </StackPanel>
-                                                </StackPanel>
-                                                <!-- Lista alergeni -->
-                                                <TextBlock Text="Alergeni:" FontWeight="SemiBold" FontSize="12" Margin="0,8,0,0"/>
-                                                <ItemsControl ItemsSource="{Binding Allergens}">
-                                                    <ItemsControl.ItemTemplate>
-                                                        <DataTemplate>
-                                                            <TextBlock Text="- {Binding Name}" FontSize="12"/>
-                                                        </DataTemplate>
-                                                    </ItemsControl.ItemTemplate>
-                                                </ItemsControl>
-                                            </StackPanel>
-                                        </Border>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
+        <!-- Main Content -->
+        <Grid Grid.Row="1" Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-                            <!-- Meniuri -->
-                            <TextBlock Text="Meniuri:" FontWeight="SemiBold" FontSize="15" Margin="0,12,0,4"/>
-                            <ItemsControl ItemsSource="{Binding Menus}">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <Border BorderBrush="#DDD" BorderThickness="1" Padding="8" Margin="0,0,0,8">
-                                            <StackPanel>
-                                                <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="14"/>
-                                                <TextBlock Text="{Binding Description}" FontStyle="Italic" FontSize="12"/>
-                                                <TextBlock Text="{Binding Price, StringFormat='Pret: {0} lei'}"/>
-                                                <TextBlock Text="Preparatele din meniu:" FontWeight="SemiBold" FontSize="12" Margin="0,8,0,0"/>
-                                                <ItemsControl ItemsSource="{Binding Dishes}">
-                                                    <ItemsControl.ItemTemplate>
-                                                        <DataTemplate>
-                                                            <TextBlock Text="- {Binding Name}" FontSize="12"/>
-                                                        </DataTemplate>
-                                                    </ItemsControl.ItemTemplate>
-                                                </ItemsControl>
-                                            </StackPanel>
-                                        </Border>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </StackPanel>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </ScrollViewer>
+            <!-- Filtre și căutare -->
+            <Grid Grid.Row="0" Margin="0,0,0,20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="300"/>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBox Grid.Column="0"
+                         Text="{Binding SearchTerm, UpdateSourceTrigger=PropertyChanged}"
+                         materialDesign:HintAssist.Hint="Caută produs..."
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+
+                <ComboBox Grid.Column="1"
+                          Margin="16,0"
+                          ItemsSource="{Binding Categories}"
+                          DisplayMemberPath="Name"
+                          SelectedItem="{Binding SelectedCategory}"
+                          Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                          materialDesign:HintAssist.Hint="Selectează categorie"/>
+
+                <Button Grid.Column="2"
+                        Content="Caută" 
+                        Command="{Binding SearchCommand}" 
+                        Width="100"
+                        Style="{StaticResource MaterialDesignOutlinedButton}"/>
+            </Grid>
+
+            <!-- Lista de produse -->
+            <ScrollViewer Grid.Row="1">
+                <ItemsControl ItemsSource="{Binding Products}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="White" 
+                                    Margin="0,0,0,20" 
+                                    CornerRadius="10"
+                                    BorderThickness="1"
+                                    BorderBrush="#FFE0E0E0"
+                                    Effect="{DynamicResource MaterialDesignElevationShadow2}">
+                                <Grid Margin="15">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="200"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <!-- Imagine produs -->
+                                    <Border Grid.Column="0" 
+                                            Width="200" 
+                                            Height="200" 
+                                            CornerRadius="10"
+                                            Background="#FFF5F5F5">
+                                        <Image Source="{Binding ImageUrl}" 
+                                               Stretch="UniformToFill"/>
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding ImageUrl}" Value="{x:Null}">
+                                                        <Setter Property="Background" Value="#FFE0E0E0"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+                                    </Border>
+
+                                    <!-- Detalii produs -->
+                                    <StackPanel Grid.Column="1" 
+                                              Margin="20,0"
+                                              VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding Name}"
+                                                 FontSize="20"
+                                                 FontWeight="Bold"
+                                                 Margin="0,0,0,10"/>
+                                        
+                                        <TextBlock Text="{Binding Description}"
+                                                 TextWrapping="Wrap"
+                                                 Margin="0,0,0,10"
+                                                 Foreground="#FF666666"/>
+                                        
+                                        <TextBlock Text="{Binding Allergens, StringFormat='Alergeni: {0}'}"
+                                                 Foreground="#FF666666"
+                                                 Margin="0,0,0,10"/>
+                                        
+                                        <TextBlock Text="{Binding Price, StringFormat='{}{0:C}'}"
+                                                 FontSize="18"
+                                                 FontWeight="Bold"
+                                                 Foreground="#FF1E88E5"/>
+                                    </StackPanel>
+
+                                    <!-- Buton adăugare în coș -->
+                                    <Button Grid.Column="2"
+                                            Command="{Binding DataContext.AddToCartCommand, 
+                                                      RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                            CommandParameter="{Binding}"
+                                            Content="Adaugă în coș"
+                                            Padding="20,10"
+                                            Background="#FF1E88E5"
+                                            Foreground="White"
+                                            BorderThickness="0"
+                                            VerticalAlignment="Center"
+                                            Style="{StaticResource MaterialDesignRaisedButton}">
+                                        <Button.Resources>
+                                            <Style TargetType="Border">
+                                                <Setter Property="CornerRadius" Value="5"/>
+                                            </Style>
+                                        </Button.Resources>
+                                    </Button>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
     </Grid>
 </Window> 

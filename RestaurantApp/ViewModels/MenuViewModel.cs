@@ -13,17 +13,22 @@ namespace RestaurantApp.ViewModels
     {
         private readonly IDishService _dishService;
         private readonly ICategoryService _categoryService;
+        private readonly IProductService _productService;
+        private readonly ICartService _cartService;
         private ObservableCollection<Category> _categories;
         private ObservableCollection<Dish> _dishes;
+        private ObservableCollection<Product> _products;
         private string _searchTerm;
         private Category _selectedCategory;
         private Dish _selectedDish;
         private bool _isAuthenticated;
 
-        public MenuViewModel(IDishService dishService, ICategoryService categoryService)
+        public MenuViewModel(IDishService dishService, ICategoryService categoryService, IProductService productService, ICartService cartService)
         {
             _dishService = dishService;
             _categoryService = categoryService;
+            _productService = productService;
+            _cartService = cartService;
             LoadDataCommand = new RelayCommand(async () => await LoadData());
             SearchCommand = new RelayCommand(async () => await Search());
             AddDishCommand = new RelayCommand(AddDish);
@@ -35,6 +40,11 @@ namespace RestaurantApp.ViewModels
             OpenCartCommand = new RelayCommand(OpenCart);
             OpenAccountCommand = new RelayCommand(OpenAccount);
             
+            Products = new ObservableCollection<Product>();
+            
+            // Încărcare produse
+            LoadProducts();
+
             _ = LoadData();
         }
 
@@ -48,6 +58,12 @@ namespace RestaurantApp.ViewModels
         {
             get => _dishes;
             set => SetProperty(ref _dishes, value);
+        }
+
+        public ObservableCollection<Product> Products
+        {
+            get => _products;
+            set => SetProperty(ref _products, value);
         }
 
         public string SearchTerm
@@ -153,6 +169,31 @@ namespace RestaurantApp.ViewModels
         {
             var accountWindow = new AccountWindow();
             accountWindow.Show();
+        }
+
+        private async void LoadProducts()
+        {
+            var products = await _productService.GetAllProductsAsync();
+            Products.Clear();
+            foreach (var product in products)
+            {
+                Products.Add(product);
+            }
+        }
+
+        private void OpenAddProductDialog()
+        {
+            // TODO: Implementare dialog adăugare produs
+            // Acest dialog va fi implementat în următorul pas
+        }
+
+        private async void AddToCart(Product product)
+        {
+            if (product != null)
+            {
+                await _cartService.AddToCartAsync(product);
+                // TODO: Adăugare notificare că produsul a fost adăugat în coș
+            }
         }
     }
 } 

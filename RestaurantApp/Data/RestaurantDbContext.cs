@@ -21,6 +21,7 @@ namespace RestaurantApp.Data
         public DbSet<Discount> Discounts { get; set; }
         public DbSet<StockItem> StockItems { get; set; }
         public DbSet<Delivery> Deliveries { get; set; }
+        public DbSet<Product> Products { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -103,6 +104,10 @@ namespace RestaurantApp.Data
 
             modelBuilder.Entity<Delivery>()
                 .Property(d => d.DeliveryFee)
+                .HasColumnType("decimal(18,2)");
+
+            modelBuilder.Entity<Product>()
+                .Property(p => p.Price)
                 .HasColumnType("decimal(18,2)");
         }
     }
