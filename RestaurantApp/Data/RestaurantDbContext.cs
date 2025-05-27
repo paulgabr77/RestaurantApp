@@ -109,6 +109,10 @@ namespace RestaurantApp.Data
             modelBuilder.Entity<Product>()
                 .Property(p => p.Price)
                 .HasColumnType("decimal(18,2)");
+
+            modelBuilder.Entity<Product>()
+                .Property(p => p.Weight)
+                .HasColumnType("decimal(18,2)");
         }
     }
 } 

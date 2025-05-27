@@ -26,5 +26,20 @@ namespace RestaurantApp.Services
                     .ThenInclude(m => m.Dishes)
                 .ToListAsync();
         }
+
+        public async Task<IEnumerable<Category>> GetAllCategoriesAsync()
+        {
+            return await _context.Categories
+                .AsNoTracking()
+                .OrderBy(c => c.Name)
+                .ToListAsync();
+        }
+
+        public async Task<Category> CreateCategoryAsync(Category category)
+        {
+            await _context.Categories.AddAsync(category);
+            await _context.SaveChangesAsync();
+            return category;
+        }
     }
 } 

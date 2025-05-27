@@ -12,9 +12,6 @@ namespace RestaurantApp.Models
         [StringLength(100)]
         public string Name { get; set; }
 
-        [StringLength(500)]
-        public string Description { get; set; }
-
         [Column(TypeName = "decimal(10,2)")]
         public decimal Price { get; set; }
 

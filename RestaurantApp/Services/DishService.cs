@@ -54,7 +54,7 @@ namespace RestaurantApp.Services
                 .Include(d => d.Category)
                 .Include(d => d.Allergens)
                 .Include(d => d.Images)
-                .Where(d => d.Name.Contains(searchTerm) || d.Description.Contains(searchTerm))
+                .Where(d => d.Name.Contains(searchTerm))
                 .ToListAsync();
         }
 

@@ -5,9 +5,16 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
 using System;
+using System.Collections.ObjectModel;
 
 namespace RestaurantApp.ViewModels
 {
+    public class UserRole
+    {
+        public string Name { get; set; }
+        public bool IsEmployee { get; set; }
+    }
+
     public class AuthViewModel : ViewModelBase
     {
         private readonly IAuthService _authService;
@@ -21,6 +28,19 @@ namespace RestaurantApp.ViewModels
         private bool _isRegistering;
         private string _errorMessage;
         private User _currentUser;
+        private UserRole _selectedRole;
+
+        public ObservableCollection<UserRole> UserRoles { get; } = new ObservableCollection<UserRole>
+        {
+            new UserRole { Name = "Client", IsEmployee = false },
+            new UserRole { Name = "Angajat", IsEmployee = true }
+        };
+
+        public UserRole SelectedRole
+        {
+            get => _selectedRole;
+            set => SetProperty(ref _selectedRole, value);
+        }
 
         public event EventHandler<User> AuthenticationSuccessful;
 
@@ -30,6 +50,7 @@ namespace RestaurantApp.ViewModels
             LoginCommand = new RelayCommand(async () => await Login());
             RegisterCommand = new RelayCommand(async () => await Register());
             ToggleAuthModeCommand = new RelayCommand(() => IsRegistering = !IsRegistering);
+            SelectedRole = UserRoles[0]; // Setează rolul implicit la Client
         }
 
         public string Email
@@ -146,7 +167,7 @@ namespace RestaurantApp.ViewModels
         {
             if (string.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(Password) ||
                 string.IsNullOrWhiteSpace(ConfirmPassword) || string.IsNullOrWhiteSpace(FirstName) ||
-                string.IsNullOrWhiteSpace(LastName))
+                string.IsNullOrWhiteSpace(LastName) || SelectedRole == null)
             {
                 ErrorMessage = "Va rugam completati toate campurile obligatorii.";
                 return;
@@ -165,7 +186,7 @@ namespace RestaurantApp.ViewModels
                 LastName = LastName,
                 PhoneNumber = PhoneNumber,
                 DeliveryAddress = DeliveryAddress,
-                IsEmployee = false
+                IsEmployee = SelectedRole.IsEmployee
             };
 
             var result = await _authService.RegisterAsync(user, Password);

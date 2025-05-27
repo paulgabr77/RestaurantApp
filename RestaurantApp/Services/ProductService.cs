@@ -47,7 +47,6 @@ namespace RestaurantApp.Services
                 return null;
 
             existingProduct.Name = product.Name;
-            existingProduct.Description = product.Description;
             existingProduct.Price = product.Price;
             existingProduct.ImageUrl = product.ImageUrl;
             existingProduct.Allergens = product.Allergens;

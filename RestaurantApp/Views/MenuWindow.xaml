@@ -33,6 +33,20 @@
                         Orientation="Horizontal" 
                         Margin="0,0,20,0">
                 <Button Style="{StaticResource MaterialDesignFlatButton}"
+                        Command="{Binding AddProductCommand}"
+                        Margin="10,0">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Plus" 
+                                               Foreground="White" 
+                                               Width="24" 
+                                               Height="24"/>
+                        <TextBlock Text="Adaugă Produs" 
+                                 Foreground="White" 
+                                 Margin="8,0,0,0" 
+                                 VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+                <Button Style="{StaticResource MaterialDesignFlatButton}"
                         Command="{Binding OpenCartCommand}"
                         Margin="10,0">
                     <StackPanel Orientation="Horizontal">
@@ -143,11 +157,6 @@
                                                  FontSize="20"
                                                  FontWeight="Bold"
                                                  Margin="0,0,0,10"/>
-                                        
-                                        <TextBlock Text="{Binding Description}"
-                                                 TextWrapping="Wrap"
-                                                 Margin="0,0,0,10"
-                                                 Foreground="#FF666666"/>
                                         
                                         <TextBlock Text="{Binding Allergens, StringFormat='Alergeni: {0}'}"
                                                  Foreground="#FF666666"

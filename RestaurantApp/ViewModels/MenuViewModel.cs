@@ -39,6 +39,7 @@ namespace RestaurantApp.ViewModels
             OpenReportsCommand = new RelayCommand(OpenReports);
             OpenCartCommand = new RelayCommand(OpenCart);
             OpenAccountCommand = new RelayCommand(OpenAccount);
+            AddProductCommand = new RelayCommand(OpenAddProduct);
             
             Products = new ObservableCollection<Product>();
             
@@ -100,6 +101,7 @@ namespace RestaurantApp.ViewModels
         public ICommand OpenReportsCommand { get; }
         public ICommand OpenCartCommand { get; }
         public ICommand OpenAccountCommand { get; }
+        public ICommand AddProductCommand { get; }
 
         public bool IsAuthenticated
         {
@@ -129,8 +131,8 @@ namespace RestaurantApp.ViewModels
             {
                 foreach (var category in Categories)
                 {
-                    category.Dishes = category.Dishes?.Where(d => d.Name.Contains(SearchTerm) || (d.Description != null && d.Description.Contains(SearchTerm))).ToList();
-                    category.Menus = category.Menus?.Where(m => m.Name.Contains(SearchTerm) || (m.Description != null && m.Description.Contains(SearchTerm))).ToList();
+                    category.Dishes = category.Dishes?.Where(d => d.Name.Contains(SearchTerm)).ToList();
+                    category.Menus = category.Menus?.Where(m => m.Name.Contains(SearchTerm)).ToList();
                 }
             }
         }
@@ -171,6 +173,13 @@ namespace RestaurantApp.ViewModels
             accountWindow.Show();
         }
 
+        private void OpenAddProduct()
+        {
+            var addProductWindow = new AddProductWindow();
+            addProductWindow.ShowDialog();
+            LoadData(); // Reîncarcă datele după adăugarea produsului
+        }
+
         private async void LoadProducts()
         {
             var products = await _productService.GetAllProductsAsync();
@@ -179,12 +188,6 @@ namespace RestaurantApp.ViewModels
             {
                 Products.Add(product);
             }
-        }
-
-        private void OpenAddProductDialog()
-        {
-            // TODO: Implementare dialog adăugare produs
-            // Acest dialog va fi implementat în următorul pas
         }
 
         private async void AddToCart(Product product)

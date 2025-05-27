@@ -48,6 +48,7 @@ namespace RestaurantApp
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IAllergenService, AllergenService>();
 
             // Register your services here
             services.AddSingleton<IDishService, DishService>();
@@ -78,13 +79,20 @@ namespace RestaurantApp
             services.AddSingleton<IServiceProvider>(sp => sp);
         }
 
-        protected override void OnStartup(StartupEventArgs e)
+        protected override async void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
 
             var serviceCollection = new ServiceCollection();
             ConfigureServices(serviceCollection);
             _serviceProvider = serviceCollection.BuildServiceProvider();
+
+            // Inițializează baza de date
+            using (var scope = _serviceProvider.CreateScope())
+            {
+                var context = scope.ServiceProvider.GetRequiredService<RestaurantDbContext>();
+                await DbInitializer.Initialize(context);
+            }
 
             var authWindow = _serviceProvider.GetService<AuthWindow>();
             authWindow.Show();
