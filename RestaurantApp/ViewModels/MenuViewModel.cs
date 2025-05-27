@@ -139,7 +139,8 @@ namespace RestaurantApp.ViewModels
 
         private void OpenReports()
         {
-            MessageBox.Show("Funcționalitatea de rapoarte nu este implementată încă.");
+            var reportsWindow = new ReportsWindow();
+            reportsWindow.Show();
         }
 
         private void OpenCart()
@@ -150,7 +151,8 @@ namespace RestaurantApp.ViewModels
 
         private void OpenAccount()
         {
-            MessageBox.Show("Funcționalitatea de cont nu este implementată încă.");
+            var accountWindow = new AccountWindow();
+            accountWindow.Show();
         }
     }
 } 

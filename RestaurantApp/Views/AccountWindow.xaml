@@ -1,0 +1,213 @@
+<Window x:Class="RestaurantApp.Views.AccountWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:RestaurantApp.Views"
+        mc:Ignorable="d"
+        Title="Contul meu" Height="600" Width="800"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        FontFamily="{materialDesign:MaterialDesignFont}">
+    
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <TextBlock Text="Contul meu"
+                   Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                   Margin="0,0,0,16"/>
+
+        <!-- Conținut principal -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Meniu lateral -->
+            <materialDesign:Card Grid.Column="0" Margin="0,0,16,0">
+                <StackPanel>
+                    <Button Style="{StaticResource MaterialDesignFlatButton}"
+                            Command="{Binding ShowProfileCommand}"
+                            Margin="8">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Account" Margin="0,0,8,0"/>
+                            <TextBlock Text="Profil"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Style="{StaticResource MaterialDesignFlatButton}"
+                            Command="{Binding ShowSecurityCommand}"
+                            Margin="8">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Lock" Margin="0,0,8,0"/>
+                            <TextBlock Text="Securitate"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Style="{StaticResource MaterialDesignFlatButton}"
+                            Command="{Binding ShowPreferencesCommand}"
+                            Margin="8">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Settings" Margin="0,0,8,0"/>
+                            <TextBlock Text="Preferințe"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Separator Margin="8"/>
+
+                    <Button Style="{StaticResource MaterialDesignFlatButton}"
+                            Command="{Binding LogoutCommand}"
+                            Margin="8">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Logout" Margin="0,0,8,0"/>
+                            <TextBlock Text="Deconectare"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </materialDesign:Card>
+
+            <!-- Conținut secțiune -->
+            <materialDesign:Card Grid.Column="1">
+                <Grid Margin="16">
+                    <!-- Profil -->
+                    <Grid Visibility="{Binding IsProfileVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="Informații personale"
+                                   Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                                   Margin="0,0,0,16"/>
+
+                        <TextBox Grid.Row="1"
+                                 Text="{Binding FirstName}"
+                                 materialDesign:HintAssist.Hint="Prenume"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                 Margin="0,8"/>
+
+                        <TextBox Grid.Row="2"
+                                 Text="{Binding LastName}"
+                                 materialDesign:HintAssist.Hint="Nume"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                 Margin="0,8"/>
+
+                        <TextBox Grid.Row="3"
+                                 Text="{Binding Email}"
+                                 materialDesign:HintAssist.Hint="Email"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                 Margin="0,8"/>
+
+                        <TextBox Grid.Row="4"
+                                 Text="{Binding Phone}"
+                                 materialDesign:HintAssist.Hint="Telefon"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                 Margin="0,8"/>
+
+                        <Button Grid.Row="5"
+                                Style="{StaticResource MaterialDesignRaisedButton}"
+                                Command="{Binding SaveProfileCommand}"
+                                VerticalAlignment="Bottom"
+                                HorizontalAlignment="Right"
+                                Margin="0,16,0,0">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="ContentSave" Margin="0,0,8,0"/>
+                                <TextBlock Text="Salvează modificările"/>
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+
+                    <!-- Securitate -->
+                    <Grid Visibility="{Binding IsSecurityVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="Securitate"
+                                   Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                                   Margin="0,0,0,16"/>
+
+                        <PasswordBox Grid.Row="1"
+                                    materialDesign:HintAssist.Hint="Parola actuală"
+                                    Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
+                                    Margin="0,8"/>
+
+                        <PasswordBox Grid.Row="2"
+                                    materialDesign:HintAssist.Hint="Parola nouă"
+                                    Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
+                                    Margin="0,8"/>
+
+                        <PasswordBox Grid.Row="3"
+                                    materialDesign:HintAssist.Hint="Confirmă parola nouă"
+                                    Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
+                                    Margin="0,8"/>
+
+                        <Button Grid.Row="4"
+                                Style="{StaticResource MaterialDesignRaisedButton}"
+                                Command="{Binding ChangePasswordCommand}"
+                                VerticalAlignment="Bottom"
+                                HorizontalAlignment="Right"
+                                Margin="0,16,0,0">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="LockReset" Margin="0,0,8,0"/>
+                                <TextBlock Text="Schimbă parola"/>
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+
+                    <!-- Preferințe -->
+                    <Grid Visibility="{Binding IsPreferencesVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="Preferințe"
+                                   Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                                   Margin="0,0,0,16"/>
+
+                        <CheckBox Grid.Row="1"
+                                  Content="Primește notificări despre comenzi"
+                                  IsChecked="{Binding NotificationsEnabled}"
+                                  Margin="0,8"/>
+
+                        <CheckBox Grid.Row="2"
+                                  Content="Primește newsletter"
+                                  IsChecked="{Binding NewsletterEnabled}"
+                                  Margin="0,8"/>
+
+                        <Button Grid.Row="3"
+                                Style="{StaticResource MaterialDesignRaisedButton}"
+                                Command="{Binding SavePreferencesCommand}"
+                                VerticalAlignment="Bottom"
+                                HorizontalAlignment="Right"
+                                Margin="0,16,0,0">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="ContentSave" Margin="0,0,8,0"/>
+                                <TextBlock Text="Salvează preferințele"/>
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                </Grid>
+            </materialDesign:Card>
+        </Grid>
+    </Grid>
+</Window> 

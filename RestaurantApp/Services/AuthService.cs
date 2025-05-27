@@ -6,6 +6,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace RestaurantApp.Services
 {
@@ -20,16 +21,29 @@ namespace RestaurantApp.Services
 
         public async Task<User> LoginAsync(string email, string password)
         {
-            var user = await _context.Users
-                .FirstOrDefaultAsync(u => u.Email == email);
+            try
+            {
+                using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+                {
+                    var user = await _context.Users
+                        .AsNoTracking()
+                        .FirstOrDefaultAsync(u => u.Email == email);
 
-            if (user == null)
-                return null;
+                    if (user == null)
+                        return null;
 
-            if (!VerifyPasswordHash(password, user.Password))
-                return null;
+                    if (!VerifyPasswordHash(password, user.Password))
+                        return null;
 
-            return user;
+                    scope.Complete();
+                    return user;
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                throw;
+            }
         }
 
         public async Task<User> RegisterAsync(User user, string password)

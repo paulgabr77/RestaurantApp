@@ -4,6 +4,7 @@ using RestaurantApp.Commands;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
+using System;
 
 namespace RestaurantApp.ViewModels
 {
@@ -114,22 +115,30 @@ namespace RestaurantApp.ViewModels
 
         private async Task Login()
         {
-            if (string.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(Password))
+            try
             {
-                ErrorMessage = "Va rugam completati toate campurile obligatorii.";
-                return;
-            }
+                if (string.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(Password))
+                {
+                    ErrorMessage = "Va rugam completati toate campurile obligatorii.";
+                    return;
+                }
 
-            var user = await _authService.LoginAsync(Email, Password);
-            if (user != null)
-            {
-                CurrentUser = user;
-                ErrorMessage = null;
-                AuthenticationSuccessful?.Invoke(this, user);
+                var user = await Task.Run(() => _authService.LoginAsync(Email, Password));
+                if (user != null)
+                {
+                    CurrentUser = user;
+                    ErrorMessage = null;
+                    AuthenticationSuccessful?.Invoke(this, user);
+                }
+                else
+                {
+                    ErrorMessage = "Email sau parola incorecta.";
+                }
             }
-            else
+            catch (Exception ex)
             {
-                ErrorMessage = "Email sau parola incorecta.";
+                ErrorMessage = "A apărut o eroare la autentificare. Vă rugăm încercați din nou.";
+                // Log the exception
             }
         }
 
