@@ -107,6 +107,12 @@
                         </Button>
                     </Grid>
 
+                    <!-- Ingrediente -->
+                    <TextBox Text="{Binding Ingredients, UpdateSourceTrigger=PropertyChanged}"
+                             materialDesign:HintAssist.Hint="Ingrediente"
+                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                             Margin="0,8"/>
+
                     <!-- Alergeni -->
                     <Grid Margin="0,8">
                         <Grid.ColumnDefinitions>

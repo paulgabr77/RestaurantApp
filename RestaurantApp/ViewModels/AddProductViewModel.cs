@@ -30,6 +30,7 @@ namespace RestaurantApp.ViewModels
         private bool _hasImage;
         private Category _selectedCategory;
         private Allergen _selectedAllergen;
+        private string _ingredients;
 
         public AddProductViewModel(
             IProductService productService,
@@ -162,6 +163,12 @@ namespace RestaurantApp.ViewModels
         {
             get => _hasError;
             set => SetProperty(ref _hasError, value);
+        }
+
+        public string Ingredients
+        {
+            get => _ingredients;
+            set => SetProperty(ref _ingredients, value);
         }
 
         public ObservableCollection<Category> ExistingCategories { get; } = new ObservableCollection<Category>();
@@ -340,7 +347,8 @@ namespace RestaurantApp.ViewModels
                     Price = Price,
                     CategoryId = SelectedCategory.CategoryId,
                     IsAvailable = true,
-                    CreatedAt = DateTime.UtcNow
+                    CreatedAt = DateTime.UtcNow,
+                    Ingredients = Ingredients ?? ""
                 };
 
                 // Adăugăm alergenii existenți
@@ -370,7 +378,7 @@ namespace RestaurantApp.ViewModels
             }
             catch (Exception ex)
             {
-                ErrorMessage = "Eroare la salvarea produsului: " + ex.Message;
+                ErrorMessage = "Eroare la salvarea produsului: " + ex.Message + (ex.InnerException != null ? " | " + ex.InnerException.Message : "");
             }
         }
 
