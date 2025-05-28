@@ -71,13 +71,13 @@
                              Margin="0,8"/>
 
                     <!-- Gramaj -->
-                    <TextBox Text="{Binding Weight, UpdateSourceTrigger=PropertyChanged}"
+                    <TextBox Text="{Binding Weight, UpdateSourceTrigger=LostFocus}"
                              materialDesign:HintAssist.Hint="Gramaj (g) *"
                              Style="{StaticResource MaterialDesignOutlinedTextBox}"
                              Margin="0,8"/>
 
                     <!-- Preț -->
-                    <TextBox Text="{Binding Price, UpdateSourceTrigger=PropertyChanged}"
+                    <TextBox Text="{Binding Price, UpdateSourceTrigger=LostFocus}"
                              materialDesign:HintAssist.Hint="Preț (RON) *"
                              Style="{StaticResource MaterialDesignOutlinedTextBox}"
                              Margin="0,8"/>

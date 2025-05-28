@@ -188,6 +188,21 @@
                                             </Style>
                                         </Button.Resources>
                                     </Button>
+                                    <StackPanel Grid.Column="2" Orientation="Vertical" VerticalAlignment="Bottom" Margin="0,60,0,0">
+                                        <Button Content="Editează" 
+                                                Command="{Binding DataContext.EditProductCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                CommandParameter="{Binding}"
+                                                Margin="0,0,0,5"
+                                                Background="#FFB300"
+                                                Foreground="White"
+                                                Style="{StaticResource MaterialDesignRaisedButton}"/>
+                                        <Button Content="Șterge" 
+                                                Command="{Binding DataContext.DeleteProductCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                CommandParameter="{Binding}"
+                                                Background="#E53935"
+                                                Foreground="White"
+                                                Style="{StaticResource MaterialDesignRaisedButton}"/>
+                                    </StackPanel>
                                 </Grid>
                             </Border>
                         </DataTemplate>

@@ -51,6 +51,44 @@ namespace RestaurantApp.ViewModels
             _ = LoadInitialData();
         }
 
+        public AddProductViewModel(
+            IProductService productService,
+            ICategoryService categoryService,
+            IAllergenService allergenService,
+            Product productToEdit)
+            : this(productService, categoryService, allergenService)
+        {
+            if (productToEdit != null)
+            {
+                Name = productToEdit.Name;
+                Weight = productToEdit.Weight;
+                Price = productToEdit.Price;
+                Ingredients = productToEdit.Ingredients;
+                CategoryName = productToEdit.Category?.Name;
+                SelectedCategory = productToEdit.Category;
+                if (!string.IsNullOrEmpty(productToEdit.ImageUrl))
+                {
+                    var imagePath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, productToEdit.ImageUrl.TrimStart('/', '\\'));
+                    if (File.Exists(imagePath))
+                    {
+                        var bitmap = new BitmapImage();
+                        bitmap.BeginInit();
+                        bitmap.UriSource = new Uri(imagePath);
+                        bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                        bitmap.EndInit();
+                        ProductImage = bitmap;
+                    }
+                }
+                if (productToEdit.Allergens != null)
+                {
+                    foreach (var allergen in productToEdit.Allergens)
+                    {
+                        AddSelectedAllergen(allergen);
+                    }
+                }
+            }
+        }
+
         public string Name
         {
             get => _name;
@@ -351,18 +389,18 @@ namespace RestaurantApp.ViewModels
                     Ingredients = Ingredients ?? ""
                 };
 
-                foreach (var allergenViewModel in SelectedAllergens)
+                product.Allergens.Clear();
+                var dbContext = (_productService as ProductService)?.Context;
+                if (dbContext != null)
                 {
-                    var existingAllergen = ExistingAllergens.FirstOrDefault(a =>
-                        a.Name.Equals(allergenViewModel.Name, StringComparison.OrdinalIgnoreCase));
-                    if (existingAllergen != null)
+                    foreach (var allergenViewModel in SelectedAllergens)
                     {
-                        var dbContext = (_productService as ProductService)?.Context;
-                        if (dbContext != null && dbContext.Entry(existingAllergen).State == Microsoft.EntityFrameworkCore.EntityState.Detached)
+                        var existingAllergen = dbContext.Allergens
+                            .FirstOrDefault(a => a.Name == allergenViewModel.Name);
+                        if (existingAllergen != null && !product.Allergens.Contains(existingAllergen))
                         {
-                            dbContext.Allergens.Attach(existingAllergen);
+                            product.Allergens.Add(existingAllergen);
                         }
-                        product.Allergens.Add(existingAllergen);
                     }
                 }
 

@@ -64,9 +64,15 @@ namespace RestaurantApp.Services
 
         public async Task<bool> DeleteProductAsync(int id)
         {
-            var product = await _context.Products.FindAsync(id);
+            var product = await _context.Products
+                .Include(p => p.Allergens)
+                .FirstOrDefaultAsync(p => p.ProductId == id);
+
             if (product == null)
                 return false;
+
+            // Golește relațiile many-to-many
+            product.Allergens.Clear();
 
             _context.Products.Remove(product);
             await _context.SaveChangesAsync();

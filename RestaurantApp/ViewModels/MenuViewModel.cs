@@ -41,6 +41,8 @@ namespace RestaurantApp.ViewModels
             OpenAccountCommand = new RelayCommand(OpenAccount);
             AddProductCommand = new RelayCommand(OpenAddProduct);
             AddToCartCommand = new RelayCommand<Product>(AddToCart);
+            EditProductCommand = new RelayCommand<Product>(EditProduct);
+            DeleteProductCommand = new RelayCommand<Product>(DeleteProduct);
             
             Products = new ObservableCollection<Product>();
             
@@ -104,6 +106,8 @@ namespace RestaurantApp.ViewModels
         public ICommand OpenAccountCommand { get; }
         public ICommand AddProductCommand { get; }
         public ICommand AddToCartCommand { get; }
+        public ICommand EditProductCommand { get; }
+        public ICommand DeleteProductCommand { get; }
 
         public bool IsAuthenticated
         {
@@ -198,6 +202,29 @@ namespace RestaurantApp.ViewModels
             {
                 await _cartService.AddToCartAsync(product);
                 // TODO: Adăugare notificare că produsul a fost adăugat în coș
+            }
+        }
+
+        private void EditProduct(Product product)
+        {
+            if (product != null)
+            {
+                var editWindow = new RestaurantApp.Views.AddProductWindow(product); // presupunem că AddProductWindow acceptă un produs pentru editare
+                editWindow.ShowDialog();
+                LoadProducts(); // reîncarcă lista după editare
+            }
+        }
+
+        private async void DeleteProduct(Product product)
+        {
+            if (product != null)
+            {
+                var result = MessageBox.Show($"Sigur vrei să ștergi produsul '{product.Name}'?", "Confirmare ștergere", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                if (result == MessageBoxResult.Yes)
+                {
+                    await _productService.DeleteProductAsync(product.ProductId);
+                    LoadProducts();
+                }
             }
         }
     }
