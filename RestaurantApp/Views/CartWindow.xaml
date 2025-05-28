@@ -67,16 +67,33 @@
 
         <!-- Footer cu total și buton de comandă -->
         <Grid Grid.Row="2" Margin="0,16,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Text="{Binding TotalAmount, StringFormat='Total: {0:C}'}"
-                       Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+            <TextBlock Text="{Binding TotalAmount, StringFormat='Subtotal: {0:C}'}"
+                       Style="{StaticResource MaterialDesignBody1TextBlock}"
                        VerticalAlignment="Center"/>
 
-            <Button Grid.Column="1"
+            <TextBlock Grid.Row="1"
+                       Text="{Binding TransportCost, StringFormat='Transport: {0:C}'}"
+                       Style="{StaticResource MaterialDesignBody1TextBlock}"
+                       VerticalAlignment="Center"
+                       Margin="0,8,0,0"/>
+
+            <TextBlock Grid.Row="2"
+                       Text="{Binding GrandTotal, StringFormat='Total final: {0:C}'}"
+                       Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                       VerticalAlignment="Center"
+                       Margin="0,8,0,0"/>
+
+            <Button Grid.Row="2" Grid.Column="1"
                     Style="{StaticResource MaterialDesignRaisedButton}"
                     Command="{Binding PlaceOrderCommand}"
                     Margin="16,0,0,0">

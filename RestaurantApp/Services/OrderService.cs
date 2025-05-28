@@ -108,7 +108,17 @@ namespace RestaurantApp.Services
             decimal total = 0;
             foreach (var detail in orderDetails)
             {
-                if (detail.DishId.HasValue)
+                if (detail.ProductId.HasValue)
+                {
+                    var product = await _context.Products.FindAsync(detail.ProductId);
+                    if (product != null)
+                    {
+                        detail.UnitPrice = product.Price;
+                        detail.TotalPrice = product.Price * detail.Quantity;
+                        total += detail.TotalPrice;
+                    }
+                }
+                else if (detail.DishId.HasValue)
                 {
                     var dish = await _context.Dishes.FindAsync(detail.DishId);
                     if (dish != null)

@@ -19,7 +19,20 @@ namespace RestaurantApp.Extensions
 
         public static object GetService(this System.Windows.Application app, Type serviceType)
         {
-            return _serviceProvider.GetService(serviceType);
+            if (app is App application)
+            {
+                return application.Services.GetService(serviceType);
+            }
+            return null;
+        }
+
+        public static T GetService<T>(this System.Windows.Application app) where T : class
+        {
+            if (app is App application)
+            {
+                return application.Services.GetService<T>();
+            }
+            return null;
         }
     }
 } 

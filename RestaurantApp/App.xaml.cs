@@ -51,7 +51,10 @@ namespace RestaurantApp
             // ViewModels
             services.AddTransient<MenuViewModel>();
             services.AddTransient<OrderViewModel>();
-            services.AddTransient<CartViewModel>();
+            services.AddTransient<CartViewModel>(sp => new CartViewModel(
+                sp.GetRequiredService<ICartService>(),
+                sp.GetRequiredService<IOrderService>()
+            ));
             services.AddTransient<AddProductViewModel>();
             services.AddTransient<AuthViewModel>();
 

@@ -6,18 +6,22 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace RestaurantApp.ViewModels
 {
     public class CartViewModel : ViewModelBase
     {
         private readonly ICartService _cartService;
+        private readonly IOrderService _orderService;
         private ObservableCollection<CartItem> _cartItems;
         private decimal _totalAmount;
+        private const decimal TRANSPORT_COST = 20.0m;
 
-        public CartViewModel(ICartService cartService)
+        public CartViewModel(ICartService cartService, IOrderService orderService)
         {
             _cartService = cartService;
+            _orderService = orderService;
             _cartItems = new ObservableCollection<CartItem>();
 
             LoadCartCommand = new RelayCommand(async () => await LoadCart());
@@ -40,6 +44,10 @@ namespace RestaurantApp.ViewModels
             get => _totalAmount;
             set => SetProperty(ref _totalAmount, value);
         }
+
+        public decimal TransportCost => TRANSPORT_COST;
+
+        public decimal GrandTotal => TotalAmount + TransportCost;
 
         public ICommand LoadCartCommand { get; }
         public ICommand PlaceOrderCommand { get; }
@@ -90,6 +98,7 @@ namespace RestaurantApp.ViewModels
         private async Task UpdateTotal()
         {
             TotalAmount = await _cartService.GetTotalAsync();
+            OnPropertyChanged(nameof(GrandTotal));
         }
 
         private async Task PlaceOrder()
@@ -100,8 +109,43 @@ namespace RestaurantApp.ViewModels
                 return;
             }
 
-            // TODO: Implementare plasare comandă
-            MessageBox.Show("Funcționalitatea de plasare comandă va fi implementată în curând!", "Informație", MessageBoxButton.OK, MessageBoxImage.Information);
+            try
+            {
+                // Convertim CartItems în OrderDetails
+                var orderDetails = CartItems.Select(item => new OrderDetail
+                {
+                    ProductId = item.Product.ProductId,
+                    Quantity = item.Quantity,
+                    UnitPrice = item.Product.Price,
+                    TotalPrice = item.TotalPrice
+                }).ToList();
+
+                // Creăm comanda
+                var order = await _orderService.CreateOrderAsync(1, orderDetails); // Temporar hardcodat userId = 1
+
+                if (order != null)
+                {
+                    // Actualizăm statusul comenzii la "în curs de livrare"
+                    await _orderService.UpdateOrderStatusAsync(order.OrderId, "în curs de livrare");
+
+                    // Golim coșul
+                    await _cartService.ClearCartAsync();
+                    await LoadCart();
+
+                    MessageBox.Show($"Comanda a fost plasată cu succes!\nCod comandă: {order.OrderCode}", 
+                        "Succes", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    MessageBox.Show("A apărut o eroare la plasarea comenzii.", 
+                        "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show($"A apărut o eroare: {ex.Message}\n{ex.InnerException?.Message}", 
+                    "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 } 

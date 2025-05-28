@@ -7,6 +7,8 @@ using System.Windows.Input;
 using System.Windows;
 using RestaurantApp.Views;
 using System.Linq;
+using RestaurantApp.Extensions;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace RestaurantApp.ViewModels
 {
@@ -265,8 +267,7 @@ namespace RestaurantApp.ViewModels
 
         private void OpenCart()
         {
-            var cartWindow = new CartWindow();
-            cartWindow.Show();
+            OpenCartWindow();
         }
 
         private void OpenAccount()
@@ -319,6 +320,15 @@ namespace RestaurantApp.ViewModels
                     }
                 }
             }
+        }
+
+        private void OpenCartWindow()
+        {
+            var app = (App)Application.Current;
+            var cartService = app.Services.GetRequiredService<ICartService>();
+            var orderService = app.Services.GetRequiredService<IOrderService>();
+            var cartWindow = new CartWindow(cartService, orderService);
+            cartWindow.Show();
         }
     }
 } 

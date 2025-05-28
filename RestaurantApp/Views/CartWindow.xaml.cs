@@ -7,11 +7,10 @@ namespace RestaurantApp.Views
 {
     public partial class CartWindow : Window
     {
-        public CartWindow()
+        public CartWindow(ICartService cartService, IOrderService orderService)
         {
             InitializeComponent();
-            var cartService = ((App)Application.Current).GetService(typeof(ICartService)) as ICartService;
-            DataContext = new CartViewModel(cartService);
+            DataContext = new CartViewModel(cartService, orderService);
         }
     }
 } 

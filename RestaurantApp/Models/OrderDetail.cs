@@ -29,5 +29,8 @@ namespace RestaurantApp.Models
         [Required]
         [Column(TypeName = "decimal(10,2)")]
         public decimal TotalPrice { get; set; }
+
+        public int? ProductId { get; set; }
+        public virtual Product Product { get; set; }
     }
 } 
