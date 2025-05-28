@@ -29,6 +29,7 @@ namespace RestaurantApp.Views
             var categoryService = _serviceProvider.GetService(typeof(ICategoryService)) as ICategoryService;
             var productService = _serviceProvider.GetService(typeof(IProductService)) as IProductService;
             var cartService = _serviceProvider.GetService(typeof(ICartService)) as ICartService;
+            var allergenService = _serviceProvider.GetService(typeof(IAllergenService)) as IAllergenService;
 
             if (dishService == null)
             {
@@ -46,9 +47,13 @@ namespace RestaurantApp.Views
             {
                 throw new InvalidOperationException("ICartService is not registered in the service provider.");
             }
-
+            if (allergenService == null)
+            {
+                throw new InvalidOperationException("IAllergenService is not registered in the service provider.");
+            }
+    
             // Pass all required services to the MenuViewModel constructor
-            var menuViewModel = new MenuViewModel(dishService, categoryService, productService, cartService);
+            var menuViewModel = new MenuViewModel(dishService, categoryService, productService, cartService, allergenService);
             var mainWindow = new MainWindow(menuViewModel, _serviceProvider);
             mainWindow.Show();
             Close();

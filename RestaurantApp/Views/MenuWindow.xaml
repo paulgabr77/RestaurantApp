@@ -87,7 +87,8 @@
             <!-- Filtre și căutare -->
             <Grid Grid.Row="0" Margin="0,0,0,20">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="300"/>
+                    <ColumnDefinition Width="250"/>
+                    <ColumnDefinition Width="200"/>
                     <ColumnDefinition Width="200"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
@@ -105,7 +106,15 @@
                           Style="{StaticResource MaterialDesignOutlinedComboBox}"
                           materialDesign:HintAssist.Hint="Selectează categorie"/>
 
-                <Button Grid.Column="2"
+                <ComboBox Grid.Column="2"
+                          Margin="16,0"
+                          ItemsSource="{Binding Allergens}"
+                          DisplayMemberPath="Name"
+                          SelectedItem="{Binding SelectedAllergen}"
+                          Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                          materialDesign:HintAssist.Hint="Selectează alergen"/>
+
+                <Button Grid.Column="3"
                         Content="Caută" 
                         Command="{Binding SearchCommand}" 
                         Width="100"
@@ -176,7 +185,7 @@
                                                       RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                                             CommandParameter="{Binding}"
                                             Content="Adaugă în coș"
-                                            Padding="20,10"
+                                            Padding="20,15"
                                             Background="#FF1E88E5"
                                             Foreground="White"
                                             BorderThickness="0"

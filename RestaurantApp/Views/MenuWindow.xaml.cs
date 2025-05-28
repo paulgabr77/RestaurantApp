@@ -20,7 +20,8 @@ namespace RestaurantApp.Views
                 serviceProvider.GetService<IDishService>(),
                 serviceProvider.GetService<ICategoryService>(),
                 serviceProvider.GetService<IProductService>(),
-                serviceProvider.GetService<ICartService>()
+                serviceProvider.GetService<ICartService>(),
+                serviceProvider.GetService<IAllergenService>()
             );
         }
     }

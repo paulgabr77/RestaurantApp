@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
 using RestaurantApp.Views;
+using System.Linq;
 
 namespace RestaurantApp.ViewModels
 {
@@ -15,20 +16,30 @@ namespace RestaurantApp.ViewModels
         private readonly ICategoryService _categoryService;
         private readonly IProductService _productService;
         private readonly ICartService _cartService;
+        private readonly IAllergenService _allergenService;
         private ObservableCollection<Category> _categories;
         private ObservableCollection<Dish> _dishes;
         private ObservableCollection<Product> _products;
+        private ObservableCollection<Allergen> _allergens;
         private string _searchTerm;
         private Category _selectedCategory;
+        private Allergen _selectedAllergen;
         private Dish _selectedDish;
         private bool _isAuthenticated;
 
-        public MenuViewModel(IDishService dishService, ICategoryService categoryService, IProductService productService, ICartService cartService)
+        public MenuViewModel(
+            IDishService dishService, 
+            ICategoryService categoryService, 
+            IProductService productService, 
+            ICartService cartService,
+            IAllergenService allergenService)
         {
             _dishService = dishService;
             _categoryService = categoryService;
             _productService = productService;
             _cartService = cartService;
+            _allergenService = allergenService;
+
             LoadDataCommand = new RelayCommand(async () => await LoadData());
             SearchCommand = new RelayCommand(async () => await Search());
             AddDishCommand = new RelayCommand(AddDish);
@@ -45,11 +56,45 @@ namespace RestaurantApp.ViewModels
             DeleteProductCommand = new RelayCommand<Product>(DeleteProduct);
             
             Products = new ObservableCollection<Product>();
+            Allergens = new ObservableCollection<Allergen>();
             
-            // Încărcare produse
-            LoadProducts();
+            // Încărcare inițială a datelor
+            _ = InitializeDataAsync();
+        }
 
-            _ = LoadData();
+        private async Task InitializeDataAsync()
+        {
+            try
+            {
+                // Încărcăm datele secvențial pentru a evita probleme de concurență
+                await LoadData();
+                await LoadProductsAsync();
+                await LoadAllergensAsync();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Eroare la încărcarea datelor: {ex.Message}", "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private async Task LoadProductsAsync()
+        {
+            var products = await _productService.GetAllProductsAsync();
+            Products.Clear();
+            foreach (var product in products)
+            {
+                Products.Add(product);
+            }
+        }
+
+        private async Task LoadAllergensAsync()
+        {
+            var allergens = await _allergenService.GetAllAllergensAsync();
+            Allergens.Clear();
+            foreach (var allergen in allergens)
+            {
+                Allergens.Add(allergen);
+            }
         }
 
         public ObservableCollection<Category> Categories
@@ -70,10 +115,22 @@ namespace RestaurantApp.ViewModels
             set => SetProperty(ref _products, value);
         }
 
+        public ObservableCollection<Allergen> Allergens
+        {
+            get => _allergens;
+            set => SetProperty(ref _allergens, value);
+        }
+
         public string SearchTerm
         {
             get => _searchTerm;
-            set => SetProperty(ref _searchTerm, value);
+            set
+            {
+                if (SetProperty(ref _searchTerm, value))
+                {
+                    _ = Search();
+                }
+            }
         }
 
         public Category SelectedCategory
@@ -83,7 +140,19 @@ namespace RestaurantApp.ViewModels
             {
                 if (SetProperty(ref _selectedCategory, value))
                 {
-                    LoadDishesByCategory();
+                    _ = Search();
+                }
+            }
+        }
+
+        public Allergen SelectedAllergen
+        {
+            get => _selectedAllergen;
+            set
+            {
+                if (SetProperty(ref _selectedAllergen, value))
+                {
+                    _ = Search();
                 }
             }
         }
@@ -132,14 +201,41 @@ namespace RestaurantApp.ViewModels
 
         private async Task Search()
         {
-            await LoadData();
-            if (!string.IsNullOrWhiteSpace(SearchTerm))
+            try
             {
-                foreach (var category in Categories)
+                var products = await _productService.GetAllProductsAsync();
+                var filteredProducts = products.AsQueryable();
+
+                // Filtrare după nume
+                if (!string.IsNullOrWhiteSpace(SearchTerm))
                 {
-                    category.Dishes = category.Dishes?.Where(d => d.Name.Contains(SearchTerm)).ToList();
-                    category.Menus = category.Menus?.Where(m => m.Name.Contains(SearchTerm)).ToList();
+                    filteredProducts = filteredProducts.Where(p => 
+                        p.Name.ToLower().Contains(SearchTerm.ToLower()));
                 }
+
+                // Filtrare după categorie
+                if (SelectedCategory != null)
+                {
+                    filteredProducts = filteredProducts.Where(p => 
+                        p.CategoryId == SelectedCategory.CategoryId);
+                }
+
+                // Filtrare după alergen
+                if (SelectedAllergen != null)
+                {
+                    filteredProducts = filteredProducts.Where(p => 
+                        p.Allergens.Any(a => a.AllergenId == SelectedAllergen.AllergenId));
+                }
+
+                Products.Clear();
+                foreach (var product in filteredProducts)
+                {
+                    Products.Add(product);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Eroare la căutare: {ex.Message}", "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -183,17 +279,7 @@ namespace RestaurantApp.ViewModels
         {
             var addProductWindow = new AddProductWindow();
             addProductWindow.ShowDialog();
-            LoadData(); // Reîncarcă datele după adăugarea produsului
-        }
-
-        private async void LoadProducts()
-        {
-            var products = await _productService.GetAllProductsAsync();
-            Products.Clear();
-            foreach (var product in products)
-            {
-                Products.Add(product);
-            }
+            _ = InitializeDataAsync(); // Reîncarcă datele după adăugarea produsului
         }
 
         private async void AddToCart(Product product)
@@ -209,9 +295,9 @@ namespace RestaurantApp.ViewModels
         {
             if (product != null)
             {
-                var editWindow = new RestaurantApp.Views.AddProductWindow(product); // presupunem că AddProductWindow acceptă un produs pentru editare
+                var editWindow = new RestaurantApp.Views.AddProductWindow(product);
                 editWindow.ShowDialog();
-                LoadProducts(); // reîncarcă lista după editare
+                _ = InitializeDataAsync(); // reîncarcă lista după editare
             }
         }
 
@@ -222,8 +308,15 @@ namespace RestaurantApp.ViewModels
                 var result = MessageBox.Show($"Sigur vrei să ștergi produsul '{product.Name}'?", "Confirmare ștergere", MessageBoxButton.YesNo, MessageBoxImage.Warning);
                 if (result == MessageBoxResult.Yes)
                 {
-                    await _productService.DeleteProductAsync(product.ProductId);
-                    LoadProducts();
+                    try
+                    {
+                        await _productService.DeleteProductAsync(product.ProductId);
+                        await InitializeDataAsync();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Eroare la ștergerea produsului: {ex.Message}", "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
             }
         }
