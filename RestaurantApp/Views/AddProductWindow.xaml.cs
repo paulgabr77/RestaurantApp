@@ -1,7 +1,7 @@
 using System.Windows;
-using Microsoft.Extensions.DependencyInjection;
 using RestaurantApp.ViewModels;
 using RestaurantApp.Services;
+using RestaurantApp.Extensions;
 using RestaurantApp.Models;
 
 namespace RestaurantApp.Views
@@ -11,33 +11,19 @@ namespace RestaurantApp.Views
         public AddProductWindow()
         {
             InitializeComponent();
-            var serviceProvider = (App.Current as App)?.Services;
-            if (serviceProvider == null)
-            {
-                throw new InvalidOperationException("Service provider is not initialized.");
-            }
-
-            DataContext = new AddProductViewModel(
-                serviceProvider.GetService<IProductService>(),
-                serviceProvider.GetService<ICategoryService>(),
-                serviceProvider.GetService<IAllergenService>()
-            );
+            var productService = ((App)Application.Current).GetService(typeof(IProductService)) as IProductService;
+            var categoryService = ((App)Application.Current).GetService(typeof(ICategoryService)) as ICategoryService;
+            var allergenService = ((App)Application.Current).GetService(typeof(IAllergenService)) as IAllergenService;
+            DataContext = new AddProductViewModel(productService, categoryService, allergenService);
         }
 
         public AddProductWindow(Product product)
         {
             InitializeComponent();
-            var serviceProvider = (App.Current as App)?.Services;
-            if (serviceProvider == null)
-            {
-                throw new InvalidOperationException("Service provider is not initialized.");
-            }
-            DataContext = new AddProductViewModel(
-                serviceProvider.GetService<IProductService>(),
-                serviceProvider.GetService<ICategoryService>(),
-                serviceProvider.GetService<IAllergenService>(),
-                product
-            );
+            var productService = ((App)Application.Current).GetService(typeof(IProductService)) as IProductService;
+            var categoryService = ((App)Application.Current).GetService(typeof(ICategoryService)) as ICategoryService;
+            var allergenService = ((App)Application.Current).GetService(typeof(IAllergenService)) as IAllergenService;
+            DataContext = new AddProductViewModel(productService, categoryService, allergenService, product);
         }
     }
 } 

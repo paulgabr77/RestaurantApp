@@ -11,8 +11,8 @@ namespace RestaurantApp.Views
         public MainWindow(MenuViewModel viewModel, IServiceProvider serviceProvider)
         {
             InitializeComponent();
-            DataContext = viewModel;
             _serviceProvider = serviceProvider;
+            DataContext = viewModel;
         }
 
         private void OpenAccount_Click(object sender, RoutedEventArgs e)

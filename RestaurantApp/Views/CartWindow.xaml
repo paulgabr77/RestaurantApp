@@ -32,10 +32,10 @@
                   materialDesign:DataGridAssist.CellPadding="13 8 8 8"
                   materialDesign:DataGridAssist.ColumnHeaderPadding="8">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Produs" Binding="{Binding Name}" Width="*"/>
-                <DataGridTextColumn Header="Preț" Binding="{Binding Price, StringFormat={}{0:C}}" Width="100"/>
+                <DataGridTextColumn Header="Produs" Binding="{Binding Product.Name}" Width="*"/>
+                <DataGridTextColumn Header="Preț" Binding="{Binding Product.Price, StringFormat={}{0:C}}" Width="100"/>
                 <DataGridTextColumn Header="Cantitate" Binding="{Binding Quantity}" Width="100"/>
-                <DataGridTextColumn Header="Total" Binding="{Binding Total, StringFormat={}{0:C}}" Width="100"/>
+                <DataGridTextColumn Header="Total" Binding="{Binding TotalPrice, StringFormat={}{0:C}}" Width="100"/>
                 <DataGridTemplateColumn Header="Acțiuni" Width="120">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

@@ -1,4 +1,5 @@
 using RestaurantApp.Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace RestaurantApp.Services
@@ -10,5 +11,6 @@ namespace RestaurantApp.Services
         Task<bool> UpdateQuantityAsync(int productId, int quantity);
         Task<decimal> GetTotalAsync();
         Task ClearCartAsync();
+        Task<IEnumerable<CartItem>> GetCartItemsAsync();
     }
 } 

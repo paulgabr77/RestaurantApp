@@ -8,24 +8,19 @@ using RestaurantApp.Data;
 using RestaurantApp.Services;
 using RestaurantApp.ViewModels;
 using RestaurantApp.Views;
+using RestaurantApp.Extensions;
+using System;
 
 namespace RestaurantApp
 {
-    public partial class App : Application
+    public partial class App : System.Windows.Application
     {
-        private ServiceProvider _serviceProvider;
+        private IServiceProvider _serviceProvider;
 
-        public ServiceProvider Services => _serviceProvider;
-
-        public App()
+        private IServiceProvider ConfigureServices()
         {
             var services = new ServiceCollection();
-            ConfigureServices(services);
-            _serviceProvider = services.BuildServiceProvider();
-        }
 
-        private void ConfigureServices(IServiceCollection services)
-        {
             // Configurare
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
@@ -38,64 +33,49 @@ namespace RestaurantApp
                 options.UseSqlServer("Server=LAPTOP-5K3GC6BJ;Database=RestaurantDB;Trusted_Connection=True;TrustServerCertificate=True;Encrypt=False");
             });
 
-            // Services
-            services.AddScoped<IOrderService, OrderService>();
-            services.AddScoped<IReportService, ReportService>();
-            services.AddScoped<IStockService, StockService>();
-            services.AddScoped<IDiscountService, DiscountService>();
-            services.AddScoped<IDeliveryService, DeliveryService>();
-            services.AddScoped<IDishService, DishService>();
-            services.AddScoped<ICategoryService, CategoryService>();
+            // Repositories
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-            services.AddScoped<IAuthService, AuthService>();
-            services.AddScoped<IAllergenService, AllergenService>();
 
-            // Register your services here
+            // Services
+            services.AddSingleton<ICartService, CartService>();
             services.AddSingleton<IDishService, DishService>();
             services.AddSingleton<ICategoryService, CategoryService>();
             services.AddSingleton<IProductService, ProductService>();
-            services.AddSingleton<ICartService, CartService>();
+            services.AddSingleton<IAllergenService, AllergenService>();
+            services.AddSingleton<IOrderService, OrderService>();
+            services.AddSingleton<IStockService, StockService>();
+            services.AddSingleton<IDiscountService, DiscountService>();
+            services.AddSingleton<IDeliveryService, DeliveryService>();
+            services.AddSingleton<IAuthService, AuthService>();
 
             // ViewModels
-            services.AddTransient<MainViewModel>();
-            services.AddTransient<OrderViewModel>();
-            services.AddTransient<ReportViewModel>();
-            services.AddTransient<StockViewModel>();
-            services.AddTransient<DiscountViewModel>();
-            services.AddTransient<DeliveryViewModel>();
             services.AddTransient<MenuViewModel>();
+            services.AddTransient<OrderViewModel>();
+            services.AddTransient<CartViewModel>();
+            services.AddTransient<AddProductViewModel>();
             services.AddTransient<AuthViewModel>();
 
             // Views
             services.AddTransient<MainWindow>();
-            services.AddTransient<OrderWindow>();
-            services.AddTransient<ReportWindow>();
-            services.AddTransient<StockWindow>();
-            services.AddTransient<DiscountWindow>();
-            services.AddTransient<DeliveryWindow>();
+            services.AddTransient<MenuWindow>();
+            services.AddTransient<CartWindow>();
+            services.AddTransient<AddProductWindow>();
             services.AddTransient<AuthWindow>();
 
-            // ServiceProvider
-            services.AddSingleton<IServiceProvider>(sp => sp);
+            return services.BuildServiceProvider();
         }
 
-        protected override async void OnStartup(StartupEventArgs e)
+        protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
 
-            var serviceCollection = new ServiceCollection();
-            ConfigureServices(serviceCollection);
-            _serviceProvider = serviceCollection.BuildServiceProvider();
+            _serviceProvider = ConfigureServices();
+            this.ConfigureServices(_serviceProvider);
 
-            // Inițializează baza de date
-            using (var scope = _serviceProvider.CreateScope())
-            {
-                var context = scope.ServiceProvider.GetRequiredService<RestaurantDbContext>();
-                await DbInitializer.Initialize(context);
-            }
-
-            var authWindow = _serviceProvider.GetService<AuthWindow>();
+            var authWindow = _serviceProvider.GetRequiredService<AuthWindow>();
             authWindow.Show();
         }
+
+        public IServiceProvider Services => _serviceProvider;
     }
 } 

@@ -1,7 +1,7 @@
 using System.Windows;
-using Microsoft.Extensions.DependencyInjection; // Add this using directive
 using RestaurantApp.ViewModels;
-using RestaurantApp.Services; // Ensure this namespace is included for IProductService and other services
+using RestaurantApp.Services;
+using RestaurantApp.Extensions;
 
 namespace RestaurantApp.Views
 {
@@ -10,19 +10,12 @@ namespace RestaurantApp.Views
         public MenuWindow()
         {
             InitializeComponent();
-            var serviceProvider = (App.Current as App)?.Services; // Cast App.Current to your custom App class
-            if (serviceProvider == null)
-            {
-                throw new InvalidOperationException("Service provider is not initialized.");
-            }
-
-            DataContext = new MenuViewModel(
-                serviceProvider.GetService<IDishService>(),
-                serviceProvider.GetService<ICategoryService>(),
-                serviceProvider.GetService<IProductService>(),
-                serviceProvider.GetService<ICartService>(),
-                serviceProvider.GetService<IAllergenService>()
-            );
+            var dishService = ((App)Application.Current).GetService(typeof(IDishService)) as IDishService;
+            var categoryService = ((App)Application.Current).GetService(typeof(ICategoryService)) as ICategoryService;
+            var productService = ((App)Application.Current).GetService(typeof(IProductService)) as IProductService;
+            var cartService = ((App)Application.Current).GetService(typeof(ICartService)) as ICartService;
+            var allergenService = ((App)Application.Current).GetService(typeof(IAllergenService)) as IAllergenService;
+            DataContext = new MenuViewModel(dishService, categoryService, productService, cartService, allergenService);
         }
     }
 } 
