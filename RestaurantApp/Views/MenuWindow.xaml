@@ -136,12 +136,12 @@
                                             Height="200" 
                                             CornerRadius="10"
                                             Background="#FFF5F5F5">
-                                        <Image Source="{Binding ImageUrl}" 
+                                        <Image Source="{Binding ImageFullPath}" 
                                                Stretch="UniformToFill"/>
                                         <Border.Style>
                                             <Style TargetType="Border">
                                                 <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding ImageUrl}" Value="{x:Null}">
+                                                    <DataTrigger Binding="{Binding ImageFullPath}" Value="{x:Null}">
                                                         <Setter Property="Background" Value="#FFE0E0E0"/>
                                                     </DataTrigger>
                                                 </Style.Triggers>
