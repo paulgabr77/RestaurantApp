@@ -157,8 +157,10 @@
                                                  FontSize="20"
                                                  FontWeight="Bold"
                                                  Margin="0,0,0,10"/>
-                                        
-                                        <TextBlock Text="{Binding Allergens, StringFormat='Alergeni: {0}'}"
+                                        <TextBlock Text="{Binding Weight, StringFormat='Gramaj: {0}g'}" Foreground="#FF666666" Margin="0,0,0,2"/>
+                                        <TextBlock Text="{Binding Category.Name, StringFormat='Categorie: {0}'}" Foreground="#FF666666" Margin="0,0,0,2"/>
+                                        <TextBlock Text="{Binding Ingredients, StringFormat='Ingrediente: {0}'}" Foreground="#FF666666" Margin="0,0,0,10"/>
+                                        <TextBlock Text="{Binding AllergensDisplay, StringFormat='Alergeni: {0}'}"
                                                  Foreground="#FF666666"
                                                  Margin="0,0,0,10"/>
                                         

@@ -40,6 +40,7 @@ namespace RestaurantApp.ViewModels
             OpenCartCommand = new RelayCommand(OpenCart);
             OpenAccountCommand = new RelayCommand(OpenAccount);
             AddProductCommand = new RelayCommand(OpenAddProduct);
+            AddToCartCommand = new RelayCommand<Product>(AddToCart);
             
             Products = new ObservableCollection<Product>();
             
@@ -102,6 +103,7 @@ namespace RestaurantApp.ViewModels
         public ICommand OpenCartCommand { get; }
         public ICommand OpenAccountCommand { get; }
         public ICommand AddProductCommand { get; }
+        public ICommand AddToCartCommand { get; }
 
         public bool IsAuthenticated
         {

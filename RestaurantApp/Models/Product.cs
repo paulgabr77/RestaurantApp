@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace RestaurantApp.Models
 {
@@ -36,5 +37,9 @@ namespace RestaurantApp.Models
         {
             Allergens = new HashSet<Allergen>();
         }
+
+        public string AllergensDisplay => Allergens != null && Allergens.Any() 
+            ? string.Join(", ", Allergens.Select(a => a.Name)) 
+            : "Fără alergeni";
     }
 } 

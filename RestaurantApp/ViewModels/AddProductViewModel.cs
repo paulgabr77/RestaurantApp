@@ -351,14 +351,17 @@ namespace RestaurantApp.ViewModels
                     Ingredients = Ingredients ?? ""
                 };
 
-                // Adăugăm alergenii existenți
                 foreach (var allergenViewModel in SelectedAllergens)
                 {
-                    var existingAllergen = ExistingAllergens.FirstOrDefault(a => 
+                    var existingAllergen = ExistingAllergens.FirstOrDefault(a =>
                         a.Name.Equals(allergenViewModel.Name, StringComparison.OrdinalIgnoreCase));
-                    
                     if (existingAllergen != null)
                     {
+                        var dbContext = (_productService as ProductService)?.Context;
+                        if (dbContext != null && dbContext.Entry(existingAllergen).State == Microsoft.EntityFrameworkCore.EntityState.Detached)
+                        {
+                            dbContext.Allergens.Attach(existingAllergen);
+                        }
                         product.Allergens.Add(existingAllergen);
                     }
                 }

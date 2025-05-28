@@ -12,6 +12,9 @@ namespace RestaurantApp.Services
     {
         private readonly RestaurantDbContext _context;
 
+        // Add a public property to expose the context in a controlled manner
+        public RestaurantDbContext Context => _context;
+
         public ProductService(RestaurantDbContext context)
         {
             _context = context;
@@ -20,6 +23,8 @@ namespace RestaurantApp.Services
         public async Task<IEnumerable<Product>> GetAllProductsAsync()
         {
             return await _context.Products
+                .Include(p => p.Allergens)
+                .Include(p => p.Category)
                 .AsNoTracking()
                 .OrderBy(p => p.Name)
                 .ToListAsync();
