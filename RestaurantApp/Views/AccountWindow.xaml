@@ -24,7 +24,7 @@
                    Style="{StaticResource MaterialDesignHeadline5TextBlock}"
                    Margin="0,0,0,16"/>
 
-        <!-- Conținut principal -->
+        <!-- Continut principal -->
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="250"/>
@@ -57,7 +57,7 @@
                             Margin="8">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="Settings" Margin="0,0,8,0"/>
-                            <TextBlock Text="Preferințe"/>
+                            <TextBlock Text="Preferinte"/>
                         </StackPanel>
                     </Button>
 
@@ -74,7 +74,7 @@
                 </StackPanel>
             </materialDesign:Card>
 
-            <!-- Conținut secțiune -->
+            <!-- Continut sectiune -->
             <materialDesign:Card Grid.Column="1">
                 <Grid Margin="16">
                     <!-- Profil -->
@@ -88,7 +88,7 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <TextBlock Text="Informații personale"
+                        <TextBlock Text="Informatii personale"
                                    Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                                    Margin="0,0,0,16"/>
 
@@ -124,7 +124,7 @@
                                 Margin="0,16,0,0">
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="ContentSave" Margin="0,0,8,0"/>
-                                <TextBlock Text="Salvează modificările"/>
+                                <TextBlock Text="Salveaza modificarile"/>
                             </StackPanel>
                         </Button>
                     </Grid>
@@ -144,17 +144,17 @@
                                    Margin="0,0,0,16"/>
 
                         <PasswordBox Grid.Row="1"
-                                    materialDesign:HintAssist.Hint="Parola actuală"
+                                    materialDesign:HintAssist.Hint="Parola actuala"
                                     Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
                                     Margin="0,8"/>
 
                         <PasswordBox Grid.Row="2"
-                                    materialDesign:HintAssist.Hint="Parola nouă"
+                                    materialDesign:HintAssist.Hint="Parola noua"
                                     Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
                                     Margin="0,8"/>
 
                         <PasswordBox Grid.Row="3"
-                                    materialDesign:HintAssist.Hint="Confirmă parola nouă"
+                                    materialDesign:HintAssist.Hint="Confirma parola noua"
                                     Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
                                     Margin="0,8"/>
 
@@ -166,12 +166,12 @@
                                 Margin="0,16,0,0">
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="LockReset" Margin="0,0,8,0"/>
-                                <TextBlock Text="Schimbă parola"/>
+                                <TextBlock Text="Schimba parola"/>
                             </StackPanel>
                         </Button>
                     </Grid>
 
-                    <!-- Preferințe -->
+                    <!-- Preferinte -->
                     <Grid Visibility="{Binding IsPreferencesVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
@@ -180,17 +180,17 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <TextBlock Text="Preferințe"
+                        <TextBlock Text="Preferinte"
                                    Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                                    Margin="0,0,0,16"/>
 
                         <CheckBox Grid.Row="1"
-                                  Content="Primește notificări despre comenzi"
+                                  Content="Primeste notificari despre comenzi"
                                   IsChecked="{Binding NotificationsEnabled}"
                                   Margin="0,8"/>
 
                         <CheckBox Grid.Row="2"
-                                  Content="Primește newsletter"
+                                  Content="Primeste newsletter"
                                   IsChecked="{Binding NewsletterEnabled}"
                                   Margin="0,8"/>
 
@@ -202,7 +202,7 @@
                                 Margin="0,16,0,0">
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="ContentSave" Margin="0,0,8,0"/>
-                                <TextBlock Text="Salvează preferințele"/>
+                                <TextBlock Text="Salveaza preferintele"/>
                             </StackPanel>
                         </Button>
                     </Grid>

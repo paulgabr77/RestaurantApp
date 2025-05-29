@@ -245,7 +245,7 @@ namespace RestaurantApp.ViewModels
 
         private void AddDish()
         {
-            MessageBox.Show("Funcționalitatea de adăugare preparat nu este implementată încă.");
+            MessageBox.Show("Functionalitatea de adaugare preparat nu este implementata inca.");
         }
 
         // Metode pentru comenzile de meniu
@@ -270,7 +270,7 @@ namespace RestaurantApp.ViewModels
             var user = AuthViewModel.CurrentUserStatic;
             if (user == null || !user.IsEmployee)
             {
-                MessageBox.Show("Nu puteți accesa această funcție, nu sunteți angajat!", "Acces interzis", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Nu puteti accesa aceasta functie, nu sunteti angajat!", "Acces interzis", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             var reportsWindow = new ReportsWindow();
@@ -293,12 +293,12 @@ namespace RestaurantApp.ViewModels
             var user = AuthViewModel.CurrentUserStatic;
             if (user == null || !user.IsEmployee)
             {
-                MessageBox.Show("Nu puteți accesa această funcție, nu sunteți angajat!", "Acces interzis", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Nu puteti accesa aceasta functie, nu sunteti angajat!", "Acces interzis", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             var addProductWindow = new AddProductWindow();
             addProductWindow.ShowDialog();
-            _ = InitializeDataAsync(); // Reîncarcă datele după adăugarea produsului
+            _ = InitializeDataAsync();
         }
 
         private async void AddToCart(Product product)
@@ -324,7 +324,7 @@ namespace RestaurantApp.ViewModels
         {
             if (product != null)
             {
-                var result = MessageBox.Show($"Sigur vrei să ștergi produsul '{product.Name}'?", "Confirmare ștergere", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                var result = MessageBox.Show($"Sigur vrei sa stergi produsul '{product.Name}'?", "Confirmare stergere", MessageBoxButton.YesNo, MessageBoxImage.Warning);
                 if (result == MessageBoxResult.Yes)
                 {
                     try
@@ -334,7 +334,7 @@ namespace RestaurantApp.ViewModels
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show($"Eroare la ștergerea produsului: {ex.Message}", "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show($"Eroare la stergerea produsului: {ex.Message}", "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
             }
@@ -354,10 +354,9 @@ namespace RestaurantApp.ViewModels
             var user = AuthViewModel.CurrentUserStatic;
             if (user == null || !user.IsEmployee)
             {
-                MessageBox.Show("Nu puteți accesa această funcție, nu sunteți angajat!", "Acces interzis", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Nu puteti accesa aceasta functie, nu sunteti angajat!", "Acces interzis", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-
             var app = (App)Application.Current;
             var stockService = app.Services.GetRequiredService<IStockService>();
             var stockViewModel = new StockViewModel(stockService);

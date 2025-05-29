@@ -40,7 +40,7 @@ namespace RestaurantApp.Models
 
         public string AllergensDisplay => Allergens != null && Allergens.Any() 
             ? string.Join(", ", Allergens.Select(a => a.Name)) 
-            : "Fără alergeni";
+            : "Fara alergeni";
 
         public string ImageFullPath => !string.IsNullOrEmpty(ImageUrl) ? System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ImageUrl.TrimStart('/', '\\')) : null;
     }

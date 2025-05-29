@@ -21,7 +21,7 @@
         </Grid.RowDefinitions>
 
         <!-- Header -->
-        <TextBlock Text="Rapoarte și Statistici"
+        <TextBlock Text="Rapoarte si Statistici"
                    Style="{StaticResource MaterialDesignHeadline5TextBlock}"
                    Margin="0,0,0,16"/>
 
@@ -42,7 +42,7 @@
             <ComboBox Grid.Column="1"
                       ItemsSource="{Binding TimePeriods}"
                       SelectedItem="{Binding SelectedTimePeriod}"
-                      materialDesign:HintAssist.Hint="Selectează perioada"/>
+                      materialDesign:HintAssist.Hint="Selecteaza perioada"/>
 
             <TextBlock Grid.Column="2"
                        Text="Tip raport:"
@@ -52,7 +52,7 @@
             <ComboBox Grid.Column="3"
                       ItemsSource="{Binding ReportTypes}"
                       SelectedItem="{Binding SelectedReportType}"
-                      materialDesign:HintAssist.Hint="Selectează tipul raportului"/>
+                      materialDesign:HintAssist.Hint="Selecteaza tipul raportului"/>
 
             <Button Grid.Column="4"
                     Style="{StaticResource MaterialDesignRaisedButton}"
@@ -60,7 +60,7 @@
                     HorizontalAlignment="Right">
                 <StackPanel Orientation="Horizontal">
                     <materialDesign:PackIcon Kind="Refresh" Margin="0,0,8,0"/>
-                    <TextBlock Text="Generează raport"/>
+                    <TextBlock Text="Genereaza raport"/>
                 </StackPanel>
             </Button>
         </Grid>
@@ -83,7 +83,7 @@
 
                 <materialDesign:Card Grid.Column="0" Margin="8" Padding="16">
                     <StackPanel>
-                        <TextBlock Text="Total Vânzări"
+                        <TextBlock Text="Total Vanzari"
                                    Style="{StaticResource MaterialDesignBody1TextBlock}"/>
                         <TextBlock Text="{Binding TotalSales, StringFormat={}{0:C}}"
                                    Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
@@ -92,7 +92,7 @@
 
                 <materialDesign:Card Grid.Column="1" Margin="8" Padding="16">
                     <StackPanel>
-                        <TextBlock Text="Număr Comenzi"
+                        <TextBlock Text="Numar Comenzi"
                                    Style="{StaticResource MaterialDesignBody1TextBlock}"/>
                         <TextBlock Text="{Binding TotalOrders}"
                                    Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
@@ -101,7 +101,7 @@
 
                 <materialDesign:Card Grid.Column="2" Margin="8" Padding="16">
                     <StackPanel>
-                        <TextBlock Text="Valoare Medie Comandă"
+                        <TextBlock Text="Valoare Medie Comanda"
                                    Style="{StaticResource MaterialDesignBody1TextBlock}"/>
                         <TextBlock Text="{Binding AverageOrderValue, StringFormat={}{0:C}}"
                                    Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
@@ -110,7 +110,7 @@
 
                 <materialDesign:Card Grid.Column="3" Margin="8" Padding="16">
                     <StackPanel>
-                        <TextBlock Text="Produse Vândute"
+                        <TextBlock Text="Produse Vandute"
                                    Style="{StaticResource MaterialDesignBody1TextBlock}"/>
                         <TextBlock Text="{Binding TotalItemsSold}"
                                    Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
@@ -133,7 +133,7 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <TextBlock Text="Evoluție Vânzări"
+                        <TextBlock Text="Evolutie Vanzari"
                                    Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                                    Margin="0,0,0,16"/>
 
@@ -141,7 +141,7 @@
                         <Border Grid.Row="1" 
                                 BorderBrush="{DynamicResource MaterialDesignDivider}"
                                 BorderThickness="1">
-                            <TextBlock Text="Grafic va fi afișat aici"
+                            <TextBlock Text="Grafic va fi afisat aici"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"/>
                         </Border>
@@ -156,7 +156,7 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <TextBlock Text="Detalii Vânzări"
+                        <TextBlock Text="Detalii Vanzari"
                                    Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                                    Margin="0,0,0,16"/>
 

@@ -351,7 +351,7 @@ namespace RestaurantApp.ViewModels
             var dialog = new OpenFileDialog
             {
                 Filter = "Imagini|*.jpg;*.jpeg;*.png;*.gif;*.bmp",
-                Title = "Selectează imaginea produsului"
+                Title = "Selecteaza imaginea produsului"
             };
 
             if (dialog.ShowDialog() == true)
@@ -363,7 +363,7 @@ namespace RestaurantApp.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    ErrorMessage = "Eroare la încărcarea imaginii: " + ex.Message;
+                    ErrorMessage = "Eroare la incarcarea imaginii: " + ex.Message;
                 }
             }
         }
@@ -374,7 +374,7 @@ namespace RestaurantApp.ViewModels
             {
                 if (string.IsNullOrWhiteSpace(Name) || Weight <= 0 || Price <= 0 || SelectedCategory == null)
                 {
-                    ErrorMessage = "Vă rugăm completați toate câmpurile obligatorii (nume, gramaj, preț și categorie).";
+                    ErrorMessage = "Va rugam completati toate campurile obligatorii (nume, gramaj, pret si categorie).";
                     return;
                 }
 

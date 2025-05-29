@@ -52,7 +52,7 @@ namespace RestaurantApp.ViewModels
             LoginCommand = new RelayCommand(async () => await Login());
             RegisterCommand = new RelayCommand(async () => await Register());
             ToggleAuthModeCommand = new RelayCommand(() => IsRegistering = !IsRegistering);
-            SelectedRole = UserRoles[0]; // Setează rolul implicit la Client
+            SelectedRole = UserRoles[0]; // Seteaza rolul implicit la Client
         }
 
         public string Email
@@ -161,8 +161,7 @@ namespace RestaurantApp.ViewModels
             }
             catch (Exception ex)
             {
-                ErrorMessage = "A apărut o eroare la autentificare. Vă rugăm încercați din nou.";
-                // Log the exception
+                ErrorMessage = "A aparut o eroare la autentificare. Va rugam incercati din nou.";
             }
         }
 

@@ -205,7 +205,7 @@ namespace RestaurantApp.ViewModels
         private async Task DeleteOrder(Order order)
         {
             if (order == null) return;
-            var result = MessageBox.Show($"Sigur vrei să ștergi comanda {order.OrderCode}?", "Confirmare ștergere", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            var result = MessageBox.Show($"Sigur vrei sa stergi comanda {order.OrderCode}?", "Confirmare stergere", MessageBoxButton.YesNo, MessageBoxImage.Warning);
             if (result == MessageBoxResult.Yes)
             {
                 await _orderService.CancelOrderAsync(order.OrderId);
@@ -219,7 +219,7 @@ namespace RestaurantApp.ViewModels
             var user = AuthViewModel.CurrentUserStatic;
             if (user == null || !user.IsEmployee)
             {
-                MessageBox.Show("Nu puteți accesa această funcție, nu sunteți angajat!", "Acces interzis", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Nu puteti accesa aceasta functie, nu sunteti angajat!", "Acces interzis", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             await _orderService.UpdateOrderStatusAsync(order.OrderId, "finalizata");

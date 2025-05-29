@@ -40,7 +40,7 @@
                                                Foreground="White" 
                                                Width="24" 
                                                Height="24"/>
-                        <TextBlock Text="Adaugă Produs" 
+                        <TextBlock Text="Adauga Produs" 
                                  Foreground="White" 
                                  Margin="8,0,0,0" 
                                  VerticalAlignment="Center"/>
@@ -54,7 +54,7 @@
                                                Foreground="White" 
                                                Width="24" 
                                                Height="24"/>
-                        <TextBlock Text="Coș" 
+                        <TextBlock Text="Cos" 
                                  Foreground="White" 
                                  Margin="8,0,0,0" 
                                  VerticalAlignment="Center"/>
@@ -95,7 +95,7 @@
 
                 <TextBox Grid.Column="0"
                          Text="{Binding SearchTerm, UpdateSourceTrigger=PropertyChanged}"
-                         materialDesign:HintAssist.Hint="Caută produs..."
+                         materialDesign:HintAssist.Hint="Cauta produs..."
                          Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
 
                 <ComboBox Grid.Column="1"
@@ -104,7 +104,7 @@
                           DisplayMemberPath="Name"
                           SelectedItem="{Binding SelectedCategory}"
                           Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                          materialDesign:HintAssist.Hint="Selectează categorie"/>
+                          materialDesign:HintAssist.Hint="Selecteaza categorie"/>
 
                 <ComboBox Grid.Column="2"
                           Margin="16,0"
@@ -112,10 +112,10 @@
                           DisplayMemberPath="Name"
                           SelectedItem="{Binding SelectedAllergen}"
                           Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                          materialDesign:HintAssist.Hint="Selectează alergen"/>
+                          materialDesign:HintAssist.Hint="Selecteaza alergen"/>
 
                 <Button Grid.Column="3"
-                        Content="Caută" 
+                        Content="Cauta" 
                         Command="{Binding SearchCommand}" 
                         Width="100"
                         Style="{StaticResource MaterialDesignOutlinedButton}"/>
@@ -179,12 +179,12 @@
                                                  Foreground="#FF1E88E5"/>
                                     </StackPanel>
 
-                                    <!-- Buton adăugare în coș -->
+                                    <!-- Buton adaugare in cos -->
                                     <Button Grid.Column="2"
                                             Command="{Binding DataContext.AddToCartCommand, 
                                                       RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                                             CommandParameter="{Binding}"
-                                            Content="Adaugă în coș"
+                                            Content="Adauga in cos"
                                             Width="120"
                                             Height="40"
                                             Background="#FF1E88E5"
@@ -199,14 +199,14 @@
                                         </Button.Resources>
                                     </Button>
                                     <StackPanel Grid.Column="2" Orientation="Vertical" VerticalAlignment="Bottom" Margin="0,60,0,0">
-                                        <Button Content="Editează" 
+                                        <Button Content="Editeaza" 
                                                 Command="{Binding DataContext.EditProductCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                                                 CommandParameter="{Binding}"
                                                 Margin="0,0,0,5"
                                                 Background="#FFB300"
                                                 Foreground="White"
                                                 Style="{StaticResource MaterialDesignRaisedButton}"/>
-                                        <Button Content="Șterge" 
+                                        <Button Content="Sterge" 
                                                 Command="{Binding DataContext.DeleteProductCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                                                 CommandParameter="{Binding}"
                                                 Background="#E53935"

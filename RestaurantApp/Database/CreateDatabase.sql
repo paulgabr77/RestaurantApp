@@ -10,14 +10,12 @@ CREATE TABLE Categories (
     Description NVARCHAR(500)
 );
 
--- Tabela pentru Alergeni
 CREATE TABLE Allergens (
     AllergenId INT IDENTITY(1,1) PRIMARY KEY,
     Name NVARCHAR(100) NOT NULL,
     Description NVARCHAR(500)
 );
 
--- Tabela pentru Preparate
 CREATE TABLE Dishes (
     DishId INT IDENTITY(1,1) PRIMARY KEY,
     Name NVARCHAR(100) NOT NULL,
@@ -29,14 +27,12 @@ CREATE TABLE Dishes (
     IsAvailable BIT DEFAULT 1
 );
 
--- Tabela pentru relația many-to-many intre Preparate și Alergeni
 CREATE TABLE DishAllergens (
     DishId INT FOREIGN KEY REFERENCES Dishes(DishId),
     AllergenId INT FOREIGN KEY REFERENCES Allergens(AllergenId),
     PRIMARY KEY (DishId, AllergenId)
 );
 
--- Tabela pentru Meniuri
 CREATE TABLE Menus (
     MenuId INT IDENTITY(1,1) PRIMARY KEY,
     Name NVARCHAR(100) NOT NULL,
@@ -45,7 +41,6 @@ CREATE TABLE Menus (
     DiscountPercentage DECIMAL(5,2) DEFAULT 0
 );
 
--- Tabela pentru relația many-to-many între Meniuri și Preparate
 CREATE TABLE MenuDishes (
     MenuId INT FOREIGN KEY REFERENCES Menus(MenuId),
     DishId INT FOREIGN KEY REFERENCES Dishes(DishId),
@@ -53,7 +48,6 @@ CREATE TABLE MenuDishes (
     PRIMARY KEY (MenuId, DishId)
 );
 
--- Tabela pentru Utilizatori
 CREATE TABLE Users (
     UserId INT IDENTITY(1,1) PRIMARY KEY,
     FirstName NVARCHAR(50) NOT NULL,
@@ -65,7 +59,6 @@ CREATE TABLE Users (
     IsEmployee BIT DEFAULT 0
 );
 
--- Tabela pentru Comenzi
 CREATE TABLE Orders (
     OrderId INT IDENTITY(1,1) PRIMARY KEY,
     UserId INT FOREIGN KEY REFERENCES Users(UserId),
@@ -78,7 +71,6 @@ CREATE TABLE Orders (
     EstimatedDeliveryTime DATETIME
 );
 
--- Tabela pentru Detalii Comandă
 CREATE TABLE OrderDetails (
     OrderDetailId INT IDENTITY(1,1) PRIMARY KEY,
     OrderId INT FOREIGN KEY REFERENCES Orders(OrderId),
@@ -89,7 +81,6 @@ CREATE TABLE OrderDetails (
     TotalPrice DECIMAL(10,2) NOT NULL
 );
 
--- Tabela pentru Imagini Preparate
 CREATE TABLE DishImages (
     ImageId INT IDENTITY(1,1) PRIMARY KEY,
     DishId INT FOREIGN KEY REFERENCES Dishes(DishId),

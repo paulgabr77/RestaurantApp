@@ -32,20 +32,20 @@
                   materialDesign:DataGridAssist.CellPadding="13 8 8 8"
                   materialDesign:DataGridAssist.ColumnHeaderPadding="8">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Număr comandă" Binding="{Binding OrderCode}" Width="120"/>
+                <DataGridTextColumn Header="Numar comanda" Binding="{Binding OrderCode}" Width="120"/>
                 <DataGridTextColumn Header="Data" Binding="{Binding OrderDate, StringFormat=dd.MM.yyyy HH:mm}" Width="150"/>
                 <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="100"/>
                 <DataGridTextColumn Header="Total" Binding="{Binding TotalAmount, StringFormat={}{0:C}}" Width="100"/>
-                <DataGridTemplateColumn Header="Acțiuni" Width="180">
+                <DataGridTemplateColumn Header="Actiuni" Width="180">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <Button Content="Șterge"
+                                <Button Content="Sterge"
                                         Command="{Binding DataContext.DeleteOrderCommand, RelativeSource={RelativeSource AncestorType=Window}}"
                                         CommandParameter="{Binding}"
                                         Style="{StaticResource MaterialDesignFlatButton}"
                                         Margin="4"/>
-                                <Button Content="Finalizează"
+                                <Button Content="Finalizeaza"
                                         Command="{Binding DataContext.FinalizeOrderCommand, RelativeSource={RelativeSource AncestorType=Window}}"
                                         CommandParameter="{Binding}"
                                         Style="{StaticResource MaterialDesignFlatButton}"

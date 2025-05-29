@@ -21,7 +21,7 @@ namespace RestaurantApp.Data
                     new Category { Name = "Feluri principale" },
                     new Category { Name = "Aperitive" },
                     new Category { Name = "Deserturi" },
-                    new Category { Name = "Băuturi" },
+                    new Category { Name = "Bauturi" },
                     new Category { Name = "Salate" },
                     new Category { Name = "Supe" }
                 };
@@ -35,14 +35,14 @@ namespace RestaurantApp.Data
                 var allergens = new Allergen[]
                 {
                     new Allergen { Name = "Gluten" },
-                    new Allergen { Name = "Lactoză" },
-                    new Allergen { Name = "Ouă" },
+                    new Allergen { Name = "Lactoza" },
+                    new Allergen { Name = "Oua" },
                     new Allergen { Name = "Arahide" },
                     new Allergen { Name = "Nuci" },
                     new Allergen { Name = "Soia" },
                     new Allergen { Name = "Peste" },
-                    new Allergen { Name = "Moluște" },
-                    new Allergen { Name = "Sulfiți" },
+                    new Allergen { Name = "Molusca" },
+                    new Allergen { Name = "Sulfiti" },
                     new Allergen { Name = "Sesam" }
                 };
 
