@@ -65,7 +65,7 @@
             </Button>
         </Grid>
 
-        <!-- Conținut raport -->
+        <!-- Continut raport -->
         <Grid Grid.Row="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -118,7 +118,7 @@
                 </materialDesign:Card>
             </Grid>
 
-            <!-- Grafic și tabel -->
+            <!-- Grafic si tabel -->
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>

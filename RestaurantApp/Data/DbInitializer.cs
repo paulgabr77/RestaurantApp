@@ -10,10 +10,10 @@ namespace RestaurantApp.Data
     {
         public static async Task Initialize(RestaurantDbContext context)
         {
-            // Asigură-te că baza de date este creată
+            // Asigura-te ca baza de date este creata
             await context.Database.EnsureCreatedAsync();
 
-            // Verifică dacă există deja categorii
+            // Verifica daca exista deja categorii
             if (!await context.Categories.AnyAsync())
             {
                 var categories = new Category[]
@@ -29,7 +29,7 @@ namespace RestaurantApp.Data
                 await context.Categories.AddRangeAsync(categories);
             }
 
-            // Verifică dacă există deja alergeni
+            // Verifica daca exista deja alergeni
             if (!await context.Allergens.AnyAsync())
             {
                 var allergens = new Allergen[]
@@ -41,7 +41,7 @@ namespace RestaurantApp.Data
                     new Allergen { Name = "Nuci" },
                     new Allergen { Name = "Soia" },
                     new Allergen { Name = "Peste" },
-                    new Allergen { Name = "Molusca" },
+                    new Allergen { Name = "Moluste" },
                     new Allergen { Name = "Sulfiti" },
                     new Allergen { Name = "Sesam" }
                 };
@@ -49,7 +49,7 @@ namespace RestaurantApp.Data
                 await context.Allergens.AddRangeAsync(allergens);
             }
 
-            // Salvează modificările
+            // Salveaza modificarile
             await context.SaveChangesAsync();
         }
     }

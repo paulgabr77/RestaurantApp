@@ -26,7 +26,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <!-- Căutare -->
+            <!-- Cautare -->
             <Grid Grid.Row="0" Margin="0,0,0,16">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -75,7 +75,7 @@
             </DataGrid>
         </Grid>
 
-        <!-- Coș de cumpărături -->
+        <!-- Cos de cumparaturi -->
         <materialDesign:Card Grid.Column="1" Margin="0,16,16,16">
             <Grid>
                 <Grid.RowDefinitions>
@@ -125,7 +125,7 @@
                     </ListView.ItemTemplate>
                 </ListView>
 
-                <!-- Total și buton de comandă -->
+                <!-- Total si buton de comanda -->
                 <StackPanel Grid.Row="2" Margin="16">
                     <Grid Margin="0,0,0,16">
                         <Grid.ColumnDefinitions>

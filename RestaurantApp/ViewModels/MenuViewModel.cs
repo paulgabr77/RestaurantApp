@@ -46,7 +46,7 @@ namespace RestaurantApp.ViewModels
             SearchCommand = new RelayCommand(async () => await Search());
             AddDishCommand = new RelayCommand(AddDish);
 
-            // Inițializare comenzi pentru meniu
+            // Initializare comenzi pentru meniu
             OpenMenuCommand = new RelayCommand(OpenMenu);
             OpenOrdersCommand = new RelayCommand(OpenOrders);
             OpenReportsCommand = new RelayCommand(OpenReports);
@@ -61,7 +61,7 @@ namespace RestaurantApp.ViewModels
             Products = new ObservableCollection<Product>();
             Allergens = new ObservableCollection<Allergen>();
             
-            // Încărcare inițială a datelor
+            // incarcare initiala a datelor
             _ = InitializeDataAsync();
         }
 
@@ -69,14 +69,14 @@ namespace RestaurantApp.ViewModels
         {
             try
             {
-                // Încărcăm datele secvențial pentru a evita probleme de concurență
+                // incarcam datele secvential pentru a evita probleme de concurenta
                 await LoadData();
                 await LoadProductsAsync();
                 await LoadAllergensAsync();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Eroare la încărcarea datelor: {ex.Message}", "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Eroare la incarcarea datelor: {ex.Message}", "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -210,21 +210,21 @@ namespace RestaurantApp.ViewModels
                 var products = await _productService.GetAllProductsAsync();
                 var filteredProducts = products.AsQueryable();
 
-                // Filtrare după nume
+                // Filtrare dupa nume
                 if (!string.IsNullOrWhiteSpace(SearchTerm))
                 {
                     filteredProducts = filteredProducts.Where(p => 
                         p.Name.ToLower().Contains(SearchTerm.ToLower()));
                 }
 
-                // Filtrare după categorie
+                // Filtrare dupa categorie
                 if (SelectedCategory != null)
                 {
                     filteredProducts = filteredProducts.Where(p => 
                         p.CategoryId == SelectedCategory.CategoryId);
                 }
 
-                // Filtrare după alergen
+                // Filtrare dupa alergen
                 if (SelectedAllergen != null)
                 {
                     filteredProducts = filteredProducts.Where(p => 
@@ -239,7 +239,7 @@ namespace RestaurantApp.ViewModels
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Eroare la căutare: {ex.Message}", "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Eroare la cautare: {ex.Message}", "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -298,7 +298,7 @@ namespace RestaurantApp.ViewModels
             }
             var addProductWindow = new AddProductWindow();
             addProductWindow.ShowDialog();
-            _ = InitializeDataAsync();
+            _ = InitializeDataAsync(); // Reincarca datele dupa adaugarea produsului
         }
 
         private async void AddToCart(Product product)
@@ -306,7 +306,7 @@ namespace RestaurantApp.ViewModels
             if (product != null)
             {
                 await _cartService.AddToCartAsync(product);
-                // TODO: Adăugare notificare că produsul a fost adăugat în coș
+                // TODO: Adaugare notificare ca produsul a fost adaugat in cos
             }
         }
 
@@ -316,7 +316,7 @@ namespace RestaurantApp.ViewModels
             {
                 var editWindow = new RestaurantApp.Views.AddProductWindow(product);
                 editWindow.ShowDialog();
-                _ = InitializeDataAsync(); // reîncarcă lista după editare
+                _ = InitializeDataAsync(); // reincarca lista dupa editare
             }
         }
 
@@ -357,6 +357,7 @@ namespace RestaurantApp.ViewModels
                 MessageBox.Show("Nu puteti accesa aceasta functie, nu sunteti angajat!", "Acces interzis", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+
             var app = (App)Application.Current;
             var stockService = app.Services.GetRequiredService<IStockService>();
             var stockViewModel = new StockViewModel(stockService);

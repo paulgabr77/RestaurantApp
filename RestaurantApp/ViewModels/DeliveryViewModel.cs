@@ -88,7 +88,7 @@ namespace RestaurantApp.ViewModels
             }
             catch (Exception ex)
             {
-                ErrorMessage = $"Eroare la încărcarea livrărilor: {ex.Message}";
+                ErrorMessage = $"Eroare la incarcarea livrarilor: {ex.Message}";
             }
         }
 
@@ -96,7 +96,7 @@ namespace RestaurantApp.ViewModels
         {
             if (string.IsNullOrWhiteSpace(Address))
             {
-                ErrorMessage = "Vă rugăm introduceți adresa de livrare.";
+                ErrorMessage = "Va rugam introduceti adresa de livrare.";
                 return;
             }
 
@@ -123,7 +123,7 @@ namespace RestaurantApp.ViewModels
             }
             catch (Exception ex)
             {
-                ErrorMessage = $"Eroare la crearea livrării: {ex.Message}";
+                ErrorMessage = $"Eroare la crearea livrarii: {ex.Message}";
             }
         }
 
@@ -131,7 +131,7 @@ namespace RestaurantApp.ViewModels
         {
             if (SelectedDelivery == null)
             {
-                ErrorMessage = "Vă rugăm selectați o livrare.";
+                ErrorMessage = "Va rugam selectati o livrare.";
                 return;
             }
 
@@ -145,12 +145,12 @@ namespace RestaurantApp.ViewModels
                 }
                 else
                 {
-                    ErrorMessage = "Nu s-a putut actualiza statusul livrării.";
+                    ErrorMessage = "Nu s-a putut actualiza statusul livrarii.";
                 }
             }
             catch (Exception ex)
             {
-                ErrorMessage = $"Eroare la actualizarea statusului livrării: {ex.Message}";
+                ErrorMessage = $"Eroare la actualizarea statusului livrarii: {ex.Message}";
             }
         }
 
@@ -158,7 +158,7 @@ namespace RestaurantApp.ViewModels
         {
             if (string.IsNullOrWhiteSpace(Address))
             {
-                ErrorMessage = "Vă rugăm introduceți adresa de livrare.";
+                ErrorMessage = "Va rugam introduceti adresa de livrare.";
                 return;
             }
 

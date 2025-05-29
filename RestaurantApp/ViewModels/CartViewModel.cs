@@ -105,7 +105,7 @@ namespace RestaurantApp.ViewModels
         {
             if (CartItems.Count == 0)
             {
-                MessageBox.Show("Coșul este gol!", "Eroare", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Cosul este gol!", "Eroare", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -114,7 +114,7 @@ namespace RestaurantApp.ViewModels
                 var user = RestaurantApp.ViewModels.AuthViewModel.CurrentUserStatic;
                 if (user == null)
                 {
-                    MessageBox.Show("Nu sunteți autentificat!", "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Nu sunteti autentificat!", "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
                 var orderDetails = CartItems.Select(item => new OrderDetail
@@ -129,25 +129,25 @@ namespace RestaurantApp.ViewModels
 
                 if (order != null)
                 {
-                    // Actualizăm statusul comenzii la "în curs de livrare"
-                    await _orderService.UpdateOrderStatusAsync(order.OrderId, "în curs de livrare");
+                    // Actualizam statusul comenzii la "in curs de livrare"
+                    await _orderService.UpdateOrderStatusAsync(order.OrderId, "in curs de livrare");
 
-                    // Golim coșul
+                    // Golim cosul
                     await _cartService.ClearCartAsync();
                     await LoadCart();
 
-                    MessageBox.Show($"Comanda a fost plasată cu succes!\nCod comandă: {order.OrderCode}", 
+                    MessageBox.Show($"Comanda a fost plasata cu succes!\nCod comanda: {order.OrderCode}", 
                         "Succes", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                 {
-                    MessageBox.Show("A apărut o eroare la plasarea comenzii.", 
+                    MessageBox.Show("A aparut o eroare la plasarea comenzii.", 
                         "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             catch (System.Exception ex)
             {
-                MessageBox.Show($"A apărut o eroare: {ex.Message}\n{ex.InnerException?.Message}", 
+                MessageBox.Show($"A aparut o eroare: {ex.Message}\n{ex.InnerException?.Message}", 
                     "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }

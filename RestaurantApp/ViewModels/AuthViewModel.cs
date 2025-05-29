@@ -128,13 +128,13 @@ namespace RestaurantApp.ViewModels
         public ICommand RegisterCommand { get; }
         public ICommand ToggleAuthModeCommand { get; }
 
-        // Proprietăți pentru UI fără converteri
+        // Proprietati pentru UI fara converteri
         public string AuthButtonText => IsRegistering ? "Inregistrare" : "Autentificare";
         public string ToggleAuthButtonText => IsRegistering ? "Ai deja cont? Autentifica-te" : "Nu ai cont? Inregistreaza-te";
         public Visibility RegisterFieldsVisibility => IsRegistering ? Visibility.Visible : Visibility.Collapsed;
         public Visibility ErrorVisibility => !string.IsNullOrEmpty(ErrorMessage) ? Visibility.Visible : Visibility.Collapsed;
 
-        // Notifică UI-ul la schimbare
+        // Notifica UI-ul la schimbare
 
         private async Task Login()
         {
@@ -162,6 +162,7 @@ namespace RestaurantApp.ViewModels
             catch (Exception ex)
             {
                 ErrorMessage = "A aparut o eroare la autentificare. Va rugam incercati din nou.";
+                // Log the exception
             }
         }
 

@@ -26,7 +26,7 @@ namespace RestaurantApp.Services
                 UserId = userId,
                 OrderDate = DateTime.Now,
                 OrderCode = await GenerateOrderCodeAsync(),
-                Status = "Plasată",
+                Status = "Plasata",
                 TotalAmount = await CalculateOrderTotalAsync(orderDetails),
                 DeliveryFee = 10.00m, // Ar trebui citit din configurare
                 DiscountAmount = 0.00m,
@@ -95,10 +95,10 @@ namespace RestaurantApp.Services
         public async Task<bool> CancelOrderAsync(int orderId)
         {
             var order = await _context.Orders.FindAsync(orderId);
-            if (order == null || order.Status == "Livrată" || order.Status == "Anulată")
+            if (order == null || order.Status == "Livrata" || order.Status == "Anulata")
                 return false;
 
-            order.Status = "Anulată";
+            order.Status = "Anulata";
             await _context.SaveChangesAsync();
             return true;
         }
@@ -155,8 +155,8 @@ namespace RestaurantApp.Services
 
         public async Task<DateTime> CalculateEstimatedDeliveryTimeAsync(Order order)
         {
-            // Logica simplă pentru calcularea timpului estimat de livrare
-            // Ar trebui să ia în considerare distanța, traficul, etc.
+            // Logica simpla pentru calcularea timpului estimat de livrare
+            // Ar trebui sa ia in considerare distanta, traficul, etc.
             return DateTime.Now.AddMinutes(45);
         }
     }

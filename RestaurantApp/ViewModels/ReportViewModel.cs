@@ -118,14 +118,14 @@ namespace RestaurantApp.ViewModels
             }
             catch (Exception ex)
             {
-                ErrorMessage = $"Eroare la încărcarea rapoartelor: {ex.Message}";
+                ErrorMessage = $"Eroare la incarcarea rapoartelor: {ex.Message}";
             }
         }
 
         private async Task ExportReport()
         {
             // TODO: Implementare export raport
-            ErrorMessage = "Funcționalitatea de export nu este implementată încă.";
+            ErrorMessage = "Functionalitatea de export nu este implementata inca.";
         }
     }
 } 

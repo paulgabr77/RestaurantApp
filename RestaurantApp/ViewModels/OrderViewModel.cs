@@ -109,14 +109,14 @@ namespace RestaurantApp.ViewModels
         {
             if (CartItems.Count == 0)
             {
-                ErrorMessage = "Coșul este gol.";
+                ErrorMessage = "Cosul este gol.";
                 return;
             }
 
             var user = AuthViewModel.CurrentUserStatic;
             if (user == null)
             {
-                ErrorMessage = "Nu sunteți autentificat!";
+                ErrorMessage = "Nu sunteti autentificat!";
                 return;
             }
             var order = await _orderService.CreateOrderAsync(user.UserId, new List<OrderDetail>(CartItems));
@@ -130,7 +130,7 @@ namespace RestaurantApp.ViewModels
             }
             else
             {
-                ErrorMessage = "A apărut o eroare la plasarea comenzii.";
+                ErrorMessage = "A aparut o eroare la plasarea comenzii.";
             }
         }
 
@@ -138,7 +138,7 @@ namespace RestaurantApp.ViewModels
         {
             if (SelectedOrder == null)
             {
-                ErrorMessage = "Vă rugăm selectați o comandă.";
+                ErrorMessage = "Va rugam selectati o comanda.";
                 return;
             }
 

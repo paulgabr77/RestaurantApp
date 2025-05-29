@@ -58,7 +58,7 @@
             </Button>
         </Grid>
 
-        <!-- Conținut -->
+        <!-- Continut -->
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
             <Grid>
                 <Grid.RowDefinitions>
@@ -199,14 +199,14 @@
                     </materialDesign:Card>
                 </Grid>
 
-                <!-- Distribuție și Venituri -->
+                <!-- Distributie si Venituri -->
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <!-- Distribuție Status -->
+                    <!-- Distributie Status -->
                     <materialDesign:Card Grid.Column="0" Margin="0,0,8,0">
                         <Grid Margin="16">
                             <Grid.RowDefinitions>
@@ -214,7 +214,7 @@
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
 
-                            <TextBlock Text="Distribuție Status Comenzi"
+                            <TextBlock Text="Distributie Status Comenzi"
                                      Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                                      Margin="0,0,0,16"/>
 

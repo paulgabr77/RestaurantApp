@@ -18,7 +18,7 @@ namespace RestaurantApp.ViewModels
 
         public AccountViewModel()
         {
-            // Inițializare comenzi
+            // Initializare comenzi
             ShowProfileCommand = new RelayCommand(ShowProfile);
             ShowSecurityCommand = new RelayCommand(ShowSecurity);
             ShowPreferencesCommand = new RelayCommand(ShowPreferences);
@@ -27,11 +27,11 @@ namespace RestaurantApp.ViewModels
             SavePreferencesCommand = new RelayCommand(SavePreferences);
             LogoutCommand = new RelayCommand(Logout);
 
-            // Încărcare date utilizator
+            // incarcare date utilizator
             LoadUserData();
         }
 
-        // Proprietăți pentru vizibilitate
+        // Proprietati pentru vizibilitate
         public bool IsProfileVisible
         {
             get => _isProfileVisible;
@@ -50,7 +50,7 @@ namespace RestaurantApp.ViewModels
             set => SetProperty(ref _isPreferencesVisible, value);
         }
 
-        // Proprietăți pentru profil
+        // Proprietati pentru profil
         public string FirstName
         {
             get => _firstName;
@@ -75,7 +75,7 @@ namespace RestaurantApp.ViewModels
             set => SetProperty(ref _phone, value);
         }
 
-        // Proprietăți pentru preferințe
+        // Proprietati pentru preferinte
         public bool NotificationsEnabled
         {
             get => _notificationsEnabled;
@@ -127,27 +127,27 @@ namespace RestaurantApp.ViewModels
 
         private void ChangePassword()
         {
-            // TODO: Implementare schimbare parolă
-            MessageBox.Show("Parola a fost schimbată cu succes!", "Succes", MessageBoxButton.OK, MessageBoxImage.Information);
+            // TODO: Implementare schimbare parola
+            MessageBox.Show("Parola a fost schimbata cu succes!", "Succes", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void SavePreferences()
         {
-            // TODO: Implementare salvare preferințe
-            MessageBox.Show("Preferințele au fost salvate cu succes!", "Succes", MessageBoxButton.OK, MessageBoxImage.Information);
+            // TODO: Implementare salvare preferinte
+            MessageBox.Show("Preferintele au fost salvate cu succes!", "Succes", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void Logout()
         {
             // TODO: Implementare deconectare
-            MessageBox.Show("V-ați deconectat cu succes!", "Deconectare", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("V-ati deconectat cu succes!", "Deconectare", MessageBoxButton.OK, MessageBoxImage.Information);
             Application.Current.Shutdown();
         }
 
         private void LoadUserData()
         {
-            // TODO: Implementare încărcare date utilizator din baza de date
-            // Pentru moment, setăm niște date de test
+            // TODO: Implementare incarcare date utilizator din baza de date
+            // Pentru moment, setam niste date de test
             FirstName = "John";
             LastName = "Doe";
             Email = "john.doe@example.com";

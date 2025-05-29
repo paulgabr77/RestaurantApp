@@ -39,16 +39,16 @@ namespace RestaurantApp.Services
             var discount = await GetDiscountByCodeAsync(discountCode);
             if (discount == null) return false;
 
-            // Verifică dacă reducerea este valabilă
+            // Verifica daca reducerea este valabila
             if (!IsDiscountValid(discount, order.TotalAmount))
                 return false;
 
-            // Aplică reducerea
+            // Aplica reducerea
             decimal discountValue = order.TotalAmount * discount.Percentage / 100;
             order.DiscountAmount = discountValue;
             order.TotalAmount = order.TotalAmount - discountValue;
 
-            // Incrementează numărul de utilizări
+            // Incrementeaza numarul de utilizari
             discount.CurrentUses++;
             if (discount.MaximumUses.HasValue && discount.CurrentUses >= discount.MaximumUses)
             {

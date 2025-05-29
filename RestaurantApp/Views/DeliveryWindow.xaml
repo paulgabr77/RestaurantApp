@@ -40,7 +40,7 @@
                         Margin="8,0">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="Calculator" Margin="0,0,8,0"/>
-                        <TextBlock Text="Calculează"/>
+                        <TextBlock Text="Calculeaza"/>
                     </StackPanel>
                 </Button>
 
@@ -90,7 +90,7 @@
                   materialDesign:DataGridAssist.CellPadding="13 8 8 8"
                   materialDesign:DataGridAssist.ColumnHeaderPadding="8">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Adresă" Binding="{Binding Address}"/>
+                <DataGridTextColumn Header="Adresa" Binding="{Binding Address}"/>
                 <DataGridTextColumn Header="Status" Binding="{Binding Status}"/>
                 <DataGridTextColumn Header="Data Cerere" 
                                   Binding="{Binding RequestedTime, StringFormat='{}{0:dd.MM.yyyy HH:mm}'}"/>
@@ -98,7 +98,7 @@
                                   Binding="{Binding EstimatedDeliveryTime, StringFormat='{}{0:dd.MM.yyyy HH:mm}'}"/>
                 <DataGridTextColumn Header="Timp Real" 
                                   Binding="{Binding ActualDeliveryTime, StringFormat='{}{0:dd.MM.yyyy HH:mm}'}"/>
-                <DataGridTextColumn Header="Taxă" 
+                <DataGridTextColumn Header="Taxa" 
                                   Binding="{Binding DeliveryFee, StringFormat='{}{0:C}'}"/>
             </DataGrid.Columns>
         </DataGrid>

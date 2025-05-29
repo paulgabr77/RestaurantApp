@@ -84,7 +84,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <!-- Filtre și căutare -->
+            <!-- Filtre si cautare -->
             <Grid Grid.Row="0" Margin="0,0,0,20">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="250"/>
@@ -206,7 +206,7 @@
                                                 Background="#FFB300"
                                                 Foreground="White"
                                                 Style="{StaticResource MaterialDesignRaisedButton}"/>
-                                        <Button Content="Sterge" 
+                                        <Button Content="sterge" 
                                                 Command="{Binding DataContext.DeleteProductCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                                                 CommandParameter="{Binding}"
                                                 Background="#E53935"

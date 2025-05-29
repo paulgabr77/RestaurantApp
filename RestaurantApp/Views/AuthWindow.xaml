@@ -22,76 +22,90 @@
         </Grid.RowDefinitions>
 
         <!-- Header -->
-        <TextBlock Text="{Binding WindowTitle}"
+        <TextBlock Grid.Row="0"
+                   Text="{Binding IsRegistering, Converter={StaticResource BoolToAuthModeConverter}}"
                    Style="{StaticResource MaterialDesignHeadline5TextBlock}"
                    HorizontalAlignment="Center"
-                   Margin="0,0,0,20"/>
+                   Margin="0,0,0,24"/>
 
         <!-- Form -->
-        <StackPanel Grid.Row="1">
-            <!-- Email -->
-            <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"
-                     materialDesign:HintAssist.Hint="Email"
-                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                     Margin="0,8"/>
-
-            <!-- Parola -->
-            <PasswordBox x:Name="PasswordBox"
-                         materialDesign:HintAssist.Hint="Parola"
-                         Style="{StaticResource MaterialDesignOutlinedPasswordBox}"
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"
+                         materialDesign:HintAssist.Hint="Email"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                          Margin="0,8"/>
 
-            <!-- Confirma parola (doar pentru inregistrare) -->
-            <PasswordBox x:Name="ConfirmPasswordBox"
-                         materialDesign:HintAssist.Hint="Confirma parola"
-                         Style="{StaticResource MaterialDesignOutlinedPasswordBox}"
-                         Margin="0,8"
-                         Visibility="{Binding IsRegisterMode, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                <PasswordBox x:Name="PasswordBox"
+                            materialDesign:HintAssist.Hint="Parola"
+                            Style="{StaticResource MaterialDesignOutlinedPasswordBox}"
+                            Margin="0,8"/>
 
-            <!-- Nume si prenume (doar pentru inregistrare) -->
-            <Grid Visibility="{Binding IsRegisterMode, Converter={StaticResource BooleanToVisibilityConverter}}"
-                  Margin="0,8">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+                <PasswordBox x:Name="ConfirmPasswordBox"
+                            materialDesign:HintAssist.Hint="Confirma parola"
+                            Style="{StaticResource MaterialDesignOutlinedPasswordBox}"
+                            Margin="0,8"
+                            Visibility="{Binding RegisterFieldsVisibility}"/>
 
-                <TextBox Grid.Column="0"
-                         Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}"
+                <TextBox Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}"
                          materialDesign:HintAssist.Hint="Prenume"
                          Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                         Margin="0,0,4,0"/>
+                         Margin="0,8"
+                         Visibility="{Binding RegisterFieldsVisibility}"/>
 
-                <TextBox Grid.Column="1"
-                         Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}"
+                <TextBox Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}"
                          materialDesign:HintAssist.Hint="Nume"
                          Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                         Margin="4,0,0,0"/>
-            </Grid>
+                         Margin="0,8"
+                         Visibility="{Binding RegisterFieldsVisibility}"/>
 
-            <!-- Numar de telefon (doar pentru inregistrare) -->
-            <TextBox Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}"
-                     materialDesign:HintAssist.Hint="Numar de telefon"
-                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                     Margin="0,8"
-                     Visibility="{Binding IsRegisterMode, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                <TextBox Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}"
+                         materialDesign:HintAssist.Hint="Numar de telefon"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         Margin="0,8"
+                         Visibility="{Binding RegisterFieldsVisibility}"/>
 
-            <!-- Mesaj de eroare -->
-            <TextBlock Text="{Binding ErrorMessage}"
-                     Foreground="Red"
-                     TextWrapping="Wrap"
-                     Margin="0,8"
-                     Visibility="{Binding HasError, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                <TextBox Text="{Binding DeliveryAddress, UpdateSourceTrigger=PropertyChanged}"
+                         materialDesign:HintAssist.Hint="Adresa de livrare"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         Margin="0,8"
+                         Visibility="{Binding RegisterFieldsVisibility}"/>
 
-            <!-- Buton de autentificare/inregistrare -->
-            <Button Content="{Binding ActionButtonText}"
-                    Command="{Binding ActionCommand}"
-                    Style="{StaticResource MaterialDesignRaisedButton}"
-                    Margin="0,16,0,0"/>
+                <ComboBox ItemsSource="{Binding UserRoles}"
+                         SelectedItem="{Binding SelectedRole}"
+                         DisplayMemberPath="Name"
+                         materialDesign:HintAssist.Hint="Tip cont"
+                         Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                         Margin="0,8"
+                         Visibility="{Binding RegisterFieldsVisibility}"/>
 
-            <!-- Link pentru schimbarea modului -->
-            <Button Content="{Binding ToggleModeText}"
-                    Command="{Binding ToggleModeCommand}"
+                <TextBlock Text="{Binding ErrorMessage}"
+                         Foreground="Red"
+                         TextWrapping="Wrap"
+                         Margin="0,8"
+                         Visibility="{Binding ErrorVisibility}"/>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Buttons -->
+        <StackPanel Grid.Row="2" Margin="0,16,0,0">
+            <Button x:Name="AuthButton"
+                    Content="{Binding AuthButtonText}"
+                    Margin="0,8">
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+                        <Setter Property="Command" Value="{Binding LoginCommand}" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsRegistering}" Value="True">
+                                <Setter Property="Command" Value="{Binding RegisterCommand}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+            <Button Content="{Binding ToggleAuthButtonText}"
+                    Command="{Binding ToggleAuthModeCommand}"
                     Style="{StaticResource MaterialDesignFlatButton}"
                     Margin="0,8"/>
         </StackPanel>

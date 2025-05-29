@@ -104,7 +104,7 @@ namespace RestaurantApp.ViewModels
         {
             if (SelectedDiscount == null)
             {
-                ErrorMessage = "Vă rugăm selectați o reducere.";
+                ErrorMessage = "Va rugam selectati o reducere.";
                 return;
             }
 
@@ -131,7 +131,7 @@ namespace RestaurantApp.ViewModels
         {
             if (SelectedDiscount == null)
             {
-                ErrorMessage = "Vă rugăm selectați o reducere.";
+                ErrorMessage = "Va rugam selectati o reducere.";
                 return;
             }
 
@@ -146,18 +146,18 @@ namespace RestaurantApp.ViewModels
                 }
                 else
                 {
-                    ErrorMessage = "Nu s-a putut șterge reducerea.";
+                    ErrorMessage = "Nu s-a putut sterge reducerea.";
                 }
             }
             catch (Exception ex)
             {
-                ErrorMessage = $"Eroare la ștergerea reducerii: {ex.Message}";
+                ErrorMessage = $"Eroare la stergerea reducerii: {ex.Message}";
             }
         }
 
         private string GenerateDiscountCode()
         {
-            // Generare simplă de cod - în practică ar trebui să fie mai complex
+            // Generare simpla de cod - in practica ar trebui sa fie mai complex
             return $"DISCOUNT{DateTime.Now.Ticks % 10000:D4}";
         }
     }

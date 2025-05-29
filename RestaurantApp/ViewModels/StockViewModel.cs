@@ -75,7 +75,7 @@ namespace RestaurantApp.ViewModels
             }
             catch (Exception ex)
             {
-                ErrorMessage = $"Eroare la încărcarea stocurilor: {ex.Message}";
+                ErrorMessage = $"Eroare la incarcarea stocurilor: {ex.Message}";
             }
         }
 
@@ -99,12 +99,12 @@ namespace RestaurantApp.ViewModels
                 }
                 else
                 {
-                    ErrorMessage = "Nu s-a putut adăuga elementul în stoc.";
+                    ErrorMessage = "Nu s-a putut adauga elementul in stoc.";
                 }
             }
             catch (Exception ex)
             {
-                ErrorMessage = $"Eroare la adăugarea în stoc: {ex.Message}";
+                ErrorMessage = $"Eroare la adaugarea in stoc: {ex.Message}";
             }
         }
 
@@ -112,7 +112,7 @@ namespace RestaurantApp.ViewModels
         {
             if (SelectedItem == null)
             {
-                ErrorMessage = "Vă rugăm selectați un element din stoc.";
+                ErrorMessage = "Va rugam selectati un element din stoc.";
                 return;
             }
 
@@ -139,7 +139,7 @@ namespace RestaurantApp.ViewModels
         {
             if (SelectedItem == null)
             {
-                ErrorMessage = "Vă rugăm selectați un element din stoc.";
+                ErrorMessage = "Va rugam selectati un element din stoc.";
                 return;
             }
 
@@ -153,12 +153,12 @@ namespace RestaurantApp.ViewModels
                 }
                 else
                 {
-                    ErrorMessage = "Nu s-a putut șterge elementul din stoc.";
+                    ErrorMessage = "Nu s-a putut sterge elementul din stoc.";
                 }
             }
             catch (Exception ex)
             {
-                ErrorMessage = $"Eroare la ștergerea din stoc: {ex.Message}";
+                ErrorMessage = $"Eroare la stergerea din stoc: {ex.Message}";
             }
         }
 

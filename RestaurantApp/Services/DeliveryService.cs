@@ -75,15 +75,15 @@ namespace RestaurantApp.Services
 
         public async Task<decimal> CalculateDeliveryFeeAsync(string address)
         {
-            // Implementare simplă - în practică ar trebui să folosească un serviciu de geocodare
-            // și să calculeze distanța până la adresa clientului
-            return 10.0m; // Taxă fixă de 10 lei
+            // Implementare simpla - in practica ar trebui sa foloseasca un serviciu de geocodare
+            // si sa calculeze distanta pana la adresa clientului
+            return 10.0m; // Taxa fixa de 10 lei
         }
 
         public async Task<TimeSpan> EstimateDeliveryTimeAsync(string address)
         {
-            // Implementare simplă - în practică ar trebui să folosească un serviciu de geocodare
-            // și să calculeze timpul estimat până la adresa clientului
+            // Implementare simpla - in practica ar trebui sa foloseasca un serviciu de geocodare
+            // si sa calculeze timpul estimat pana la adresa clientului
             return TimeSpan.FromMinutes(30); // Timp estimat fix de 30 minute
         }
     }

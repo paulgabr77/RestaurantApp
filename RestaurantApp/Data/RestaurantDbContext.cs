@@ -28,13 +28,13 @@ namespace RestaurantApp.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // Configurare relație many-to-many între Dish și Allergen
+            // Configurare relatie many-to-many intre Dish si Allergen
             modelBuilder.Entity<Dish>()
                 .HasMany(d => d.Allergens)
                 .WithMany(a => a.Dishes)
                 .UsingEntity(j => j.ToTable("DishAllergens"));
 
-            // Configurare relație many-to-many între Menu și Dish
+            // Configurare relatie many-to-many intre Menu si Dish
             modelBuilder.Entity<Menu>()
                 .HasMany(m => m.Dishes)
                 .WithMany(d => d.Menus)
@@ -52,7 +52,7 @@ namespace RestaurantApp.Data
                         .OnDelete(DeleteBehavior.NoAction)
                 );
 
-            // Configurare chei străine pentru OrderDetail
+            // Configurare chei straine pentru OrderDetail
             modelBuilder.Entity<OrderDetail>()
                 .HasOne(od => od.Dish)
                 .WithMany(d => d.OrderDetails)

@@ -91,9 +91,9 @@
             </StackPanel>
         </DockPanel>
 
-        <!-- Conținut principal -->
+        <!-- Continut principal -->
         <Grid Grid.Row="1" Margin="10">
-            <TextBlock Text="Bine ați venit în Restaurant App!"
+            <TextBlock Text="Bine ati venit in Restaurant App!"
                        Style="{StaticResource MaterialDesignHeadline4TextBlock}"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"/>

@@ -10,7 +10,7 @@ namespace RestaurantApp.Converters
         {
             if (value is bool isRegistering)
             {
-                return isRegistering ? "Inregistrare" : "Autentificare";
+                return isRegistering ? "inregistrare" : "Autentificare";
             }
             return "Autentificare";
         }

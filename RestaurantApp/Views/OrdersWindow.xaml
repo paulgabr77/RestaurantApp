@@ -40,7 +40,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <Button Content="Sterge"
+                                <Button Content="sterge"
                                         Command="{Binding DataContext.DeleteOrderCommand, RelativeSource={RelativeSource AncestorType=Window}}"
                                         CommandParameter="{Binding}"
                                         Style="{StaticResource MaterialDesignFlatButton}"

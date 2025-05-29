@@ -128,7 +128,7 @@ namespace RestaurantApp.ViewModels
                 {
                     // Handle parsing error, maybe set default to 0 or show error message
                     SetProperty(ref _price, 0); // Set to 0 on invalid input
-                    // ErrorMessage = "Preț invalid."; // Optionally show error
+                    // ErrorMessage = "Pret invalid."; // Optionally show error
                 }
             }
         }
@@ -239,7 +239,7 @@ namespace RestaurantApp.ViewModels
             }
             catch (Exception ex)
             {
-                ErrorMessage = "Eroare la încărcarea categoriilor: " + ex.Message;
+                ErrorMessage = "Eroare la incarcarea categoriilor: " + ex.Message;
             }
         }
 
@@ -256,7 +256,7 @@ namespace RestaurantApp.ViewModels
             }
             catch (Exception ex)
             {
-                ErrorMessage = "Eroare la încărcarea alergenilor: " + ex.Message;
+                ErrorMessage = "Eroare la incarcarea alergenilor: " + ex.Message;
             }
         }
 
@@ -264,7 +264,7 @@ namespace RestaurantApp.ViewModels
         {
             if (string.IsNullOrWhiteSpace(CategoryName))
             {
-                ErrorMessage = "Vă rugăm introduceți numele categoriei.";
+                ErrorMessage = "Va rugam introduceti numele categoriei.";
                 return;
             }
 
@@ -291,7 +291,7 @@ namespace RestaurantApp.ViewModels
             }
             catch (Exception ex)
             {
-                ErrorMessage = "Eroare la adăugarea categoriei: " + ex.Message;
+                ErrorMessage = "Eroare la adaugarea categoriei: " + ex.Message;
             }
         }
 
@@ -299,7 +299,7 @@ namespace RestaurantApp.ViewModels
         {
             if (string.IsNullOrWhiteSpace(NewAllergenName))
             {
-                ErrorMessage = "Vă rugăm introduceți numele alergenului.";
+                ErrorMessage = "Va rugam introduceti numele alergenului.";
                 return;
             }
 
@@ -326,7 +326,7 @@ namespace RestaurantApp.ViewModels
             }
             catch (Exception ex)
             {
-                ErrorMessage = "Eroare la adăugarea alergenului: " + ex.Message;
+                ErrorMessage = "Eroare la adaugarea alergenului: " + ex.Message;
             }
         }
 
@@ -413,7 +413,7 @@ namespace RestaurantApp.ViewModels
                 var result = await _productService.CreateProductAsync(product);
                 if (result != null)
                 {
-                    MessageBox.Show("Produsul a fost adăugat cu succes!", "Succes", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Produsul a fost adaugat cu succes!", "Succes", MessageBoxButton.OK, MessageBoxImage.Information);
                     CloseWindow();
                 }
             }

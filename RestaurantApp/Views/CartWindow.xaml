@@ -6,7 +6,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:RestaurantApp.Views"
         mc:Ignorable="d"
-        Title="Coșul meu" Height="600" Width="1000"
+        Title="Cosul meu" Height="600" Width="1000"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.FontWeight="Medium"
@@ -21,11 +21,11 @@
         </Grid.RowDefinitions>
 
         <!-- Header -->
-        <TextBlock Text="Coșul meu"
+        <TextBlock Text="Cosul meu"
                    Style="{StaticResource MaterialDesignHeadline5TextBlock}"
                    Margin="0,0,0,16"/>
 
-        <!-- Lista de produse din coș -->
+        <!-- Lista de produse din cos -->
         <DataGrid Grid.Row="1"
                   AutoGenerateColumns="False"
                   ItemsSource="{Binding CartItems}"
@@ -33,10 +33,10 @@
                   materialDesign:DataGridAssist.ColumnHeaderPadding="8">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Produs" Binding="{Binding Product.Name}" Width="*"/>
-                <DataGridTextColumn Header="Preț" Binding="{Binding Product.Price, StringFormat={}{0:C}}" Width="100"/>
+                <DataGridTextColumn Header="Pret" Binding="{Binding Product.Price, StringFormat={}{0:C}}" Width="100"/>
                 <DataGridTextColumn Header="Cantitate" Binding="{Binding Quantity}" Width="100"/>
                 <DataGridTextColumn Header="Total" Binding="{Binding TotalPrice, StringFormat={}{0:C}}" Width="100"/>
-                <DataGridTemplateColumn Header="Acțiuni" Width="120">
+                <DataGridTemplateColumn Header="Actiuni" Width="120">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
@@ -65,7 +65,7 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <!-- Footer cu total și buton de comandă -->
+        <!-- Footer cu total si buton de comanda -->
         <Grid Grid.Row="2" Margin="0,16,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -99,7 +99,7 @@
                     Margin="16,0,0,0">
                 <StackPanel Orientation="Horizontal">
                     <materialDesign:PackIcon Kind="CartCheck" Margin="0,0,8,0"/>
-                    <TextBlock Text="Plasează comanda"/>
+                    <TextBlock Text="Plaseaza comanda"/>
                 </StackPanel>
             </Button>
         </Grid>

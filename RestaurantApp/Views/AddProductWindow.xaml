@@ -167,6 +167,7 @@
                     </ItemsControl>
 
                     <!-- Descriere -->
+
                     <TextBlock Text="* Campuri obligatorii"
                              Foreground="#FF666666"
                              FontSize="12"

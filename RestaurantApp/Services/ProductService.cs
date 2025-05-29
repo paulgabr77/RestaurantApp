@@ -71,7 +71,7 @@ namespace RestaurantApp.Services
             if (product == null)
                 return false;
 
-            // Golește relațiile many-to-many
+            // Goleste relatiile many-to-many
             product.Allergens.Clear();
 
             _context.Products.Remove(product);

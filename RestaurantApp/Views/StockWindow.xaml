@@ -28,7 +28,7 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <!-- Căutare -->
+            <!-- Cautare -->
             <TextBox Text="{Binding SearchTerm, UpdateSourceTrigger=PropertyChanged}"
                      materialDesign:HintAssist.Hint="Cauta in stoc..."
                      Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
