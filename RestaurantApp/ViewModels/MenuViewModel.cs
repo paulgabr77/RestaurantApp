@@ -56,6 +56,7 @@ namespace RestaurantApp.ViewModels
             AddToCartCommand = new RelayCommand<Product>(AddToCart);
             EditProductCommand = new RelayCommand<Product>(EditProduct);
             DeleteProductCommand = new RelayCommand<Product>(DeleteProduct);
+            OpenStockCommand = new RelayCommand(OpenStock);
             
             Products = new ObservableCollection<Product>();
             Allergens = new ObservableCollection<Allergen>();
@@ -179,6 +180,7 @@ namespace RestaurantApp.ViewModels
         public ICommand AddToCartCommand { get; }
         public ICommand EditProductCommand { get; }
         public ICommand DeleteProductCommand { get; }
+        public ICommand OpenStockCommand { get; }
 
         public bool IsAuthenticated
         {
@@ -265,6 +267,12 @@ namespace RestaurantApp.ViewModels
 
         private void OpenReports()
         {
+            var user = AuthViewModel.CurrentUserStatic;
+            if (user == null || !user.IsEmployee)
+            {
+                MessageBox.Show("Nu puteți accesa această funcție, nu sunteți angajat!", "Acces interzis", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             var reportsWindow = new ReportsWindow();
             reportsWindow.Show();
         }
@@ -282,6 +290,12 @@ namespace RestaurantApp.ViewModels
 
         private void OpenAddProduct()
         {
+            var user = AuthViewModel.CurrentUserStatic;
+            if (user == null || !user.IsEmployee)
+            {
+                MessageBox.Show("Nu puteți accesa această funcție, nu sunteți angajat!", "Acces interzis", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             var addProductWindow = new AddProductWindow();
             addProductWindow.ShowDialog();
             _ = InitializeDataAsync(); // Reîncarcă datele după adăugarea produsului
@@ -333,6 +347,22 @@ namespace RestaurantApp.ViewModels
             var orderService = app.Services.GetRequiredService<IOrderService>();
             var cartWindow = new CartWindow(cartService, orderService);
             cartWindow.Show();
+        }
+
+        private void OpenStock()
+        {
+            var user = AuthViewModel.CurrentUserStatic;
+            if (user == null || !user.IsEmployee)
+            {
+                MessageBox.Show("Nu puteți accesa această funcție, nu sunteți angajat!", "Acces interzis", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            var app = (App)Application.Current;
+            var stockService = app.Services.GetRequiredService<IStockService>();
+            var stockViewModel = new StockViewModel(stockService);
+            var stockWindow = new StockWindow(stockViewModel);
+            stockWindow.Show();
         }
     }
 } 
