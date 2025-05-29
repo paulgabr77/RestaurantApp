@@ -255,7 +255,11 @@ namespace RestaurantApp.ViewModels
 
         private void OpenOrders()
         {
-            var ordersWindow = new OrdersWindow();
+            var app = (App)Application.Current;
+            var orderService = app.Services.GetRequiredService<IOrderService>();
+            var dishService = app.Services.GetRequiredService<IDishService>();
+            var viewModel = new OrderViewModel(orderService, dishService);
+            var ordersWindow = new OrdersWindow(viewModel);
             ordersWindow.Show();
         }
 

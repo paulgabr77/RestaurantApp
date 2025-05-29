@@ -32,22 +32,25 @@
                   materialDesign:DataGridAssist.CellPadding="13 8 8 8"
                   materialDesign:DataGridAssist.ColumnHeaderPadding="8">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Număr comandă" Binding="{Binding OrderNumber}" Width="120"/>
+                <DataGridTextColumn Header="Număr comandă" Binding="{Binding OrderCode}" Width="120"/>
                 <DataGridTextColumn Header="Data" Binding="{Binding OrderDate, StringFormat=dd.MM.yyyy HH:mm}" Width="150"/>
                 <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="100"/>
-                <DataGridTextColumn Header="Total" Binding="{Binding Total, StringFormat={}{0:C}}" Width="100"/>
-                <DataGridTemplateColumn Header="Acțiuni" Width="100">
+                <DataGridTextColumn Header="Total" Binding="{Binding TotalAmount, StringFormat={}{0:C}}" Width="100"/>
+                <DataGridTemplateColumn Header="Acțiuni" Width="180">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Style="{StaticResource MaterialDesignFlatButton}"
-                                    Command="{Binding DataContext.ViewOrderDetailsCommand, RelativeSource={RelativeSource AncestorType=Window}}"
-                                    CommandParameter="{Binding}"
-                                    Margin="4">
-                                <StackPanel Orientation="Horizontal">
-                                    <materialDesign:PackIcon Kind="Eye" Margin="0,0,4,0"/>
-                                    <TextBlock Text="Detalii"/>
-                                </StackPanel>
-                            </Button>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Content="Șterge"
+                                        Command="{Binding DataContext.DeleteOrderCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                        CommandParameter="{Binding}"
+                                        Style="{StaticResource MaterialDesignFlatButton}"
+                                        Margin="4"/>
+                                <Button Content="Finalizează"
+                                        Command="{Binding DataContext.FinalizeOrderCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                        CommandParameter="{Binding}"
+                                        Style="{StaticResource MaterialDesignFlatButton}"
+                                        Margin="4"/>
+                            </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

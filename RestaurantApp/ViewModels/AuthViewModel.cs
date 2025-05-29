@@ -30,6 +30,8 @@ namespace RestaurantApp.ViewModels
         private User _currentUser;
         private UserRole _selectedRole;
 
+        public static User CurrentUserStatic { get; set; }
+
         public ObservableCollection<UserRole> UserRoles { get; } = new ObservableCollection<UserRole>
         {
             new UserRole { Name = "Client", IsEmployee = false },
@@ -148,6 +150,7 @@ namespace RestaurantApp.ViewModels
                 if (user != null)
                 {
                     CurrentUser = user;
+                    AuthViewModel.CurrentUserStatic = user;
                     ErrorMessage = null;
                     AuthenticationSuccessful?.Invoke(this, user);
                 }
@@ -193,6 +196,7 @@ namespace RestaurantApp.ViewModels
             if (result != null)
             {
                 CurrentUser = result;
+                AuthViewModel.CurrentUserStatic = result;
                 ErrorMessage = null;
                 AuthenticationSuccessful?.Invoke(this, result);
             }

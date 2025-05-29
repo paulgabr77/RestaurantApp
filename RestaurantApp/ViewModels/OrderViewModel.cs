@@ -31,6 +31,8 @@ namespace RestaurantApp.ViewModels
             SearchCommand = new RelayCommand(async () => await Search());
             AddToCartCommand = new RelayCommand<Dish>(async (dish) => await AddToCart(dish));
             RemoveFromCartCommand = new RelayCommand<OrderDetail>(async (item) => await RemoveFromCart(item));
+            DeleteOrderCommand = new RelayCommand<Order>(async (order) => await DeleteOrder(order));
+            FinalizeOrderCommand = new RelayCommand<Order>(async (order) => await FinalizeOrder(order));
         }
 
         public ObservableCollection<Order> Orders
@@ -88,10 +90,18 @@ namespace RestaurantApp.ViewModels
         public ICommand SearchCommand { get; }
         public ICommand AddToCartCommand { get; }
         public ICommand RemoveFromCartCommand { get; }
+        public ICommand DeleteOrderCommand { get; }
+        public ICommand FinalizeOrderCommand { get; }
 
         private async Task LoadOrders()
         {
-            var orders = await _orderService.GetAllOrdersAsync();
+            var user = AuthViewModel.CurrentUserStatic;
+            if (user == null)
+            {
+                Orders = new ObservableCollection<Order>();
+                return;
+            }
+            var orders = await _orderService.GetUserOrdersAsync(user.UserId);
             Orders = new ObservableCollection<Order>(orders);
         }
 
@@ -103,9 +113,13 @@ namespace RestaurantApp.ViewModels
                 return;
             }
 
-            // Aici ar trebui să avem acces la utilizatorul curent
-            var userId = 1; // Temporar hardcodat
-            var order = await _orderService.CreateOrderAsync(userId, new List<OrderDetail>(CartItems));
+            var user = AuthViewModel.CurrentUserStatic;
+            if (user == null)
+            {
+                ErrorMessage = "Nu sunteți autentificat!";
+                return;
+            }
+            var order = await _orderService.CreateOrderAsync(user.UserId, new List<OrderDetail>(CartItems));
             
             if (order != null)
             {
@@ -186,6 +200,30 @@ namespace RestaurantApp.ViewModels
         private async Task UpdateCartTotal()
         {
             CartTotal = await _orderService.CalculateOrderTotalAsync(new List<OrderDetail>(CartItems));
+        }
+
+        private async Task DeleteOrder(Order order)
+        {
+            if (order == null) return;
+            var result = MessageBox.Show($"Sigur vrei să ștergi comanda {order.OrderCode}?", "Confirmare ștergere", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (result == MessageBoxResult.Yes)
+            {
+                await _orderService.CancelOrderAsync(order.OrderId);
+                await LoadOrders();
+            }
+        }
+
+        private async Task FinalizeOrder(Order order)
+        {
+            if (order == null) return;
+            var user = AuthViewModel.CurrentUserStatic;
+            if (user == null || !user.IsEmployee)
+            {
+                MessageBox.Show("Nu puteți accesa această funcție, nu sunteți angajat!", "Acces interzis", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            await _orderService.UpdateOrderStatusAsync(order.OrderId, "finalizata");
+            await LoadOrders();
         }
     }
 } 

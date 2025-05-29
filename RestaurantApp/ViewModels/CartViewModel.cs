@@ -111,7 +111,12 @@ namespace RestaurantApp.ViewModels
 
             try
             {
-                // Convertim CartItems în OrderDetails
+                var user = RestaurantApp.ViewModels.AuthViewModel.CurrentUserStatic;
+                if (user == null)
+                {
+                    MessageBox.Show("Nu sunteți autentificat!", "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
                 var orderDetails = CartItems.Select(item => new OrderDetail
                 {
                     ProductId = item.Product.ProductId,
@@ -120,8 +125,7 @@ namespace RestaurantApp.ViewModels
                     TotalPrice = item.TotalPrice
                 }).ToList();
 
-                // Creăm comanda
-                var order = await _orderService.CreateOrderAsync(1, orderDetails); // Temporar hardcodat userId = 1
+                var order = await _orderService.CreateOrderAsync(user.UserId, orderDetails);
 
                 if (order != null)
                 {
